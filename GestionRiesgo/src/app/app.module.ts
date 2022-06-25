@@ -8,6 +8,9 @@ import { HeaderComponent } from './components/header/header.component';
 import { MatrizRiesgoComponent } from './pages/matriz-riesgo/matriz-riesgo.component';
 import { ProyectosComponent } from './pages/proyectos/proyectos.component';
 import { RiesgosComponent } from './pages/riesgos/riesgos.component';
+import { FormCrearProyectoComponent } from './components/form-crear-proyecto/form-crear-proyecto.component';
+import { CalendarModule } from 'primeng/calendar';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -16,12 +19,15 @@ import { RiesgosComponent } from './pages/riesgos/riesgos.component';
     HeaderComponent,
     MatrizRiesgoComponent,
     ProyectosComponent,
-    RiesgosComponent
+    RiesgosComponent,
+    FormCrearProyectoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    PrimeNgModule
+    PrimeNgModule,
+    CalendarModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

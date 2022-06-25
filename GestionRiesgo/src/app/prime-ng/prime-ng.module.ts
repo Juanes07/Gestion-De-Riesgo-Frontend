@@ -12,12 +12,11 @@ import {MenuModule} from 'primeng/menu';
 import {DividerModule} from 'primeng/divider';
 import {DialogModule} from 'primeng/dialog';
 import {CalendarModule} from 'primeng/calendar';
+import { LoginComponent } from '../pages/usuarios/login/login.component';
 
-//Services
-import {MessageService} from 'primeng/api';
 
 @NgModule({
-  declarations: [],
+  declarations: [LoginComponent],
   imports: [
     ButtonModule,
     CardModule,
@@ -32,7 +31,6 @@ import {MessageService} from 'primeng/api';
     DividerModule,
     DialogModule,
     CalendarModule
-  ],
-  providers: [MessageService]
+  ]
 })
 export class PrimeNgModule { }

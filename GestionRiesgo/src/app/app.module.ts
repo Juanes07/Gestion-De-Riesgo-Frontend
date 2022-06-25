@@ -11,12 +11,16 @@ import { RiesgosComponent } from './pages/riesgos/riesgos.component';
 import { FormCrearProyectoComponent } from './components/form-crear-proyecto/form-crear-proyecto.component';
 import { CalendarModule } from 'primeng/calendar';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideAuth,getAuth } from '@angular/fire/auth';
+import { HttpClientModule } from '@angular/common/http';
+import { AngularFireModule } from '@angular/fire/compat';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LoginComponent,
-    HeaderComponent,
+    AppComponent,    HeaderComponent,
     MatrizRiesgoComponent,
     ProyectosComponent,
     RiesgosComponent,
@@ -26,10 +30,13 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     BrowserModule,
     AppRoutingModule,
     PrimeNgModule,
+    ReactiveFormsModule,
     CalendarModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    HttpClientModule
   ],
-  providers: [],
+  providers: [HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

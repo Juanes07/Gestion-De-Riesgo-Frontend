@@ -12,6 +12,7 @@ import {MenuModule} from 'primeng/menu';
 import {DividerModule} from 'primeng/divider';
 import {DialogModule} from 'primeng/dialog';
 import {CalendarModule} from 'primeng/calendar';
+import {InputTextareaModule} from 'primeng/inputtextarea';
 
 //Services
 import {MessageService} from 'primeng/api';
@@ -31,7 +32,8 @@ import {MessageService} from 'primeng/api';
     MenuModule,
     DividerModule,
     DialogModule,
-    CalendarModule
+    CalendarModule,
+    InputTextareaModule
   ],
   providers: [MessageService]
 })

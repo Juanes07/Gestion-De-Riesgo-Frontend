@@ -11,6 +11,9 @@ import { RiesgosComponent } from './pages/riesgos/riesgos.component';
 import { FormCrearProyectoComponent } from './components/form-crear-proyecto/form-crear-proyecto.component';
 import { CalendarModule } from 'primeng/calendar';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { FormBuilder, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule} from '@angular/forms'
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     AppRoutingModule,
     PrimeNgModule,
     CalendarModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

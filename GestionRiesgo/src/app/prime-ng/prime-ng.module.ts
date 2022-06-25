@@ -13,6 +13,9 @@ import {DividerModule} from 'primeng/divider';
 import {DialogModule} from 'primeng/dialog';
 import {CalendarModule} from 'primeng/calendar';
 
+//Services
+import {MessageService} from 'primeng/api';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -29,6 +32,7 @@ import {CalendarModule} from 'primeng/calendar';
     DividerModule,
     DialogModule,
     CalendarModule
-  ]
+  ],
+  providers: [MessageService]
 })
 export class PrimeNgModule { }

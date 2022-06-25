@@ -1,7 +1,60 @@
-<h5>Popup</h5>
+<h2>Crea un nuevo formulario</h2>
 <div class="p-fluid p-grid p-formgrid">
   <div class="field col-12 md:col-4">
-    <label for="basic">Basic</label>
-    <p-calendar inputId="basic"></p-calendar>
+    <form>
+      <h5>Nombre Proyecto</h5>
+      <input type="text" [(ngModel)]="formulario.nombre"
+      [ngModelOptions]="{ standalone: true }"
+       />
+      <br />
+      <br>
+      <label for="basic">Fecha de Inicio Proyecto</label>
+      <p-calendar
+        inputId="basic"
+        [(ngModel)]="formulario.fechaInicio"
+        [ngModelOptions]="{ standalone: true }"
+        dateFormat="yy/mm/dd"
+        [readonlyInput]="true"
+      ></p-calendar>
+      <br />
+      <br>
+      <label for="basic">Fecha de Fin Proyecto (opcional)</label>
+      <p-calendar
+        inputId="basic"
+        [(ngModel)]="formulario.fechaFin"
+        [ngModelOptions]="{ standalone: true }"
+        [readonlyInput]="true"
+        dateFormat="yy/mm/dd"
+
+      ></p-calendar>
+      <br />
+      <h5>Etiquetas</h5>
+      <input type="text" pInputText [(ngModel)]="etiquetshtml"
+      [ngModelOptions]="{ standalone: true }"
+      />
+      <br />
+      <br>
+
+      <button (click)="agregarEtiqueta(etiquetshtml)">Agregar Etiqueta</button>
+      <br/>
+      <h5>Responsable</h5>
+      <input type="text" pInputText [(ngModel)]="responsableHtml"
+      [ngModelOptions]="{ standalone: true }"
+      />{{formulario.responsables}}
+      <br />
+      <br>
+      <button (click)="agregarResponsable(responsableHtml)">Agregar Responsable</button>
+      <br/>
+      <h5>Descripcion del formulario</h5>
+      <textarea pInputTextarea [(ngModel)]="formulario.descripcion"
+      [ngModelOptions]="{ standalone: true }"></textarea>
+      <br />
+      <h5>Lider Proyecto</h5>
+      <input type="text" [(ngModel)]="formulario.liderProyecto"
+      [ngModelOptions]="{ standalone: true }">
+    </form>
+    <br>
+
   </div>
+  <button (click)="guardarProyecto(formulario)">Guardar formulario</button>
 </div>

@@ -11,8 +11,9 @@ export class ProyectoService {
 
   constructor(private http: HttpClient) {}
 
-  guardarProyecto(proyecto: proyecto): Observable<any> {
-    let direccion = this.url + 'crear';
+
+  guardarProyecto(proyecto: proyecto): Observable<proyecto> {
+    let direccion = this.url + 'crearProyecto';
     return this.http.post<any>(direccion, proyecto, {
       responseType: 'text' as 'json',
     });
@@ -27,4 +28,5 @@ export class ProyectoService {
     let direccion = this.url + 'obtenerProyecto/' + id;
     return this.http.get<proyecto>(direccion);
   }
+
 }

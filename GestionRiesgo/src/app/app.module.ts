@@ -15,9 +15,16 @@ import { MatrizRiesgoComponent } from './components/matriz-riesgo/matriz-riesgo.
 import { ProyectosComponent } from './pages/proyectos/proyectos.component';
 import { RiesgosComponent } from './components/riesgos/riesgos.component';
 import { FormCrearProyectoComponent } from './components/form-crear-proyecto/form-crear-proyecto.component';
+
 import { TablaProyectosComponent } from './components/tabla-proyectos/tabla-proyectos.component';
 import { DetalleProyectoComponent } from './components/detalle-proyecto/detalle-proyecto.component';
 import { ProyectoPageComponent } from './pages/proyecto-page/proyecto-page.component';
+
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { FormBuilder, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule} from '@angular/forms'
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [

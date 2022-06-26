@@ -34,9 +34,10 @@ export class TablaProyectosComponent implements OnInit {
 
   getProyectos() {
     this.services.getProyectos().subscribe((data) => {
-      this.proyectos = data.sort((a, b) => {
-        return a.id - b.id;
-      });
+      this.proyectos = data
+      // .sort((a, b) => {
+      //   return a.id - b.id;
+      // });
       this.loading = false;
     });
   }

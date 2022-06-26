@@ -24,7 +24,7 @@ export class FormCrearProyectoComponent implements OnInit {
   responsable:[] = [];
 
   formulario: proyecto = {
-    id: this.idnumero,
+    id: null,
     nombre: '',
     fechaInicio: '',
     fechaFin: '',
@@ -46,19 +46,19 @@ export class FormCrearProyectoComponent implements OnInit {
     private messageService: MessageService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
 
   public form: FormGroup = this.formBuilder.group({
     name: ['', Validators.required],
-    email: ['', [Validators.email]],
+    email: [Validators.email],
     fecha: ['',[Validators.required]],
     detalle:['',[Validators.required, Validators.minLength(5)]]
   });
 
   guardarProyecto(proyecto: proyecto): void {
     this.cambiarFormatoDate();
-    this.idnumero +=1;
-    this.formulario.id = this.idnumero
     if (this.form.value.name && this,this.form.value.fecha) {
       this.services.guardarProyecto(this.formulario).subscribe({});
       this.messageService.add({
@@ -83,7 +83,7 @@ export class FormCrearProyectoComponent implements OnInit {
 
 
   agregarResponsable(responsable: string): void {
-    if (this.form.value.email) {
+    if ( this.metodoPrueba(responsable)) {
       this.formulario.responsables.push(responsable);
       console.log(this.formulario.responsables);
       this.messageService.add({
@@ -99,6 +99,13 @@ export class FormCrearProyectoComponent implements OnInit {
       });
     }
 
+  }
+
+
+  metodoPrueba(responsable: string){
+    let result  = new RegExp("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
+    let otra = result.test(responsable);
+    return otra
   }
 
 

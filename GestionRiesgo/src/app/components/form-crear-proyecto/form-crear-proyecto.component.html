@@ -11,7 +11,7 @@
         formControlName="name"
         pInputText
       />
-      <div class="nombre-requerido" *ngIf="formulario.nombre == '' ">
+      <div class="nombre-requerido mb-5" *ngIf="formulario.nombre == ''">
         <p-message severity="error" text="Campo es Requerido"></p-message>
       </div>
       <br />
@@ -24,7 +24,7 @@
         dateFormat="yy/mm/dd"
         [readonlyInput]="true"
       ></p-calendar>
-      <div class="nombre-requerido" *ngIf="formulario.fechaInicio== ''">
+      <div class="nombre-requerido  mb-5" *ngIf="formulario.fechaInicio == ''">
         <p-message severity="error" text="Campo es Requerido"></p-message>
       </div>
       <br />
@@ -45,7 +45,17 @@
         [(ngModel)]="etiquetshtml"
         [ngModelOptions]="{ standalone: true }"
       />
-      <button class="mt-2" (click)="agregarEtiqueta(etiquetshtml)" pButton>Agregar Etiqueta</button>
+      <p-button class="mt-2" (click)="agregarEtiqueta(etiquetshtml)" pButton>
+        Agregar Etiqueta
+      </p-button>
+      <div class="mt-2">
+        <p-chip styleClass="mr-2 custom-chip"
+          class="etiquetas"
+          *ngFor="let etiquetas of formulario.etiquetas; index as i"
+        >
+          {{ formulario.etiquetas[i] }}
+        </p-chip>
+      </div>
       <br />
       <h5>Responsables (correo)</h5>
       <input
@@ -54,13 +64,17 @@
         [(ngModel)]="responsableHtml"
         placeholder="Correo del responsable"
         formControlName="email"
+        pKeyFilter="email"
       />
-      <button (click)="agregarResponsable(responsableHtml)">
+      <p-button [disabled]="form.invalid" class="mt-2" (click)="agregarResponsable(responsableHtml)">
         Agregar Responsable
-      </button>
-      <div >
-        <h5 class="responsables" *ngFor="let responsable of formulario.responsables; index as i" >
-          {{formulario.responsables[i]}}
+      </p-button>
+      <div>
+        <h5
+          class="responsables"
+          *ngFor="let responsable of formulario.responsables; index as i"
+        >
+          {{ formulario.responsables[i] }}
         </h5>
       </div>
       <br />
@@ -70,7 +84,8 @@
         [(ngModel)]="formulario.descripcion"
         formControlName="detalle"
       ></textarea>
-      <div class="nombre-requerido" *ngIf="formulario.descripcion== ''" >
+
+      <div class="nombre-requerido mb-5" *ngIf="formulario.descripcion == ''">
         <p-message severity="error" text="Campo es Requerido"></p-message>
       </div>
 
@@ -80,9 +95,12 @@
         type="text"
         [(ngModel)]="formulario.liderProyecto"
         [ngModelOptions]="{ standalone: true }"
+        pInputText
       />
     </form>
     <br />
   </div>
-  <button pButton  (click)="guardarProyecto(formulario)">Guardar formulario</button>
+  <button pButton (click)="guardarProyecto(formulario)">
+    Guardar formulario
+  </button>
 </div>

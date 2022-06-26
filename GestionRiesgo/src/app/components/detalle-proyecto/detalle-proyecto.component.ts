@@ -9,7 +9,7 @@ import { ProyectoService } from 'src/app/service/proyecto-servicio.service';
   styleUrls: ['./detalle-proyecto.component.css']
 })
 export class DetalleProyectoComponent implements OnInit {
-  proyecto?: proyecto;
+  proyecto!: proyecto;
 
   constructor(
     private route: ActivatedRoute,

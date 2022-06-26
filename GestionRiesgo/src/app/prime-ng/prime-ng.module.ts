@@ -16,9 +16,9 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
 import {ToolbarModule} from 'primeng/toolbar';
 import {TableModule} from 'primeng/table';
 import {TabMenuModule} from 'primeng/tabmenu';
-
-
-
+import {ChipModule} from 'primeng/chip';
+import {PanelModule} from 'primeng/panel';
+import {BadgeModule} from 'primeng/badge';
 
 //Services
 import {MessageService} from 'primeng/api';
@@ -44,7 +44,10 @@ import { DropdownModule } from 'primeng/dropdown';
     ToolbarModule,
     TableModule,
     TabMenuModule,
-    DropdownModule
+    DropdownModule,
+    ChipModule,
+    PanelModule,
+    BadgeModule,
   ],
   providers: [MessageService]
 })

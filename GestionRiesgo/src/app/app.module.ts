@@ -16,6 +16,7 @@ import { FormCrearProyectoComponent } from './components/form-crear-proyecto/for
 import { TablaProyectosComponent } from './components/tabla-proyectos/tabla-proyectos.component';
 import { DetalleProyectoComponent } from './components/detalle-proyecto/detalle-proyecto.component';
 import { ProyectoPageComponent } from './pages/proyecto-page/proyecto-page.component';
+import { FormCrearRiesgoComponent } from './components/form-crear-riesgo/form-crear-riesgo.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { ProyectoPageComponent } from './pages/proyecto-page/proyecto-page.compo
     FormCrearProyectoComponent,
     TablaProyectosComponent,
     DetalleProyectoComponent,
-    ProyectoPageComponent
+    ProyectoPageComponent,
+    FormCrearRiesgoComponent
   ],
   imports: [
     BrowserModule,

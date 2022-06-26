@@ -10,3 +10,8 @@
   margin-bottom: 1px;
   margin-top: 1px;
 }
+
+:host ::ng-deep .p-chip.custom-chip {
+  background: var(--primary-color);
+  color: var(--primary-color-text);
+}

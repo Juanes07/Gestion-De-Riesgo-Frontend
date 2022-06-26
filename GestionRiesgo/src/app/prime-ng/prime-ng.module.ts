@@ -16,7 +16,8 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
 import {ToolbarModule} from 'primeng/toolbar';
 import {TableModule} from 'primeng/table';
 import {TabMenuModule} from 'primeng/tabmenu';
-
+import {KeyFilterModule} from 'primeng/keyfilter';
+import { ChipModule } from 'primeng/chip';
 
 
 
@@ -44,7 +45,9 @@ import { DropdownModule } from 'primeng/dropdown';
     ToolbarModule,
     TableModule,
     TabMenuModule,
-    DropdownModule
+    DropdownModule,
+    KeyFilterModule,
+    ChipModule
   ],
   providers: [MessageService]
 })

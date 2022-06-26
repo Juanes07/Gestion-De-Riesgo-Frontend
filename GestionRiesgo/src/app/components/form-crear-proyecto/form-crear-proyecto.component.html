@@ -9,6 +9,7 @@
         [(ngModel)]="formulario.nombre"
         placeholder="Ingresa el nombre del proyecto"
         formControlName="name"
+        pInputText
       />
       <div class="nombre-requerido" *ngIf="formulario.nombre == '' ">
         <p-message severity="error" text="Campo es Requerido"></p-message>
@@ -44,7 +45,7 @@
         [(ngModel)]="etiquetshtml"
         [ngModelOptions]="{ standalone: true }"
       />
-      <button (click)="agregarEtiqueta(etiquetshtml)">Agregar Etiqueta</button>
+      <button class="mt-2" (click)="agregarEtiqueta(etiquetshtml)" pButton>Agregar Etiqueta</button>
       <br />
       <h5>Responsables (correo)</h5>
       <input
@@ -83,5 +84,5 @@
     </form>
     <br />
   </div>
-  <button  (click)="guardarProyecto(formulario)">Guardar formulario</button>
+  <button pButton  (click)="guardarProyecto(formulario)">Guardar formulario</button>
 </div>

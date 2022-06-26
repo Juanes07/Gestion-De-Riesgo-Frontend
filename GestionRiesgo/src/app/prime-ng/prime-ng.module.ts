@@ -13,15 +13,19 @@ import {DividerModule} from 'primeng/divider';
 import {DialogModule} from 'primeng/dialog';
 import {CalendarModule} from 'primeng/calendar';
 import {InputTextareaModule} from 'primeng/inputtextarea';
+import {ToolbarModule} from 'primeng/toolbar';
+import {TableModule} from 'primeng/table';
+import {TabMenuModule} from 'primeng/tabmenu';
 
 
 
 //Services
 import {MessageService} from 'primeng/api';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [],
-  imports: [
+  exports: [
     ButtonModule,
     CardModule,
     InputTextModule,
@@ -35,7 +39,11 @@ import {MessageService} from 'primeng/api';
     DividerModule,
     DialogModule,
     CalendarModule,
-    InputTextareaModule
+    InputTextareaModule,
+    ToolbarModule,
+    TableModule,
+    TabMenuModule,
+    DropdownModule
   ],
   providers: [MessageService]
 })

@@ -8,12 +8,10 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
-import { MenuItem, MessageService } from 'primeng/api';
-import { Calendar, CalendarModule } from 'primeng/calendar';
+import { MessageService } from 'primeng/api';
 import { proyecto } from 'src/app/models/proyecto-modelo.model';
 import { ProyectoService } from 'src/app/service/proyecto-servicio.service';
-import { ToastModule } from 'primeng/toast';
-import { Subscriber } from 'rxjs';
+
 
 @Component({
   selector: 'app-form-crear-proyecto',

@@ -11,11 +11,13 @@ import { PrimeNgModule } from './prime-ng/prime-ng.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/usuarios/login/login.component';
 import { HeaderComponent } from './components/header/header.component';
-import { MatrizRiesgoComponent } from './pages/matriz-riesgo/matriz-riesgo.component';
+import { MatrizRiesgoComponent } from './components/matriz-riesgo/matriz-riesgo.component';
 import { ProyectosComponent } from './pages/proyectos/proyectos.component';
-import { RiesgosComponent } from './pages/riesgos/riesgos.component';
+import { RiesgosComponent } from './components/riesgos/riesgos.component';
 import { FormCrearProyectoComponent } from './components/form-crear-proyecto/form-crear-proyecto.component';
 import { TablaProyectosComponent } from './components/tabla-proyectos/tabla-proyectos.component';
+import { DetalleProyectoComponent } from './components/detalle-proyecto/detalle-proyecto.component';
+import { ProyectoPageComponent } from './pages/proyecto-page/proyecto-page.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { TablaProyectosComponent } from './components/tabla-proyectos/tabla-proy
     RiesgosComponent,
     FormCrearProyectoComponent,
     TablaProyectosComponent,
+    DetalleProyectoComponent,
+    ProyectoPageComponent
   ],
   imports: [
     BrowserModule,

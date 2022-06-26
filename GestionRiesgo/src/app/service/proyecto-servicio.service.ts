@@ -21,4 +21,9 @@ export class ProyectoService {
     })
   }
 
+  getProyectos(): Observable<proyecto[]>{
+    let direccion = this.url + 'obtenerProyectos';
+    return this.http.get<proyecto[]>(direccion);
+  }
+
 }

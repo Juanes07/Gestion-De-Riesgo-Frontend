@@ -7,33 +7,34 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./proyecto-page.component.css'],
 })
 export class ProyectoPageComponent implements OnInit {
-  items = [
-    {
-      label: 'Volver',
-      icon: 'pi pi-fw pi-arrow-left',
-      routerLink: ['/proyectos'],
-    },
-    {
-      label: 'Detalles del Proyecto',
-      icon: 'pi pi-fw pi-file',
-      routerLink: ['detalle'],
-    },
-    {
-      label: 'Lista de Riesgos',
-      icon: 'pi pi-fw pi-list',
-      routerLink: ['riesgos'],
-    },
-    {
-      label: 'Matriz de Riesgos',
-      icon: 'pi pi-fw pi-table',
-      routerLink: ['matriz'],
-    },
-  ];
+  items: MenuItem[] = [];
 
   activeItem = this.items[1];
 
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.items = [
+      {
+        label: 'Volver',
+        icon: 'pi pi-fw pi-arrow-left',
+        routerLink: ['/proyectos'],
+      },
+      {
+        label: 'Detalles del Proyecto',
+        icon: 'pi pi-fw pi-file',
+        routerLink: ['detalle'],
+      },
+      {
+        label: 'Lista de Riesgos',
+        icon: 'pi pi-fw pi-list',
+        routerLink: ['riesgos'],
+      },
+      {
+        label: 'Matriz de Riesgos',
+        icon: 'pi pi-fw pi-table',
+        routerLink: ['matriz'],
+      },
+    ];
+  }
 }

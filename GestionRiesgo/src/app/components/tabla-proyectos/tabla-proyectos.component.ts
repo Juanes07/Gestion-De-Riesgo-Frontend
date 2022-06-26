@@ -24,8 +24,6 @@ export class TablaProyectosComponent implements OnInit {
 
   loading: boolean = true;
 
-  @ViewChild('dt') table: any;
-
   constructor(private services: ProyectoService) {
     this.proyectos = new Array<proyecto>();
   }
@@ -63,24 +61,5 @@ export class TablaProyectosComponent implements OnInit {
 
   isFirstPage(): boolean {
     return this.proyectos ? this.first === 0 : true;
-  }
-
-  onDateSelect(value:any) {
-    this.table.filter(this.formatDate(value), 'date', 'contain');
-  }
-
-  formatDate(date:any) {
-    let month = date.getMonth() + 1;
-    let day = date.getDate();
-
-    if (month < 10) {
-      month = '0' + month;
-    }
-
-    if (day < 10) {
-      day = '0' + day;
-    }
-
-    return date.getFullYear() + '-' + month + '-' + day;
   }
 }

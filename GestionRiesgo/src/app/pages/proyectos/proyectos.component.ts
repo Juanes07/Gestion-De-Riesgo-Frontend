@@ -7,7 +7,7 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./proyectos.component.css'],
 })
 export class ProyectosComponent implements OnInit {
-  items =  [
+  items: MenuItem[] = [
     {
       label: 'Lista de Proyectos',
       icon: 'pi pi-fw pi-table',
@@ -17,6 +17,7 @@ export class ProyectosComponent implements OnInit {
       label: 'Crear Proyecto',
       icon: 'pi pi-fw pi-plus-circle',
       routerLink: ['crear'],
+      //disabled: true,
     },
   ];
 

@@ -16,10 +16,10 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
 import {ToolbarModule} from 'primeng/toolbar';
 import {TableModule} from 'primeng/table';
 import {TabMenuModule} from 'primeng/tabmenu';
+import {PanelModule} from 'primeng/panel';
+import {BadgeModule} from 'primeng/badge';
 import {KeyFilterModule} from 'primeng/keyfilter';
 import { ChipModule } from 'primeng/chip';
-
-
 
 //Services
 import {MessageService} from 'primeng/api';
@@ -46,6 +46,8 @@ import { DropdownModule } from 'primeng/dropdown';
     TableModule,
     TabMenuModule,
     DropdownModule,
+    PanelModule,
+    BadgeModule,
     KeyFilterModule,
     ChipModule
   ],

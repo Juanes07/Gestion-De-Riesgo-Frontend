@@ -4,21 +4,17 @@ import { Observable } from 'rxjs';
 import { proyecto } from '../models/proyecto-modelo.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProyectoService {
-
   private url: string = 'http://localhost:8080/';
-
 
   constructor(private http: HttpClient) {}
 
-
-  guardarProyecto(proyecto: proyecto): Observable<any>{
-    let direccion = this.url + 'crear';
-    return this.http.post<any>(direccion,proyecto, {
+  guardarProyecto(proyecto: proyecto): Observable<proyecto> {
+    let direccion = this.url + 'crearProyecto';
+    return this.http.post<any>(direccion, proyecto, {
       responseType: 'text' as 'json',
-    })
+    });
   }
-
 }

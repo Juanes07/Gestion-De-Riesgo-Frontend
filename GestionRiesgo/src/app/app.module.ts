@@ -14,6 +14,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FormBuilder, FormsModule } from '@angular/forms';
 import { ReactiveFormsModule} from '@angular/forms'
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import {ToastModule} from 'primeng/toast';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
+
 
 @NgModule({
   declarations: [
@@ -33,7 +37,10 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastModule,
+    MessageModule,
+    MessagesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

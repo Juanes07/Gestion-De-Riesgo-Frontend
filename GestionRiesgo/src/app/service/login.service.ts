@@ -41,7 +41,7 @@ export class LoginService {
     }
 
     saveUser(user: User): Observable<any> {
-     let direction = this.url + '/users';
+     let direction = this.url + '/crearUsuario';
       return this.http.post<any>(direction, user, {responseType: 'text' as 'json',});
     }
 
@@ -97,12 +97,11 @@ export class LoginService {
         if (credential.user !== null) {
           const user = credential.user;
           this.userData = {
-            uid: user.uid,
-            rol: 'lector',
+            id: user.uid,
+            nombre: user.displayName,
             email: user.email,
-            displayName: user.displayName,
-            photoURL: user.photoURL,
-            emailVerified: user.emailVerified
+            roles: 'lector'
+
           };
           this.saveUser(this.userData);
           return this.userData;
@@ -120,15 +119,15 @@ export class LoginService {
         if (credential.user !== null) {
         const user = credential.user;
         const userRef: AngularFirestoreDocument<any> = this.store.doc(`users/${user.uid}`);
-        const userData = {
-          uid: user.uid,
-          email: user.email,
-          rol: 'lector',
-          displayName: user.displayName,
-          photoURL: user.photoURL,
-          emailVerified: user.emailVerified
-        }
-        return userRef.set(userData, {
+        this.userData = {
+            id: user.uid,
+            nombre: user.displayName,
+            email: user.email,
+            roles: 'lector'
+
+          };
+          this.saveUser(this.userData);
+          return userRef.set(this.userData, {
           merge: true
         });
       }

@@ -17,6 +17,7 @@ import { DetalleProyectoComponent } from './components/detalle-proyecto/detalle-
 import { ProyectoPageComponent } from './pages/proyecto-page/proyecto-page.component';
 import { RiesgosPageComponent } from './pages/riesgos-page/riesgos-page.component';
 import { TablaRiesgosComponent } from './components/tabla-riesgos/tabla-riesgos.component';
+import { FormCrearRiesgoComponent } from './components/form-crear-riesgo/form-crear-riesgo.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { TablaRiesgosComponent } from './components/tabla-riesgos/tabla-riesgos.
     DetalleProyectoComponent,
     ProyectoPageComponent,
     RiesgosPageComponent,
-    TablaRiesgosComponent
+    TablaRiesgosComponent,
+    FormCrearRiesgoComponent
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,7 @@ import { TablaProyectosComponent } from './components/tabla-proyectos/tabla-proy
 import { ProyectoPageComponent } from './pages/proyecto-page/proyecto-page.component';
 import { DetalleProyectoComponent } from './components/detalle-proyecto/detalle-proyecto.component';
 import { MatrizRiesgoComponent } from './components/matriz-riesgo/matriz-riesgo.component';
+import { FormCrearRiesgoComponent } from './components/form-crear-riesgo/form-crear-riesgo.component';
 
 import { RiesgosPageComponent } from './pages/riesgos-page/riesgos-page.component';
 import { TablaRiesgosComponent } from './components/tabla-riesgos/tabla-riesgos.component';
@@ -23,6 +24,7 @@ const routes: Routes = [
     children: [
       { path: 'lista', component: TablaProyectosComponent },
       { path: 'crear', component: FormCrearProyectoComponent },
+      {path:'riesgo', component: FormCrearRiesgoComponent},
       { path: '**', pathMatch: 'full', redirectTo: 'lista' },
     ],
   },

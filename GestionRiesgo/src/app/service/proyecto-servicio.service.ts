@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { proyecto } from '../models/proyecto-modelo.model';
+import { idProyectoModel } from '../models/idproyecto-modelo.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProyectoService {
-  private url: string = 'http://localhost:8080/';
+  private url: string = 'https://gestion-riesgo.herokuapp.com/';
 
   constructor(private http: HttpClient) {}
 
@@ -27,6 +28,20 @@ export class ProyectoService {
   getProyectoById(id:any): Observable<proyecto> {
     let direccion = this.url + 'obtenerProyecto/' + id;
     return this.http.get<proyecto>(direccion);
+  }
+
+  getIdProyecto(id:string): Observable<idProyectoModel>{
+    let direccion = this.url + 'obtenerId/' + id
+    return this.http.get<idProyectoModel>(direccion);
+
+  }
+
+  actualizarSecuenciaIdProyecto(modelo: idProyectoModel): Observable<idProyectoModel> {
+    let direccion = this.url + 'crear'
+    return this.http.post<idProyectoModel>(direccion, modelo,{
+      responseType: 'text' as 'json'
+    })
+
   }
 
   getRiesgosByProyectoId(id:any): Observable<any[]> {

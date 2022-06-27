@@ -15,11 +15,23 @@ import {CalendarModule} from 'primeng/calendar';
 import { LoginComponent } from '../pages/usuarios/login/login.component';
 import {FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from '../pages/usuarios/register/register.component';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+import {ToolbarModule} from 'primeng/toolbar';
+import {TableModule} from 'primeng/table';
+import {TabMenuModule} from 'primeng/tabmenu';
+import {PanelModule} from 'primeng/panel';
+import {BadgeModule} from 'primeng/badge';
+import {KeyFilterModule} from 'primeng/keyfilter';
+import { ChipModule } from 'primeng/chip';
+import {MultiSelectModule} from 'primeng/multiselect';
+import { DropdownModule } from 'primeng/dropdown';
 
+//Services
+import {MessageService} from 'primeng/api';
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent],
-  imports: [
+  exports: [
     ButtonModule,
     CardModule,
     FormsModule,
@@ -34,22 +46,17 @@ import { RegisterComponent } from '../pages/usuarios/register/register.component
     MenuModule,
     DividerModule,
     DialogModule,
-    CalendarModule
-  ],
-  exports: [
-    ButtonModule,
-    CardModule,
-    InputTextModule,
-    PasswordModule,
-    RatingModule,
-    ProgressSpinnerModule,
-    MessagesModule,
-    MessageModule,
-    ToastModule,
-    MenuModule,
-    DividerModule,
-    DialogModule,
-    CalendarModule
+    CalendarModule,
+    InputTextareaModule,
+    ToolbarModule,
+    TableModule,
+    TabMenuModule,
+    DropdownModule,
+    PanelModule,
+    BadgeModule,
+    KeyFilterModule,
+    ChipModule,
+    MultiSelectModule
   ]
 })
 export class PrimeNgModule { }

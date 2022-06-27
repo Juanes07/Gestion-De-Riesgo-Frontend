@@ -1,0 +1,70 @@
+<p-toast></p-toast>
+<div class="m-5 p-4 border-solid border-200 border-round-md">
+  <h2>Agrega un nuevo Riesgo al proyecto</h2>
+  <div class="p-fluid p-grid p-formgrid">
+    <div class="field col-12 md:col-4">
+      <form [formGroup]="formRiesgo">
+        <label>Nombre del Riesgo</label>
+        <input class="mb-5" pInputText />
+        <label>Fecha Deteccion del Riesgo</label>
+        <p-calendar
+          inputId="basic"
+          [(ngModel)]="formuRiesgo.fechaDeteccion"
+          formControlName="fecha"
+          dateFormat="yy/mm/dd"
+          [readonlyInput]="true"
+        ></p-calendar>
+        <br>
+        <label>Fecha de Cierre del Riesgo</label>
+        <p-calendar class=""
+          inputId="basic"
+          [(ngModel)]="formuRiesgo.fechaCierre"
+          formControlName="fecha"
+          dateFormat="yy/mm/dd"
+          [readonlyInput]="true"
+        ></p-calendar>
+        <br>
+        <label>Etiquetas</label>
+        <input
+        type="text"
+        pInputText
+        [(ngModel)]="etiquetshtml"
+        [ngModelOptions]="{ standalone: true }"
+      />
+      <p-button class="mt-2" (click)="agregarEtiqueta(etiquetshtml)" pButton>
+        Agregar Etiqueta
+      </p-button>
+      <div class="mt-2 mb-3">
+        <p-chip styleClass="mr-2 custom-chip"
+          class="etiquetas"
+          *ngFor="let etiquetas of formuRiesgo.etiquetas; index as i"
+        >
+          {{ formuRiesgo.etiquetas[i] }}
+        </p-chip>
+      </div>
+      <label>Descripcion del formulario</label>
+      <textarea
+        pInputTextarea
+        [(ngModel)]="formuRiesgo.descripcionRiesgo"
+        formControlName="detalle"
+      ></textarea>
+
+      <div class="nombre-requerido mb-5" *ngIf="formuRiesgo.descripcionRiesgo == ''">
+        <p-message severity="error" text="Campo es Requerido"></p-message>
+      </div>
+
+      <label >Audiencia</label>
+      <p-dropdown [options]="audiencia" [(ngModel)]="audienciaHtml" placeholder="Tipo De Audiencia"></p-dropdown>
+      <br>
+
+
+
+
+
+
+
+
+      </form>
+    </div>
+  </div>
+</div>

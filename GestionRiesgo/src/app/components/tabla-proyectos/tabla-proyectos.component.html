@@ -1,0 +1,90 @@
+<div>
+  <p-table [value]="proyectos" [loading]="loading" [paginator]="true" [rows]="20" styleClass="p-datatable-striped"
+    [rowHover]="true" [globalFilterFields]="[
+      'id',
+      'nombre',
+      'fechaInicio',
+      'fechaFin',
+      'liderProyecto',
+      'estado'
+    ]">
+    <!-- Encabezado -->
+    <ng-template pTemplate="header">
+      <!-- Headers with Sort -->
+      <tr>
+        <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon>
+        </th>
+        <th pSortableColumn="nombre">
+          NOMBRE <p-sortIcon field="nombre"></p-sortIcon>
+        </th>
+        <th pSortableColumn="fechaInicio">
+          FECHA DE INICIO <p-sortIcon field="fechaInicio"></p-sortIcon>
+        </th>
+        <th pSortableColumn="fechaFin">
+          FECHA DE FIN <p-sortIcon field="fechaFin"></p-sortIcon>
+        </th>
+        <th pSortableColumn="liderProyecto">
+          LIDER DE PROYECTO <p-sortIcon field="liderProyecto"></p-sortIcon>
+        </th>
+        <th pSortableColumn="estado">
+          ESTADO <p-sortIcon field="estado"></p-sortIcon>
+        </th>
+      </tr>
+      <!-- Headers for Filter -->
+      <tr>
+        <th>
+          <p-columnFilter type="text" field="id" matchMode="equals" placeholder="Buscar Por ID" [showMenu]="false">
+          </p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="nombre" matchMode="contains" placeholder="Filtrar Por Nombre">
+          </p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="fechaInicio" matchMode="equals" placeholder="Fecha de Inicio"
+            [showMenu]="false">
+          </p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="fechaFin" matchMode="equals" placeholder="Fecha de Fin" [showMenu]="false">
+          </p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="liderProyecto" matchMode="contains" placeholder="Email de Lider">
+          </p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="estado" matchMode="equals" [showMenu]="false">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Todos"
+                [showClear]="true">
+                <ng-template let-option pTemplate="item">
+                  <span [class]="'customer-badge status-' + option.value">{{option.label}}</span>
+                </ng-template>
+              </p-dropdown>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+      </tr>
+    </ng-template>
+    <!-- Table Body Content -->
+    <ng-template pTemplate="body" let-proyecto>
+      <tr>
+        <td class="font-bold cursor-pointer text-primary hover:underline" [routerLink]="['/proyecto', proyecto.id]">
+          {{ proyecto.id }}
+        </td>
+        <td>{{ proyecto.nombre }}</td>
+        <td>{{ proyecto.fechaInicio }}</td>
+        <td>{{ proyecto.fechaFin }}</td>
+        <td>{{ proyecto.liderProyecto }}</td>
+        <td>{{ proyecto.estado }}</td>
+      </tr>
+    </ng-template>
+    <!-- Show if not found projects -->
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="6">No projects found.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

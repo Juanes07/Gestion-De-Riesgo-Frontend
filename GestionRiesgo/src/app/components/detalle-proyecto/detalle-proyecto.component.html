@@ -1,4 +1,4 @@
-<div class="m-5 p-4 border-solid border-200 border-round-md">
+<div class="m-5 p-4 border-solid border-200 border-round-md" *ngIf="!isLoading">
   <span class="font-medium">ID: {{ proyecto.id }}</span>
   <h1 class="text-center">{{ proyecto.nombre.toUpperCase() }}</h1>
   <div class="text-center">

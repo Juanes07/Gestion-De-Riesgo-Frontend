@@ -13,11 +13,30 @@ import {DividerModule} from 'primeng/divider';
 import {DialogModule} from 'primeng/dialog';
 import {CalendarModule} from 'primeng/calendar';
 import { LoginComponent } from '../pages/usuarios/login/login.component';
+import {FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RegisterComponent } from '../pages/usuarios/register/register.component';
 
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, RegisterComponent],
   imports: [
+    ButtonModule,
+    CardModule,
+    FormsModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    PasswordModule,
+    RatingModule,
+    ProgressSpinnerModule,
+    MessagesModule,
+    MessageModule,
+    ToastModule,
+    MenuModule,
+    DividerModule,
+    DialogModule,
+    CalendarModule
+  ],
+  exports: [
     ButtonModule,
     CardModule,
     InputTextModule,

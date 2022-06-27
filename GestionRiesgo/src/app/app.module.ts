@@ -16,11 +16,12 @@ import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire/compat';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    AppComponent,    HeaderComponent,
+    AppComponent,
+    HeaderComponent,
     MatrizRiesgoComponent,
     ProyectosComponent,
     RiesgosComponent,
@@ -30,6 +31,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     PrimeNgModule,
+    FormsModule,
     ReactiveFormsModule,
     CalendarModule,
     BrowserAnimationsModule,

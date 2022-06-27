@@ -9,6 +9,7 @@ import {
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { MessageService } from 'primeng/api';
+import { idProyectoModel } from 'src/app/models/idproyecto-modelo.model';
 import { proyecto } from 'src/app/models/proyecto-modelo.model';
 import { ProyectoService } from 'src/app/service/proyecto-servicio.service';
 
@@ -19,6 +20,13 @@ import { ProyectoService } from 'src/app/service/proyecto-servicio.service';
   styleUrls: ['./form-crear-proyecto.component.css'],
 })
 export class FormCrearProyectoComponent implements OnInit {
+
+  algo!: number;
+
+  proyecto:idProyectoModel = {
+    id: '62b874ba0a86251126ce9444',
+    idProyecto: this.algo,
+  }
 
   idnumero: number = 0;
   responsable:[] = [];
@@ -46,7 +54,11 @@ export class FormCrearProyectoComponent implements OnInit {
     private messageService: MessageService
   ) {}
 
+
+
+
   ngOnInit() {
+    this.obtenerSecuenciaIdproyecto()
 
   }
 
@@ -57,10 +69,40 @@ export class FormCrearProyectoComponent implements OnInit {
     detalle:['',[Validators.required, Validators.minLength(5)]]
   });
 
+
+  obtenerSecuenciaIdproyecto(): void{
+    this.services.getIdProyecto("62b874ba0a86251126ce9444")
+    .subscribe((data) => (this.proyecto.idProyecto = data.idProyecto))
+  }
+
+  actualizarSecuenciaId():void{
+    let modelo: idProyectoModel={
+      id:'62b874ba0a86251126ce9444',
+      idProyecto: 0,
+    }
+    this.services.getIdProyecto("62b874ba0a86251126ce9444")
+    .subscribe((data) => {
+      modelo.idProyecto = data.idProyecto + 1
+      this.services.actualizarSecuenciaIdProyecto(modelo)
+    })
+
+
+  }
+
+
+
   guardarProyecto(proyecto: proyecto): void {
     this.cambiarFormatoDate();
+   this.actualizarSecuenciaId();
     if (this.form.value.name && this,this.form.value.fecha) {
-      this.services.guardarProyecto(this.formulario).subscribe({});
+      this.services.getIdProyecto("62b874ba0a86251126ce9444")
+      .subscribe((data) => {
+        this.proyecto.idProyecto = data.idProyecto
+        this.formulario.id = data.idProyecto
+        this.services.guardarProyecto(this.formulario).subscribe({
+        });
+
+      })
       this.messageService.add({
         severity: 'success',
         summary: '!Exitoso¡',

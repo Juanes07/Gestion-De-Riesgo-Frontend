@@ -20,6 +20,9 @@ import {PanelModule} from 'primeng/panel';
 import {BadgeModule} from 'primeng/badge';
 import {KeyFilterModule} from 'primeng/keyfilter';
 import { ChipModule } from 'primeng/chip';
+import {MultiSelectModule} from 'primeng/multiselect';
+
+
 
 //Services
 import {MessageService} from 'primeng/api';
@@ -49,7 +52,8 @@ import { DropdownModule } from 'primeng/dropdown';
     PanelModule,
     BadgeModule,
     KeyFilterModule,
-    ChipModule
+    ChipModule,
+    MultiSelectModule
   ],
   providers: [MessageService]
 })

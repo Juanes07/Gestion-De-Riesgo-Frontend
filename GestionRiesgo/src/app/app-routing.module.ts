@@ -11,6 +11,7 @@ import { ProyectoPageComponent } from './pages/proyecto-page/proyecto-page.compo
 import { DetalleProyectoComponent } from './components/detalle-proyecto/detalle-proyecto.component';
 import { RiesgosComponent } from './components/riesgos/riesgos.component';
 import { MatrizRiesgoComponent } from './components/matriz-riesgo/matriz-riesgo.component';
+import { FormCrearRiesgoComponent } from './components/form-crear-riesgo/form-crear-riesgo.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -20,6 +21,7 @@ const routes: Routes = [
     children: [
       { path: 'lista', component: TablaProyectosComponent },
       { path: 'crear', component: FormCrearProyectoComponent },
+      {path:'riesgo', component: FormCrearRiesgoComponent},
       { path: '**', pathMatch: 'full', redirectTo: 'lista' },
     ],
   },

@@ -12,6 +12,9 @@ import {MenuModule} from 'primeng/menu';
 import {DividerModule} from 'primeng/divider';
 import {DialogModule} from 'primeng/dialog';
 import {CalendarModule} from 'primeng/calendar';
+import { LoginComponent } from '../pages/usuarios/login/login.component';
+import {FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RegisterComponent } from '../pages/usuarios/register/register.component';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {ToolbarModule} from 'primeng/toolbar';
 import {TableModule} from 'primeng/table';
@@ -21,18 +24,18 @@ import {BadgeModule} from 'primeng/badge';
 import {KeyFilterModule} from 'primeng/keyfilter';
 import { ChipModule } from 'primeng/chip';
 import {MultiSelectModule} from 'primeng/multiselect';
-
-
+import { DropdownModule } from 'primeng/dropdown';
 
 //Services
 import {MessageService} from 'primeng/api';
-import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
-  declarations: [],
+  declarations: [LoginComponent, RegisterComponent],
   exports: [
     ButtonModule,
     CardModule,
+    FormsModule,
+    ReactiveFormsModule,
     InputTextModule,
     PasswordModule,
     RatingModule,
@@ -54,7 +57,6 @@ import { DropdownModule } from 'primeng/dropdown';
     KeyFilterModule,
     ChipModule,
     MultiSelectModule
-  ],
-  providers: [MessageService]
+  ]
 })
 export class PrimeNgModule { }

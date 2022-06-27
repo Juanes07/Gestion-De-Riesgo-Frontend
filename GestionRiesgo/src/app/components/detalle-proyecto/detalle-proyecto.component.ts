@@ -10,6 +10,7 @@ import { ProyectoService } from 'src/app/service/proyecto-servicio.service';
 })
 export class DetalleProyectoComponent implements OnInit {
   proyecto!: proyecto;
+  isLoading: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -19,6 +20,7 @@ export class DetalleProyectoComponent implements OnInit {
     this.route.parent?.params.subscribe(params => {
       this.services.getProyectoById(params['id']).subscribe(data => {
         this.proyecto = data;
+        this.isLoading = false;
       });
     });
 

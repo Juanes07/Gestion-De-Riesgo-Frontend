@@ -24,7 +24,6 @@ const routes: Routes = [
     children: [
       { path: 'lista', component: TablaProyectosComponent },
       { path: 'crear', component: FormCrearProyectoComponent },
-      {path:'riesgo', component: FormCrearRiesgoComponent},
       { path: '**', pathMatch: 'full', redirectTo: 'lista' },
     ],
   },
@@ -36,9 +35,11 @@ const routes: Routes = [
       { path: 'riesgos', component: RiesgosPageComponent,
         children: [
           { path: 'lista', component: TablaRiesgosComponent },
-          // { path: 'crear', component: FormCrearRiesgoComponent },
+          { path: 'crear', component: FormCrearRiesgoComponent },
           { path: '**', pathMatch: 'full', redirectTo: 'lista' },
-        ] },
+        ]
+      },
+      // { path: 'riesgo/:id', component: RiesgoPageComponent },
       { path: 'matriz', component: MatrizRiesgoComponent },
       { path: '**', pathMatch: 'full', redirectTo: 'detalle' },
     ],

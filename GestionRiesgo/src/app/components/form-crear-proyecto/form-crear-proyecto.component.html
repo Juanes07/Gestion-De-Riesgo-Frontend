@@ -1,9 +1,10 @@
 <p-toast></p-toast>
 <h2>Crea un nuevo Proyecto</h2>
-  <div class="p-fluid p-grid p-formgrid">
-    <div class="field col-12 md:col-4">
+<div class="m-5 p-4 border-solid border-200 border-round-md">
+  <div class="field col-12 md:col-4">
     <form [formGroup]="form">
-      <h5>Nombre Proyecto</h5>
+      <label for="basic">Nombre Proyecto</label>
+      <br />
       <input
         type="text"
         [(ngModel)]="formulario.nombre"
@@ -17,6 +18,8 @@
       <br />
       <br />
       <label for="basic">Fecha de Inicio Proyecto</label>
+      <br />
+      <br />
       <p-calendar
         inputId="basic"
         [(ngModel)]="formulario.fechaInicio"
@@ -24,12 +27,14 @@
         dateFormat="yy/mm/dd"
         [readonlyInput]="true"
       ></p-calendar>
-      <div class="nombre-requerido  mb-5" *ngIf="formulario.fechaInicio == ''">
+      <br />
+      <div class="nombre-requerido mb-5" *ngIf="formulario.fechaInicio == ''">
         <p-message severity="error" text="Campo es Requerido"></p-message>
       </div>
       <br />
       <br />
       <label for="basic">Fecha de Fin Proyecto (opcional)</label>
+      <br />
       <p-calendar
         inputId="basic"
         [(ngModel)]="formulario.fechaFin"
@@ -38,18 +43,24 @@
         dateFormat="yy/mm/dd"
       ></p-calendar>
       <br />
-      <h5>Etiquetas</h5>
+      <br />
+      <label>Etiquetas</label>
+      <br />
       <input
         type="text"
         pInputText
         [(ngModel)]="etiquetshtml"
         [ngModelOptions]="{ standalone: true }"
       />
-      <p-button class="mt-2" (click)="agregarEtiqueta(etiquetshtml)" pButton>
+      <br />
+      <br />
+      <p-button class="mt-2" (click)="agregarEtiqueta(etiquetshtml)">
         Agregar Etiqueta
       </p-button>
+      <br />
       <div class="mt-2">
-        <p-chip styleClass="mr-2 custom-chip"
+        <p-chip
+          styleClass="mr-2 custom-chip"
           class="etiquetas"
           *ngFor="let etiquetas of formulario.etiquetas; index as i"
         >
@@ -57,7 +68,8 @@
         </p-chip>
       </div>
       <br />
-      <h5>Responsables (correo)</h5>
+      <label>Responsables (correo)</label>
+      <br />
       <input
         type="email"
         pInputText
@@ -66,7 +78,12 @@
         formControlName="email"
         pKeyFilter="email"
       />
-      <p-button [disabled]="form.invalid" class="mt-2" (click)="agregarResponsable(responsableHtml)">
+      <br />
+      <br />
+      <p-button
+        class="mt-2"
+        (click)="agregarResponsable(responsableHtml)"
+      >
         Agregar Responsable
       </p-button>
       <div>
@@ -78,19 +95,20 @@
         </h5>
       </div>
       <br />
-      <h5>Descripcion del formulario</h5>
+      <label>Descripcion del formulario</label>
+      <br />
       <textarea
         pInputTextarea
         [(ngModel)]="formulario.descripcion"
         formControlName="detalle"
       ></textarea>
-
       <div class="nombre-requerido mb-5" *ngIf="formulario.descripcion == ''">
         <p-message severity="error" text="Campo es Requerido"></p-message>
       </div>
-
       <br />
-      <h5>Lider Proyecto</h5>
+      <br />
+      <label>Lider Proyecto</label>
+      <br />
       <input
         type="text"
         [(ngModel)]="formulario.liderProyecto"

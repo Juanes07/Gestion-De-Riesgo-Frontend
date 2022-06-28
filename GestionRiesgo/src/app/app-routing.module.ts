@@ -14,10 +14,12 @@ import { FormCrearRiesgoComponent } from './components/form-crear-riesgo/form-cr
 
 import { RiesgosPageComponent } from './pages/riesgos-page/riesgos-page.component';
 import { TablaRiesgosComponent } from './components/tabla-riesgos/tabla-riesgos.component';
+import { RegisterComponent } from './pages/usuarios/register/register.component';
 
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
   {
     path: 'proyectos',
     component: ProyectosComponent,

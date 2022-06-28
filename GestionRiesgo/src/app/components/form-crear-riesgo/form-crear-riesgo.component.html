@@ -8,7 +8,7 @@
         type="text"
         pInputText
         [readonly]="true"
-        value="{{ formuRiesgo.id }}"
+        value="{{ formuRiesgo.idProyecto }}"
       />
       <br />
       <br />
@@ -84,6 +84,15 @@
           <p-message severity="error" text="Campo es Requerido"></p-message>
         </div>
 
+        <label>Estado de Riesgo</label>
+        <p-dropdown
+          [options]="estadoVidaRiesgo"
+          formControlName="audiencia"
+          [(ngModel)]="formuRiesgo.estadoRiesgo"
+          placeholder="Estado De Riesgo"
+        ></p-dropdown>
+        <br />
+
         <label>Audiencia</label>
         <p-dropdown
           [options]="audiencias"
@@ -145,7 +154,7 @@
         <label>Plan de Mitigacion</label>
         <textarea
           pInputTextarea
-          formControlName="emailsPlanMitigacion"
+          formControlName="descripcionPlanDeMitigacion"
           [(ngModel)]="formuRiesgo.descripcionPlanDeMitigacion"
         ></textarea>
         <div
@@ -191,7 +200,7 @@
         <label>Plan de Contingencia</label>
         <textarea
           pInputTextarea
-          formControlName="emailsPlanMitigacion"
+          formControlName="descripcionPlanContingencia"
           [(ngModel)]="formuRiesgo.descripcionPlanDeContingencia"
         ></textarea>
         <div
@@ -236,5 +245,6 @@
       </form>
 
     </div>
+    <p-button (click)="guardarRiesgo(formuRiesgo)">Guardar Riesgo</p-button>
   </div>
 </div>

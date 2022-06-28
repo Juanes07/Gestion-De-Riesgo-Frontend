@@ -111,10 +111,15 @@
       <br />
       <input
         type="text"
-        [(ngModel)]="formulario.liderProyecto"
-        [ngModelOptions]="{ standalone: true }"
+        [(ngModel)]="liderHtml"
+        formControlName="emailLider"
         pInputText
       />
+      <br>
+      <br>
+      <p-button (click)="agregarLider(liderHtml)">
+        agregar Lider de Proyecto
+      </p-button>
     </form>
     <br />
   </div>

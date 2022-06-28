@@ -16,9 +16,9 @@ export interface riesgo{
   probabilidadDeOcurrenciaDelRiesgo:number;
   impactoDeOcurrenciaDelRiesgo:number;
   descripcionPlanDeMitigacion:string;
-  emailsPlanMitigacion: string[];
+  emailsPlanDeMitigacion: string[];
   descripcionPlanDeContingencia:string;
-  emailsPlanContingencia:string[];
+  emailsPlanDeContingencia:string[];
   valorCriticidad:number;
   estadoDeVidaDelRiesgo:string;
 }

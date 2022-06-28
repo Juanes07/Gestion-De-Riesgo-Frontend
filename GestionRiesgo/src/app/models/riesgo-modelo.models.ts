@@ -10,11 +10,12 @@ export interface riesgo{
   estadoRiesgo:string;
   audiencia:string;
   categoria:string;
+  tipoRiesgo:string;
   detalleTipoRiesgo:string;
   probabilidadDeOcurrenciaDelRiesgo:number;
   impactoDeOcurrenciaDelRiesgo:number;
   descripcionPlanDeMitigacion:string;
-  emailsPlanMitigacion:string;
+  emailsPlanMitigacion: string[];
   descripcionPlanDeContingencia:string;
   emailsPlanContingencia:string[];
   valorCriticidad:number;

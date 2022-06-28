@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Table } from 'primeng/table';
+import { Component, OnInit } from '@angular/core';
+import { ProyectoStatuses } from 'src/app/models/options.model';
 import { proyecto } from 'src/app/models/proyecto-modelo.model';
 import { ProyectoService } from 'src/app/service/proyecto-servicio.service';
 
@@ -14,13 +14,7 @@ export class TablaProyectosComponent implements OnInit {
   first = 0;
   rows = 20;
 
-  statuses = [
-    { label: 'Creado', value: 'creado' },
-    { label: 'Activo', value: 'activo' },
-    { label: 'Cancelado', value: 'cancelado' },
-    { label: 'Pausado', value: 'pausado' },
-    { label: 'Culminado', value: 'culminado' },
-  ];
+  statuses = ProyectoStatuses;
 
   loading: boolean = true;
 

@@ -1,17 +1,24 @@
 <div>
-  <p-table
-    [value]="riesgos"
-    [loading]="loading"
-    [paginator]="true"
-    [rows]="30"
-    styleClass="p-datatable-striped"
-    [rowHover]="true"
-  >
+  <!--
+    TODO: correo del creador del riesgo,
+   -->
+  <p-table [value]="riesgos" [loading]="loading" [paginator]="true" [rows]="30" styleClass="p-datatable-striped"
+    [rowHover]="true" [globalFilterFields]="[
+      'id',
+      'nombre',
+      'fechaDeteccion',
+      'fechaCierre',
+      'audiencia',
+      'categoria',
+      'estado',
+      'estadoVida'
+    ]" sortField="id">
     <!-- Encabezado -->
     <ng-template pTemplate="header">
       <!-- Header with Sort -->
       <tr>
-        <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
+        <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon>
+        </th>
         <th pSortableColumn="nombre">
           NOMBRE <p-sortIcon field="nombre"></p-sortIcon>
         </th>
@@ -21,19 +28,95 @@
         <th pSortableColumn="fechaCierre">
           FECHA DE CIERRE <p-sortIcon field="fechaCierra"></p-sortIcon>
         </th>
+        <th pSortableColumn="audiencia">
+          AUDIENCIA <p-sortIcon field="audiencia"></p-sortIcon>
+        </th>
         <th pSortableColumn="categoria">
           CATEGORIA <p-sortIcon field="categoria"></p-sortIcon>
         </th>
         <th pSortableColumn="estadoRiesgo">
           ESTADO <p-sortIcon field="estadoRiesgo"></p-sortIcon>
         </th>
-        <th pSortableColumn="estadoDeVidaDelRiesgo">
-          ESTADO DE VIDA <p-sortIcon field="estadoDeVidaDelRiesgo"></p-sortIcon>
+        <th pSortableColumn="estadoVida">
+          ESTADO DE VIDA <p-sortIcon field="estadoVida"></p-sortIcon>
         </th>
       </tr>
       <!-- Header for Filters -->
       <tr>
-        <!-- TODO: Filters here! -->
+        <th>
+          <p-columnFilter type="text" field="id" matchMode="equals" placeholder="Buscar Por ID" [showMenu]="false">
+          </p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="nombre" matchMode="contains" placeholder="Filtrar Por Nombre">
+          </p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="fechaDeteccion" matchMode="equals" placeholder="Fecha de Detección"
+            [showMenu]="false">
+          </p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="fechaCierre" matchMode="equals" placeholder="Fecha de Cierre"
+            [showMenu]="false">
+          </p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="audiencia" matchMode="equals" [showMenu]="false">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <p-dropdown [ngModel]="value" [options]="audiencias" (onChange)="filter($event.value)" placeholder="Todos"
+                [showClear]="true">
+                <ng-template let-option pTemplate="item">
+                  <span [class]="'customer-badge status-' + option.value">{{
+                    option.label
+                    }}</span>
+                </ng-template>
+              </p-dropdown>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="categoria" matchMode="equals" [showMenu]="false">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <p-dropdown [ngModel]="value" [options]="categorias" (onChange)="filter($event.value)" placeholder="Todos"
+                [showClear]="true">
+                <ng-template let-option pTemplate="item">
+                  <span [class]="'customer-badge status-' + option.value">{{
+                    option.label
+                    }}</span>
+                </ng-template>
+              </p-dropdown>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="estado" matchMode="equals" [showMenu]="false">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Todos"
+                [showClear]="true">
+                <ng-template let-option pTemplate="item">
+                  <span [class]="'customer-badge status-' + option.value">{{
+                    option.label
+                    }}</span>
+                </ng-template>
+              </p-dropdown>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="estadoVida" matchMode="equals" [showMenu]="false">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <p-dropdown [ngModel]="value" [options]="lifeStatuses" (onChange)="filter($event.value)" placeholder="Todos"
+                [showClear]="true">
+                <ng-template let-option pTemplate="item">
+                  <span [class]="'customer-badge status-' + option.value">{{
+                    option.label
+                    }}</span>
+                </ng-template>
+              </p-dropdown>
+            </ng-template>
+          </p-columnFilter>
+        </th>
       </tr>
     </ng-template>
     <!-- Table Body Content -->
@@ -45,15 +128,16 @@
         <td>{{ riesgo.nombreRiesgo }}</td>
         <td>{{ riesgo.fechaDeteccion }}</td>
         <td>{{ riesgo.fechaCierre }}</td>
+        <td>{{ riesgo.audiencia }}</td>
         <td>{{ riesgo.categoria }}</td>
         <td>{{ riesgo.estadoRiesgo }}</td>
         <td>{{ riesgo.estadoDeVidaDelRiesgo }}</td>
-    </tr>
+      </tr>
     </ng-template>
-    <!-- Show if not found projects -->
+    <!-- Show if not found risks -->
     <ng-template pTemplate="emptymessage">
       <tr>
-        <td colspan="6">No projects found.</td>
+        <td colspan="8">No projects found.</td>
       </tr>
     </ng-template>
   </p-table>

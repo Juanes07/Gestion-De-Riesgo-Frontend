@@ -50,4 +50,13 @@ export class ProyectoService {
     return this.http.get<riesgo[]>(direccion);
   }
 
+
+  guardarRiesgo(riesgo:riesgo): Observable<riesgo>{
+    let direccion = this.url + 'crearRiesgo'
+    return this.http.post<riesgo>(direccion,riesgo, {
+      responseType: 'text' as 'json',
+    })
+  }
+
+
 }

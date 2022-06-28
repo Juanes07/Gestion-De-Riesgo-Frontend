@@ -1,5 +1,5 @@
 export interface proyecto{
-  id:number | null;
+  id:number;
   nombre: string;
   fechaInicio:string;
   fechaFin:string;

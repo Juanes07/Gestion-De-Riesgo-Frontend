@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { LoginComponent } from './pages/usuarios/login/login.component';
-import { RegisterComponent } from './pages/usuarios/register/register.component';
+
 import { ProyectosComponent } from './pages/proyectos/proyectos.component';
 import { FormCrearProyectoComponent } from './components/form-crear-proyecto/form-crear-proyecto.component';
 import { TablaProyectosComponent } from './components/tabla-proyectos/tabla-proyectos.component';
@@ -13,11 +14,12 @@ import { FormCrearRiesgoComponent } from './components/form-crear-riesgo/form-cr
 
 import { RiesgosPageComponent } from './pages/riesgos-page/riesgos-page.component';
 import { TablaRiesgosComponent } from './components/tabla-riesgos/tabla-riesgos.component';
+import { RegisterComponent } from './pages/usuarios/register/register.component';
 
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent},
-  { path: 'register', component: RegisterComponent},
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
   {
     path: 'proyectos',
     component: ProyectosComponent,

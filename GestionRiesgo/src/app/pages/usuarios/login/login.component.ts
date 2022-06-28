@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {MessageService} from 'primeng/api';
 import {LoginService} from '../../../service/login.service';
-import {Login} from '../../../models/login-i.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 

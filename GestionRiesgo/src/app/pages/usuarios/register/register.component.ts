@@ -55,5 +55,4 @@ export class RegisterComponent implements OnInit {
 
   showSuccess(message: any): void { this.messageService.add({key: 'success', severity: 'success', summary: 'Éxito', detail: message}); }
   showError(message: any): void { this.messageService.add({key: 'error', severity: 'error', summary: 'Error', detail: message}); }
-
 }

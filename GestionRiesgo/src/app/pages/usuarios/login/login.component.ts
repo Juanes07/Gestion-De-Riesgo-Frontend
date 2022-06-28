@@ -48,11 +48,17 @@ export class LoginComponent implements OnInit {
     .then((res) => {
       if (res === undefined) {
         this.showError('Error al Iniciar Sesión');
+        setTimeout(() => {
+          localStorage.clear();
+        },1000);
       }else{
         this.showSuccess('Bienvenido ');
         setTimeout(() => {
           this.router.navigate(['/proyectos/lista']);
         }, 2000);
+        setTimeout(() => {
+          window.location.reload()
+          }, 2000);
       }
     }
     )
@@ -73,11 +79,17 @@ export class LoginComponent implements OnInit {
     .then((res) => {
       if (res === undefined) {
         this.showError('Error al Iniciar Sesión');
+        setTimeout(() => {
+          localStorage.clear();
+        },6000);
       }else{
         this.showSuccess('Bienvenido ');
         setTimeout(() => {
           this.router.navigate(['/proyectos/lista']);
         }, 2000);
+        setTimeout(() => {
+          window.location.reload()
+          }, 3000);
       }
     }
     )
@@ -90,8 +102,12 @@ export class LoginComponent implements OnInit {
 
   resetPassword(): void {
     this.mostrar2 = !this.mostrar2;
-    this.loginService.resetPassword(this.form2.value.email);
-    this.showSuccess('Se ha enviado un correo para restablecer la contraseña');
+    try{
+      this.loginService.resetPassword(this.form2.value.email);
+      this.showSuccess('Se ha enviado un correo para restablecer la contraseña');
+    }catch(e){
+      this.showError('Error al restablecer la contraseña');
+    }
     this.mostrar2 = !this.mostrar2;
   }
 

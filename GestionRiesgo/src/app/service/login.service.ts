@@ -31,7 +31,7 @@ export class LoginService {
     rol: '',
     displayName: '',
     photoURL: '',
-    emailVerified: false
+    emailVerified: false,
   };
   public idUser = '';
   public rolUser = '';
@@ -40,7 +40,7 @@ export class LoginService {
     public afauth: AngularFireAuth,
     public store: AngularFirestore,
     public http: HttpClient
-  ) { }
+  ) {}
 
   saveUser(user: any): Observable<any> {
     let direction = this.url + 'crearUsuario';
@@ -74,16 +74,21 @@ export class LoginService {
   }
 
   async login(email: string, password: string) {
-    this.credential = await this.afauth.signInWithEmailAndPassword(
-      email,
-      password
-    );
-    const user = this.credential.user;
-    this.getPropertyValue(user);
-    return this.credential;
+    try {
+        this.credential = await this.afauth.signInWithEmailAndPassword(
+          email,
+          password
+        );
+        const user = this.credential.user;
+        this.getPropertyValue(user);
+        return this.credential;
+
+        } catch (error) {
+          return null;
+        }
   }
 
-  async register(name:any,email: string, password: string) {
+  async register(name: any, email: string, password: string) {
     try {
       this.credential = await this.afauth.createUserWithEmailAndPassword(
         email,
@@ -92,9 +97,9 @@ export class LoginService {
       if (this.credential.user !== null) {
         const user = this.credential.user;
         this.userMongo = {
-          "nombre": name,
-          "email": user.email,
-          "roles": ['lector']
+          nombre: name,
+          email: user.email,
+          roles: ['lector'],
         };
         const response = this.saveUser(this.userMongo);
         response.subscribe((data) => {
@@ -117,9 +122,9 @@ export class LoginService {
           `users/${user.uid}`
         );
         this.userMongo = {
-          "nombre": user.displayName,
-          "email": user.email,
-          "roles": ['lector']
+          nombre: user.displayName,
+          email: user.email,
+          roles: ['lector'],
         };
         const response = this.saveUser(this.userMongo);
         response.subscribe((data) => {
@@ -146,25 +151,26 @@ export class LoginService {
   getPropertyValue(user: any) {
     let direction = this.url + 'obtenerUsuarios';
     this.http.get<any>(direction).subscribe((data) => {
-      data.forEach(async (element: { email: any; id: string; roles: string; }) => {
-        if (element.email === user.email) {
-          this.userLogin = {
-            uid: element.id,
-            email: user.email,
-            rol: element.roles[0],
-            displayName: user.displayName,
-            photoURL: user.photoURL,
-            emailVerified: user.emailVerified,
-          };
-          const verify = await this.verifyUserRegistered(user);
-          if (verify) {
-            JSON.parse(localStorage.getItem('user')!);
-            localStorage.setItem('user', JSON.stringify(this.userLogin));
-          }else{
-            this.logout();
+      data.forEach(
+        async (element: { email: any; id: string; roles: string }) => {
+          if (element.email === user.email) {
+            this.userLogin = {
+              uid: element.id,
+              email: user.email,
+              rol: element.roles[0],
+              displayName: user.displayName,
+              photoURL: user.photoURL,
+              emailVerified: user.emailVerified,
+            };
+            const verify = await this.verifyUserRegistered(user);
+            if (verify) {
+              JSON.parse(localStorage.getItem('user')!);
+              localStorage.setItem('user', JSON.stringify(this.userLogin));
+            } else {
+              this.logout();
+            }
           }
         }
-      }
       );
     });
   }
@@ -174,7 +180,7 @@ export class LoginService {
     return this.http.get<any>(direction).subscribe((data) => {
       data.forEach((element: { email: any; roles: any }) => {
         if (element.email === email) {
-          console.log("Element Role",element.roles[0]);
+          console.log('Element Role', element.roles[0]);
           this.rolUser = element.roles[0];
         }
       });
@@ -186,12 +192,12 @@ export class LoginService {
     return this.http.get<any>(direction).subscribe((data) => {
       data.forEach((element: { email: any; id: any }) => {
         if (element.email === email) {
-          console.log("Element Id",element.id);
+          console.log('Element Id', element.id);
           this.idUser = element.id;
         }
-        })
       });
-    }
+    });
+  }
 
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);

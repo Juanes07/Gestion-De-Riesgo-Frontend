@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {LoginService} from 'src/app/service/login.service';
+import {Router} from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-header',
@@ -7,13 +11,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  correo : string = "";
+  photoURL: string = "";
+  constructor(
+    private loginService: LoginService,
+    private router: Router,
+    private afAuth: AngularFireAuth
+  ) {
+    if (JSON.parse(localStorage.getItem('user')!)) {
+      this.correo = JSON.parse(localStorage.getItem('user')!).email;
+      this.photoURL = JSON.parse(localStorage.getItem('user')!).photoURL;
+    }
+  }
 
   ngOnInit(): void {
   }
 
-  login() {}
+  login() {
+    this.router.navigate(['/login']);
+  }
 
-  SignOut() {}
+  SignOut() {
+    this.loginService.logout();
+    window.location.reload()
+  }
 
 }

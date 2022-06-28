@@ -1,1 +1,60 @@
-<p>tabla-riesgos works!</p>
+<div>
+  <p-table
+    [value]="riesgos"
+    [loading]="loading"
+    [paginator]="true"
+    [rows]="30"
+    styleClass="p-datatable-striped"
+    [rowHover]="true"
+  >
+    <!-- Encabezado -->
+    <ng-template pTemplate="header">
+      <!-- Header with Sort -->
+      <tr>
+        <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
+        <th pSortableColumn="nombre">
+          NOMBRE <p-sortIcon field="nombre"></p-sortIcon>
+        </th>
+        <th pSortableColumn="fechaDeteccion">
+          FECHA DE DETECCION <p-sortIcon field="fechaDeteccion"></p-sortIcon>
+        </th>
+        <th pSortableColumn="fechaCierre">
+          FECHA DE CIERRE <p-sortIcon field="fechaCierra"></p-sortIcon>
+        </th>
+        <th pSortableColumn="categoria">
+          CATEGORIA <p-sortIcon field="categoria"></p-sortIcon>
+        </th>
+        <th pSortableColumn="estadoRiesgo">
+          ESTADO <p-sortIcon field="estadoRiesgo"></p-sortIcon>
+        </th>
+        <th pSortableColumn="estadoDeVidaDelRiesgo">
+          ESTADO DE VIDA <p-sortIcon field="estadoDeVidaDelRiesgo"></p-sortIcon>
+        </th>
+      </tr>
+      <!-- Header for Filters -->
+      <tr>
+        <!-- TODO: Filters here! -->
+      </tr>
+    </ng-template>
+    <!-- Table Body Content -->
+    <ng-template pTemplate="body" let-riesgo>
+      <tr>
+        <td class="font-bold cursor-pointer text-primary hover:underline">
+          {{ riesgo.id }}
+        </td>
+        <td>{{ riesgo.nombreRiesgo }}</td>
+        <td>{{ riesgo.fechaDeteccion }}</td>
+        <td>{{ riesgo.fechaCierre }}</td>
+        <td>{{ riesgo.categoria }}</td>
+        <td>{{ riesgo.estadoRiesgo }}</td>
+        <td>{{ riesgo.estadoDeVidaDelRiesgo }}</td>
+    </tr>
+    </ng-template>
+    <!-- Show if not found projects -->
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="6">No projects found.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

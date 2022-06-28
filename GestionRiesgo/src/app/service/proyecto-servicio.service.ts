@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { proyecto } from '../models/proyecto-modelo.model';
 import { idProyectoModel } from '../models/idproyecto-modelo.model';
+import { riesgo } from '../models/riesgo-modelo.models';
 
 @Injectable({
   providedIn: 'root',
@@ -44,9 +45,9 @@ export class ProyectoService {
 
   }
 
-  getRiesgosByProyectoId(id:any): Observable<any[]> {
+  getRiesgosByProyectoId(id:any): Observable<riesgo[]> {
     let direccion = this.url + 'obtenerRiesgoPorProyecto/' + id;
-    return this.http.get<any[]>(direccion);
+    return this.http.get<riesgo[]>(direccion);
   }
 
 }

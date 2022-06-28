@@ -12,18 +12,22 @@ import { HeaderComponent } from './components/header/header.component';
 import { MatrizRiesgoComponent } from './components/matriz-riesgo/matriz-riesgo.component';
 import { ProyectosComponent } from './pages/proyectos/proyectos.component';
 import { FormCrearProyectoComponent } from './components/form-crear-proyecto/form-crear-proyecto.component';
+import { environment } from '../environments/environment';
+import { AngularFireModule } from '@angular/fire/compat';
 import { TablaProyectosComponent } from './components/tabla-proyectos/tabla-proyectos.component';
 import { DetalleProyectoComponent } from './components/detalle-proyecto/detalle-proyecto.component';
 import { ProyectoPageComponent } from './pages/proyecto-page/proyecto-page.component';
 import { RiesgosPageComponent } from './pages/riesgos-page/riesgos-page.component';
 import { TablaRiesgosComponent } from './components/tabla-riesgos/tabla-riesgos.component';
 import { FormCrearRiesgoComponent } from './components/form-crear-riesgo/form-crear-riesgo.component';
+import { RegisterComponent } from './pages/usuarios/register/register.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    RegisterComponent,
     HeaderComponent,
     MatrizRiesgoComponent,
     ProyectosComponent,

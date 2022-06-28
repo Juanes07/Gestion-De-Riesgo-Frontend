@@ -12,9 +12,11 @@ import { DetalleProyectoComponent } from './components/detalle-proyecto/detalle-
 import { MatrizRiesgoComponent } from './components/matriz-riesgo/matriz-riesgo.component';
 import { FormCrearRiesgoComponent } from './components/form-crear-riesgo/form-crear-riesgo.component';
 
-import { RiesgosPageComponent } from './pages/riesgos-page/riesgos-page.component';
 import { TablaRiesgosComponent } from './components/tabla-riesgos/tabla-riesgos.component';
 import { RegisterComponent } from './pages/usuarios/register/register.component';
+import { RiesgosComponent } from './pages/riesgos/riesgos.component';
+import { RiesgoPageComponent } from './pages/riesgo-page/riesgo-page.component';
+import { DetalleRiesgoComponent } from './components/detalle-riesgo/detalle-riesgo.component';
 
 
 const routes: Routes = [
@@ -34,14 +36,22 @@ const routes: Routes = [
     component: ProyectoPageComponent,
     children: [
       { path: 'detalle', component: DetalleProyectoComponent },
-      { path: 'riesgos', component: RiesgosPageComponent,
+      // { path: 'edit', component: EditProyectoComponent },
+      { path: 'riesgos', component: RiesgosComponent,
         children: [
           { path: 'lista', component: TablaRiesgosComponent },
           { path: 'crear', component: FormCrearRiesgoComponent },
           { path: '**', pathMatch: 'full', redirectTo: 'lista' },
         ]
       },
-      // { path: 'riesgo/:id', component: RiesgoPageComponent },
+      { path: 'riesgo/:id',
+        component: RiesgoPageComponent,
+        children: [
+          { path: 'detalle', component: DetalleRiesgoComponent },
+          // { path: 'edit', component: EditRiesgoComponent },
+          { path: '**', pathMatch: 'full', redirectTo: 'detalle' },
+        ]
+      },
       { path: 'matriz', component: MatrizRiesgoComponent },
       { path: '**', pathMatch: 'full', redirectTo: 'detalle' },
     ],

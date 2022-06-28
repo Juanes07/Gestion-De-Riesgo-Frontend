@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RiesgosPageComponent } from './riesgos-page.component';
+import { RiesgoPageComponent } from './riesgo-page.component';
 
-describe('RiesgosPageComponent', () => {
-  let component: RiesgosPageComponent;
-  let fixture: ComponentFixture<RiesgosPageComponent>;
+describe('RiesgoPageComponent', () => {
+  let component: RiesgoPageComponent;
+  let fixture: ComponentFixture<RiesgoPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RiesgosPageComponent ]
+      declarations: [ RiesgoPageComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RiesgosPageComponent);
+    fixture = TestBed.createComponent(RiesgoPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

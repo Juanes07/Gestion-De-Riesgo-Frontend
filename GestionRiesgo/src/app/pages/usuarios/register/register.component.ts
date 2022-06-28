@@ -20,6 +20,7 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   public form: FormGroup = this.formBuilder.group({
+    name: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(8)]],
     rating: ['', []],
@@ -29,10 +30,12 @@ export class RegisterComponent implements OnInit {
   }
 
   register(): void {
-    this.authService.register(this.form.value.email, this.form.value.password)
+    this.authService.register(this.form.value.name,this.form.value.email, this.form.value.password)
     .then(() => {
       this.showSuccess('Usuario creado correctamente');
-      this.route.navigate(['/login']);
+      setTimeout(() => {
+        this.route.navigate(['/login']);
+      }, 2000);
     })
     .catch(() => {
       this.showError('Error al crear usuario');
@@ -44,7 +47,9 @@ export class RegisterComponent implements OnInit {
     this.authService.registerUserWithGoogle()
     .then(() => {
       this.showSuccess('Usuario creado correctamente');
-      this.route.navigate(['/login']);
+      setTimeout(() => {
+        this.route.navigate(['/login']);
+      }, 2000);
     }
     )
     .catch(() => {

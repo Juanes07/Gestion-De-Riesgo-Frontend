@@ -17,10 +17,12 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { TablaProyectosComponent } from './components/tabla-proyectos/tabla-proyectos.component';
 import { DetalleProyectoComponent } from './components/detalle-proyecto/detalle-proyecto.component';
 import { ProyectoPageComponent } from './pages/proyecto-page/proyecto-page.component';
-import { RiesgosPageComponent } from './pages/riesgos-page/riesgos-page.component';
 import { TablaRiesgosComponent } from './components/tabla-riesgos/tabla-riesgos.component';
 import { FormCrearRiesgoComponent } from './components/form-crear-riesgo/form-crear-riesgo.component';
 import { RegisterComponent } from './pages/usuarios/register/register.component';
+import { RiesgosComponent } from './pages/riesgos/riesgos.component';
+import { RiesgoPageComponent } from './pages/riesgo-page/riesgo-page.component';
+import { DetalleRiesgoComponent } from './components/detalle-riesgo/detalle-riesgo.component';
 
 
 @NgModule({
@@ -35,9 +37,11 @@ import { RegisterComponent } from './pages/usuarios/register/register.component'
     TablaProyectosComponent,
     DetalleProyectoComponent,
     ProyectoPageComponent,
-    RiesgosPageComponent,
     TablaRiesgosComponent,
-    FormCrearRiesgoComponent
+    FormCrearRiesgoComponent,
+    RiesgosComponent,
+    RiesgoPageComponent,
+    DetalleRiesgoComponent
   ],
   imports: [
     BrowserModule,

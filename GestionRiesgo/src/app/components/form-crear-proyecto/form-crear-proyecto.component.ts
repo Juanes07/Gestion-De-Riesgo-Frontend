@@ -31,6 +31,10 @@ export class FormCrearProyectoComponent implements OnInit {
   idnumero: number = 0;
   responsable:[] = [];
 
+  etiquetshtml: string = '';
+
+  responsableHtml: string = '';
+
   formulario: proyecto = {
     id: null,
     nombre: '',
@@ -43,9 +47,7 @@ export class FormCrearProyectoComponent implements OnInit {
     estado: 'creado',
   };
 
-  etiquetshtml: string = '';
 
-  responsableHtml: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -125,9 +127,8 @@ export class FormCrearProyectoComponent implements OnInit {
 
 
   agregarResponsable(responsable: string): void {
-    if ( this.metodoPrueba(responsable)) {
+    if ( this.metodoComprobarFormatoCorreo(responsable)) {
       this.formulario.responsables.push(responsable);
-      console.log(this.formulario.responsables);
       this.messageService.add({
         severity: 'succes',
         summary: '!Exitoso¡',
@@ -144,7 +145,7 @@ export class FormCrearProyectoComponent implements OnInit {
   }
 
 
-  metodoPrueba(responsable: string){
+  metodoComprobarFormatoCorreo(responsable: string){
     let result  = new RegExp("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
     let otra = result.test(responsable);
     return otra

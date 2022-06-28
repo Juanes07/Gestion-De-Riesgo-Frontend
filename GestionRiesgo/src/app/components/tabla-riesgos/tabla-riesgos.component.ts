@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Route } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { riesgo } from 'src/app/models/riesgo-modelo.models';
 import { ProyectoService } from 'src/app/service/proyecto-servicio.service';
+import {
+  Categorias,
+  Audiencias,
+  RiesgoStatuses,
+  RiesgoLifeStatuses,
+} from 'src/app/models/options.model';
 
 @Component({
   selector: 'app-tabla-riesgos',
@@ -15,6 +21,12 @@ export class TablaRiesgosComponent implements OnInit {
   rows = 30;
 
   loading: boolean = true;
+
+  // Options dropwdowns
+  categorias = Categorias;
+  audiencias = Audiencias;
+  statuses = RiesgoStatuses;
+  lifeStatuses = RiesgoLifeStatuses;
 
   constructor(
     private route: ActivatedRoute,
@@ -45,12 +57,14 @@ export class TablaRiesgosComponent implements OnInit {
   }
 
   isLastPage(): boolean {
-    return this.riesgos
-      ? this.first === this.riesgos.length - this.rows
-      : true;
+    return this.riesgos ? this.first === this.riesgos.length - this.rows : true;
   }
 
   isFirstPage(): boolean {
     return this.riesgos ? this.first === 0 : true;
+  }
+
+  riskPage(id: any){
+    console.log("go to page");
   }
 }

@@ -11,6 +11,7 @@ import { ProyectoService } from 'src/app/service/proyecto-servicio.service';
 export class DetalleProyectoComponent implements OnInit {
   proyecto!: proyecto;
   isLoading: boolean = true;
+  isEditable: boolean = true;
 
   constructor(
     private route: ActivatedRoute,

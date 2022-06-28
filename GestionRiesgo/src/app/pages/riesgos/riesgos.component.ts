@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 
 @Component({
-  selector: 'app-riesgos-page',
-  templateUrl: './riesgos-page.component.html',
-  styleUrls: ['./riesgos-page.component.css']
+  selector: 'app-riesgos',
+  templateUrl: './riesgos.component.html',
+  styleUrls: ['./riesgos.component.css']
 })
-export class RiesgosPageComponent implements OnInit {
+export class RiesgosComponent implements OnInit {
 
   items: MenuItem[] = [];
 
@@ -29,4 +29,5 @@ export class RiesgosPageComponent implements OnInit {
     ]
     //this.items[1].disabled = true;
   }
+
 }

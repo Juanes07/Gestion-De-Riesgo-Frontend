@@ -63,4 +63,8 @@ export class TablaRiesgosComponent implements OnInit {
   isFirstPage(): boolean {
     return this.riesgos ? this.first === 0 : true;
   }
+
+  riskPage(id: any){
+    console.log("go to page");
+  }
 }

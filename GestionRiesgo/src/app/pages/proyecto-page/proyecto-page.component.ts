@@ -21,7 +21,7 @@ export class ProyectoPageComponent implements OnInit {
         routerLink: ['/proyectos'],
       },
       {
-        label: 'Detalles del Proyecto',
+        label: 'Detalle de Proyecto',
         icon: 'pi pi-fw pi-file',
         routerLink: ['detalle'],
       },

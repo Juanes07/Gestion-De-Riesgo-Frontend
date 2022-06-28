@@ -122,7 +122,7 @@
     <!-- Table Body Content -->
     <ng-template pTemplate="body" let-riesgo>
       <tr>
-        <td class="font-bold cursor-pointer text-primary hover:underline">
+        <td class="font-bold cursor-pointer text-primary hover:underline" [routerLink]="['../../riesgo',riesgo.id]">
           {{ riesgo.id }}
         </td>
         <td>{{ riesgo.nombreRiesgo }}</td>
@@ -137,7 +137,7 @@
     <!-- Show if not found risks -->
     <ng-template pTemplate="emptymessage">
       <tr>
-        <td colspan="8">No projects found.</td>
+        <td colspan="8">No risks found.</td>
       </tr>
     </ng-template>
   </p-table>

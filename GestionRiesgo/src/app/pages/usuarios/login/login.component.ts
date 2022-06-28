@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
   public title = '';
 
 
+
   constructor(
     private router: Router,
     private loginService: LoginService,
@@ -43,20 +44,27 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     this.mostrar = !this.mostrar;
-    this.postLogIn();
-  }
-
-  postLogIn(): void {
-    this.loginService.login(this.form.value.email, this.form.value.password);
-    this.loginService.getUser().subscribe(
-      (user: { displayName: string; }) => {
-        if (user) {
-          this.showSuccess('Bienvenido ' + user.displayName);
-          this.router.navigate(['/proyectos']);
-        } else {
-          this.showError('Usuario o contraseña incorrectos');
-        }
+    this.loginService.login(this.form.value.email, this.form.value.password)
+    .then((res) => {
+      if (res === undefined) {
+        this.showError('Error al Iniciar Sesión');
+        setTimeout(() => {
+          localStorage.clear();
+        },1000);
+      }else{
+        this.showSuccess('Bienvenido ');
+        setTimeout(() => {
+          this.router.navigate(['/proyectos/lista']);
+        }, 2000);
+        setTimeout(() => {
+          window.location.reload()
+          }, 2000);
       }
+    }
+    )
+    .catch(() => {
+      this.showError('Error al Iniciar Sesión');
+    }
     );
     this.mostrar = !this.mostrar;
   }
@@ -67,24 +75,39 @@ export class LoginComponent implements OnInit {
 
   onSubmitWithGoogle(): void {
     this.mostrar = !this.mostrar;
-    this.loginService.loginWithGoogle();
-    this.loginService.getUser().subscribe(
-      (user: { displayName: string; }) => {
-        if (user) {
-          this.showSuccess('Bienvenido ' + user.displayName);
-          this.router.navigate(['/proyectos']);
-        } else {
-          this.showError('Problema al Iniciar Sesión');
-        }
+    this.loginService.loginWithGoogle()
+    .then((res) => {
+      if (res === undefined) {
+        this.showError('Error al Iniciar Sesión');
+        setTimeout(() => {
+          localStorage.clear();
+        },6000);
+      }else{
+        this.showSuccess('Bienvenido ');
+        setTimeout(() => {
+          this.router.navigate(['/proyectos/lista']);
+        }, 2000);
+        setTimeout(() => {
+          window.location.reload()
+          }, 3000);
       }
+    }
+    )
+    .catch(() => {
+      this.showError('Error al Iniciar Sesión');
+    }
     );
     this.mostrar = !this.mostrar;
   }
 
   resetPassword(): void {
     this.mostrar2 = !this.mostrar2;
-    this.loginService.resetPassword(this.form2.value.email);
-    this.showSuccess('Se ha enviado un correo para restablecer la contraseña');
+    try{
+      this.loginService.resetPassword(this.form2.value.email);
+      this.showSuccess('Se ha enviado un correo para restablecer la contraseña');
+    }catch(e){
+      this.showError('Error al restablecer la contraseña');
+    }
     this.mostrar2 = !this.mostrar2;
   }
 

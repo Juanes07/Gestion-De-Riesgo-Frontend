@@ -1,1 +1,86 @@
-<p>detalle-riesgo works!</p>
+<div class="m-5 p-4 border-solid border-200 border-round-md" *ngIf="!isLoading">
+  <span class="font-medium">ID: {{ riesgo.id }}</span>
+  <div class="text-center">
+    <h1>{{ riesgo.nombreRiesgo.toUpperCase() }}</h1>
+    <p>
+      <b>Proyecto: </b>
+      <span>
+        {{ riesgo.nombreProyecto.toUpperCase() }}
+      </span>
+    </p>
+    <p>
+      <b>Estado: </b>
+      <span
+        [ngClass]="{
+          abierto: riesgo.estadoRiesgo === 'Abierto',
+          mitigado: riesgo.estadoRiesgo === 'Mitigado',
+          cerrado: riesgo.estadoRiesgo === 'Cerrado',
+          problema: riesgo.estadoRiesgo === 'Problema'
+        }"
+      >
+        {{ riesgo.estadoRiesgo }}
+      </span>
+    </p>
+  </div>
+  <p class="text-center"><b>Creado por: </b>{{ riesgo.creadorRiesgo }}</p>
+  <!-- Fechas -->
+  <p-panel header="Fechas del Riesgo">
+    <b>Fecha de detección:</b> {{ riesgo.fechaDeteccion }}
+    <br />
+    <b>Fecha de cierre:</b> {{ riesgo.fechaCierre }}
+  </p-panel>
+  <p-panel header="Descripción">
+    {{ riesgo.descripcionRiesgo }}
+  </p-panel>
+  <p-panel header="Etiquetas">
+    <div class="flex flex-row">
+      <div *ngFor="let etiqueta of riesgo.etiquetas">
+        <p-badge [value]="etiqueta" class="ml-2"></p-badge>
+      </div>
+    </div>
+  </p-panel>
+  <!-- Audiencia -->
+  <p-panel header="Tipo de Audiencia">
+    {{ riesgo.audiencia }}
+  </p-panel>
+  <!-- Categoria -->
+  <p-panel header="Categoría">
+    {{ riesgo.categoria }}
+  </p-panel>
+  <!-- Tipo de riesgo y descripcion del tipo de riesgo -->
+  <p-panel header="Tipo de Riesgo">
+    <p><b>Tipo:</b> {{ riesgo.tipoRiesgo }}</p>
+    <p><b>Descripción:</b> {{ riesgo.detalleTipoRiesgo }}</p>
+  </p-panel>
+  <!-- Criticidad -->
+  <p-panel header="Criticidad">
+    <p>
+      <b>Probabilidad de Ocurrencia: </b
+      >{{ riesgo.probabilidadDeOcurrenciaDelRiesgo }}
+    </p>
+    <p>
+      <b>Impacto de Ocurrencia: </b>{{ riesgo.impactoDeOcurrenciaDelRiesgo }}
+    </p>
+    <p><b>Criticidad: </b>{{ riesgo.valorCriticidad }}</p>
+  </p-panel>
+  <!-- Mitigacion -->
+  <p-panel header="Mitigación">
+    <p><b>Plan: </b>{{ riesgo.descripcionPlanDeMitigacion }}</p>
+    <p><b>Responsables:</b></p>
+    <div class="flex flex-row">
+      <div *ngFor="let responsable of riesgo.emailsPlanDeMitigacion">
+        <p-chip [label]="responsable" class="ml-2"></p-chip>
+      </div>
+    </div>
+  </p-panel>
+  <!-- Contingencia -->
+  <p-panel header="Contingencia">
+    <p><b>Plan: </b>{{ riesgo.descripcionPlanDeContingencia }}</p>
+    <p><b>Responsables:</b></p>
+    <div class="flex flex-row">
+      <div *ngFor="let responsable of riesgo.emailsPlanDeContingencia">
+        <p-chip [label]="responsable" class="ml-2"></p-chip>
+      </div>
+    </div>
+  </p-panel>
+</div>

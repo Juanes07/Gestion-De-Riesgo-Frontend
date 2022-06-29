@@ -17,11 +17,13 @@ import { RegisterComponent } from './pages/usuarios/register/register.component'
 import { RiesgosComponent } from './pages/riesgos/riesgos.component';
 import { RiesgoPageComponent } from './pages/riesgo-page/riesgo-page.component';
 import { DetalleRiesgoComponent } from './components/detalle-riesgo/detalle-riesgo.component';
+import { RolesComponent } from './pages/usuarios/roles/roles.component';
 
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'roles', component: RolesComponent },
   {
     path: 'proyectos',
     component: ProyectosComponent,

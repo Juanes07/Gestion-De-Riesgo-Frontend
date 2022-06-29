@@ -23,6 +23,8 @@ import { RegisterComponent } from './pages/usuarios/register/register.component'
 import { RiesgosComponent } from './pages/riesgos/riesgos.component';
 import { RiesgoPageComponent } from './pages/riesgo-page/riesgo-page.component';
 import { DetalleRiesgoComponent } from './components/detalle-riesgo/detalle-riesgo.component';
+import { RolesComponent } from './pages/usuarios/roles/roles.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -41,12 +43,14 @@ import { DetalleRiesgoComponent } from './components/detalle-riesgo/detalle-ries
     FormCrearRiesgoComponent,
     RiesgosComponent,
     RiesgoPageComponent,
-    DetalleRiesgoComponent
+    DetalleRiesgoComponent,
+    RolesComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     PrimeNgModule,
+    NgxPaginationModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,

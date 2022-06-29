@@ -64,7 +64,9 @@ export class LoginService {
    * @returns user
    */
   getUser() {
-    return JSON.parse(localStorage.getItem('user')!);
+    return JSON.parse(localStorage.getItem('user')!) !== null
+    ? JSON.parse(localStorage.getItem('user')!)
+    : 'No user logged';
   }
 
   /**

@@ -4,7 +4,6 @@ import {
   CanActivate,
   Router,
   RouterStateSnapshot,
-  UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ProyectoService } from 'src/app/service/proyecto-servicio.service';
@@ -26,42 +25,34 @@ export class AdminGuard implements CanActivate {
 @Injectable({
   providedIn: 'root',
 })
-export class LectorGuard implements CanActivate {
+export class ResponsableGuard implements CanActivate {
   constructor(
-    private loginService: LoginService,
     private proyectoService: ProyectoService,
+    private auth: LoginService,
     private router: Router
   ) {}
 
-  responsable: string[] = [];
-  email: string = '';
+  email!: string;
 
   canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): boolean {
-    route.parent?.paramMap.get('id');
+    route: ActivatedRouteSnapshot
+  ): Observable<boolean> {
+    return new Observable<boolean>((obs) => {
+      this.proyectoService
+        .getProyectoById(route.parent?.paramMap.get('id'))
+        .subscribe((data) => {
+          this.auth.getUser().email != null ? this.email = this.auth.getUser().email : this.email = '';
+          if (data.responsables.includes(this.email)) {
+            obs.next(true);
+          }else {
+            this.router.navigateByUrl('/proyectos');
+            obs.next(false);
+          }
 
-    this.proyectoService
-      .getProyectoById(route.parent?.paramMap.get('id'))
-      .subscribe((data) => {
-        this.responsable = data.responsables;
-      });
-
-    this.email = this.loginService.getUser().email;
-
-    console.log(this.responsable.includes(this.email));
-
-    if (this.responsable.includes(this.email)) {
-      this.email = 'correo';
-      this.responsable = [];
-      return true;
-    }
-    this.router.navigate(['/proyectos']);
-    this.email = 'correo';
-    this.responsable = [];
-    return false;
+        });
+    });
   }
+
 }
 
 @Injectable({

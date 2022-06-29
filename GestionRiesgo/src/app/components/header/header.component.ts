@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit {
 
   correo : string = "";
   photoURL: string = "";
+  rol: string = "";
   constructor(
     private loginService: LoginService,
     private router: Router,
@@ -21,6 +22,7 @@ export class HeaderComponent implements OnInit {
     if (JSON.parse(localStorage.getItem('user')!)) {
       this.correo = JSON.parse(localStorage.getItem('user')!).email;
       this.photoURL = JSON.parse(localStorage.getItem('user')!).photoURL;
+      this.rol = JSON.parse(localStorage.getItem('user')!).rol;
     }
   }
 
@@ -33,7 +35,12 @@ export class HeaderComponent implements OnInit {
 
   SignOut() {
     this.loginService.logout();
+    this.router.navigate(['/proyectos/lista']);
     window.location.reload()
+  }
+
+  adminRoles(){
+    this.router.navigate(['/roles']);
   }
 
 }

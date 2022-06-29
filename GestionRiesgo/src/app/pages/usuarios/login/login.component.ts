@@ -12,6 +12,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./login.component.css'],
   providers: [ MessageService]
 })
+
+/**
+ * Componente que muestra el formulario de login de un usuario en el sistema
+ */
 export class LoginComponent implements OnInit {
 
   public mostrar2: Boolean = false;

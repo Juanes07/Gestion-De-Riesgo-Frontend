@@ -6,6 +6,9 @@ import { UserId } from '../models/userid.model';
 @Injectable({
   providedIn: 'root',
 })
+/**
+ * Servicio para los roles de usuarios
+ */
 export class RolesService {
   url: string = environment.url;
 

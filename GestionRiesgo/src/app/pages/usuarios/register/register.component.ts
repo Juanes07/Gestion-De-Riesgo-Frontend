@@ -10,6 +10,10 @@ import {LoginService} from '../../../service/login.service';
   styleUrls: ['./register.component.css'],
   providers: [ MessageService]
 })
+
+/**
+ * Componente que muestra el formulario de registro de un usuario en el sistema
+ */
 export class RegisterComponent implements OnInit {
 
   constructor(

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RolesService } from 'src/app/service/roles.service';
 import { MessageService } from 'primeng/api';
-import { ConfirmationService } from 'primeng/api';
 import { UserId } from 'src/app/models/userid.model';
 import { RolesStatuses } from 'src/app/models/options.model';
 
@@ -19,6 +18,10 @@ import { RolesStatuses } from 'src/app/models/options.model';
   ],
   styleUrls: ['./roles.component.css'],
 })
+
+/**
+ * Componente que muestra la lista de roles
+ */
 export class RolesComponent implements OnInit {
   public displayModal: boolean = false;
   statuses = RolesStatuses;
@@ -36,13 +39,9 @@ export class RolesComponent implements OnInit {
   submitted: boolean = false;
   loading: boolean = true;
 
-  first = 0;
-  rows = 20;
-
   constructor(
     private rolesService: RolesService,
-    private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private messageService: MessageService
   ) {
     this.usuarios = new Array<UserId>();
   }
@@ -111,25 +110,4 @@ export class RolesComponent implements OnInit {
     this.submitted = false;
   }
 
-  next() {
-    this.first = this.first + this.rows;
-  }
-
-  prev() {
-    this.first = this.first - this.rows;
-  }
-
-  reset() {
-    this.first = 0;
-  }
-
-  isLastPage(): boolean {
-    return this.usuarios
-      ? this.first === this.usuarios.length - this.rows
-      : true;
-  }
-
-  isFirstPage(): boolean {
-    return this.usuarios ? this.first === 0 : true;
-  }
 }

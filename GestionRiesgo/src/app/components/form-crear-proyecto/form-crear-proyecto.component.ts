@@ -19,14 +19,6 @@ import { ProyectoService } from 'src/app/service/proyecto-servicio.service';
   styleUrls: ['./form-crear-proyecto.component.css'],
 })
 export class FormCrearProyectoComponent implements OnInit {
-  algo!: number;
-
-  proyecto: idProyectoModel = {
-    id: '62b874ba0a86251126ce9444',
-    idProyecto: this.algo,
-  };
-
-  idnumero: number = 0;
   responsable: [] = [];
 
   etiquetshtml: string = '';
@@ -57,7 +49,7 @@ export class FormCrearProyectoComponent implements OnInit {
 
   public form: FormGroup = this.formBuilder.group({
     name: ['', Validators.required],
-    email: [Validators.email],
+    email: ['', Validators.email],
     fecha: ['', [Validators.required]],
     detalle: ['', [Validators.required, Validators.minLength(5)]],
     emailLider: ['', [Validators.email]],
@@ -65,7 +57,11 @@ export class FormCrearProyectoComponent implements OnInit {
 
   guardarProyecto(proyecto: proyecto): void {
     this.cambiarFormatoDate();
-    if ((this.form.value.name && this, this.form.value.fecha)) {
+    if (
+      this.form.value.name &&
+      this.form.value.fecha &&
+      this.form.value.detalle
+    ) {
       this.services.guardarProyecto(this.formulario).subscribe({});
       this.liderHtml = '';
       this.messageService.add({
@@ -121,7 +117,6 @@ export class FormCrearProyectoComponent implements OnInit {
         detail: 'Responsable no guardado (validar formato correo) ',
       });
     }
-
   }
 
   metodoComprobarFormatoCorreo(responsable: string) {

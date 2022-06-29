@@ -23,6 +23,7 @@ import { RegisterComponent } from './pages/usuarios/register/register.component'
 import { RiesgosComponent } from './pages/riesgos/riesgos.component';
 import { RiesgoPageComponent } from './pages/riesgo-page/riesgo-page.component';
 import { DetalleRiesgoComponent } from './components/detalle-riesgo/detalle-riesgo.component';
+import { EditarProyectoComponent } from './components/editar-proyecto/editar-proyecto.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { DetalleRiesgoComponent } from './components/detalle-riesgo/detalle-ries
     FormCrearRiesgoComponent,
     RiesgosComponent,
     RiesgoPageComponent,
-    DetalleRiesgoComponent
+    DetalleRiesgoComponent,
+    EditarProyectoComponent
   ],
   imports: [
     BrowserModule,

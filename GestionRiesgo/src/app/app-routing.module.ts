@@ -17,6 +17,7 @@ import { RegisterComponent } from './pages/usuarios/register/register.component'
 import { RiesgosComponent } from './pages/riesgos/riesgos.component';
 import { RiesgoPageComponent } from './pages/riesgo-page/riesgo-page.component';
 import { DetalleRiesgoComponent } from './components/detalle-riesgo/detalle-riesgo.component';
+import { EditarProyectoComponent } from './components/editar-proyecto/editar-proyecto.component';
 
 
 const routes: Routes = [
@@ -36,6 +37,7 @@ const routes: Routes = [
     component: ProyectoPageComponent,
     children: [
       { path: 'detalle', component: DetalleProyectoComponent },
+      { path:'editar',component: EditarProyectoComponent},
       // { path: 'edit', component: EditProyectoComponent },
       { path: 'riesgos', component: RiesgosComponent,
         children: [

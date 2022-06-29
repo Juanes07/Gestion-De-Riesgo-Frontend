@@ -1,5 +1,10 @@
 <div class="m-5 p-4 border-solid border-200 border-round-md" *ngIf="!isLoading">
-  <span class="font-medium">ID: {{ proyecto.id }}</span>
+
+  <div class="flex justify-content-between">
+    <span class="font-medium">ID: {{ proyecto.id }}</span>
+    <button *ngIf="isDeleteable" pButton class="p-button-danger p-button-sm" icon="pi pi-trash" label="Eliminar" (click)="deleteProyecto()"></button>
+  </div>
+
   <h1 class="text-center">{{ proyecto.nombre.toUpperCase() }}</h1>
   <div class="text-center">
     <b>Estado: </b>

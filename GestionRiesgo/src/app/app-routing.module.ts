@@ -52,7 +52,7 @@ const routes: Routes = [
         component: RiesgoPageComponent,
         children: [
           { path: 'detalle', component: DetalleRiesgoComponent },
-          // { path: 'edit', component: EditRiesgoComponent, canActivate: [MantenedorGuard] },
+          // { path: 'editar', component: EditarRiesgoComponent, canActivate: [MantenedorGuard] },
           { path: '**', pathMatch: 'full', redirectTo: 'detalle' },
         ]
       },

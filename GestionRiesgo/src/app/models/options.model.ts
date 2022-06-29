@@ -54,6 +54,6 @@ export const ImpactoDeOcurrenciaDelRiesgo=[
 
 export const RolesStatuses = [
   { label: 'lector', value: 'lector' },
+  { label: 'lider de proyecto', value: 'lider de proyecto' },
   { label: 'mantenedor', value: 'mantenedor' },
-  { label: 'administrador', value: 'administrador' }
 ]

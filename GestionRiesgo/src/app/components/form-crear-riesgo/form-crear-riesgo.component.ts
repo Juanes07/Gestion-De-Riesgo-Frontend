@@ -252,8 +252,4 @@ export class FormCrearRiesgoComponent implements OnInit {
       this.formuRiesgo.valorCriticidad = 3;
     }
   }
-
-
-
-
 }

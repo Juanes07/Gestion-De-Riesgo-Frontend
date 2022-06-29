@@ -30,7 +30,7 @@ const routes: Routes = [
     component: ProyectosComponent,
     children: [
       { path: 'lista', component: TablaProyectosComponent },
-      { path: 'crear', component: FormCrearProyectoComponent },
+      { path: 'crear', component: FormCrearProyectoComponent, canActivate: [AdminGuard] },
       { path: '**', pathMatch: 'full', redirectTo: 'lista' },
     ],
   },
@@ -39,7 +39,7 @@ const routes: Routes = [
     component: ProyectoPageComponent,
     children: [
       { path: 'detalle', component: DetalleProyectoComponent, canActivate: [ResponsableGuard] },
-      { path:'editar',component: EditarProyectoComponent },
+      { path:'editar',component: EditarProyectoComponent, canActivate:[MantenedorGuard] },
       { path: 'riesgos', component: RiesgosComponent, canActivate: [ResponsableGuard],
         children: [
           { path: 'lista', component: TablaRiesgosComponent },
@@ -52,11 +52,11 @@ const routes: Routes = [
         component: RiesgoPageComponent,
         children: [
           { path: 'detalle', component: DetalleRiesgoComponent },
-          // { path: 'edit', component: EditRiesgoComponent },
+          // { path: 'edit', component: EditRiesgoComponent, canActivate: [MantenedorGuard] },
           { path: '**', pathMatch: 'full', redirectTo: 'detalle' },
         ]
       },
-      { path: 'matriz', component: MatrizRiesgoComponent },
+      { path: 'matriz', component: MatrizRiesgoComponent , canActivate: [ResponsableGuard]},
       { path: '**', pathMatch: 'full', redirectTo: 'detalle' },
     ],
   },

@@ -25,7 +25,7 @@ import { RiesgoPageComponent } from './pages/riesgo-page/riesgo-page.component';
 import { DetalleRiesgoComponent } from './components/detalle-riesgo/detalle-riesgo.component';
 import { RolesComponent } from './pages/usuarios/roles/roles.component';
 import { NgxPaginationModule } from 'ngx-pagination';
-
+import { EditarProyectoComponent } from './components/editar-proyecto/editar-proyecto.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +44,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     RiesgosComponent,
     RiesgoPageComponent,
     DetalleRiesgoComponent,
-    RolesComponent
+    RolesComponent,
+    EditarProyectoComponent
   ],
   imports: [
     BrowserModule,

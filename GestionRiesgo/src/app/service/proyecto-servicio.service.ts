@@ -31,23 +31,30 @@ export class ProyectoService {
     return this.http.get<proyecto>(direccion);
   }
 
-  getIdProyecto(id:string): Observable<idProyectoModel>{
-    let direccion = this.url + 'obtenerId/' + id
-    return this.http.get<idProyectoModel>(direccion);
-
-  }
-
-  actualizarSecuenciaIdProyecto(modelo: idProyectoModel): Observable<idProyectoModel> {
-    let direccion = this.url + 'crear'
-    return this.http.post<idProyectoModel>(direccion, modelo,{
-      responseType: 'text' as 'json'
-    })
-
-  }
 
   getRiesgosByProyectoId(id:any): Observable<riesgo[]> {
     let direccion = this.url + 'obtenerRiesgoPorProyecto/' + id;
     return this.http.get<riesgo[]>(direccion);
+  }
+
+
+  guardarRiesgo(riesgo:riesgo): Observable<riesgo>{
+    let direccion = this.url + 'crearRiesgo'
+    return this.http.post<riesgo>(direccion,riesgo, {
+      responseType: 'text' as 'json',
+    })
+  }
+
+  getRiesgoById(id:any): Observable<riesgo> {
+    let direccion = this.url + 'obtenerRiesgo/' + id;
+    return this.http.get<riesgo>(direccion);
+  }
+
+  actualizarProyecto(proyeto:proyecto): Observable<any>{
+    let direccion = this.url + 'actualizarProyecto/' + proyeto.id
+    return this.http.put<any>(direccion, proyeto,{
+      responseType: 'text' as 'json',
+    })
   }
 
 }

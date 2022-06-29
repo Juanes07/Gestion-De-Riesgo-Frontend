@@ -1,6 +1,7 @@
 export interface riesgo{
   id:number | null;
-  idProyecto: number | null;
+  idProyecto: number;
+  creadorRiesgo: string;
   nombreProyecto: string;
   nombreRiesgo: string;
   fechaDeteccion:string;
@@ -15,9 +16,9 @@ export interface riesgo{
   probabilidadDeOcurrenciaDelRiesgo:number;
   impactoDeOcurrenciaDelRiesgo:number;
   descripcionPlanDeMitigacion:string;
-  emailsPlanMitigacion: string[];
+  emailsPlanDeMitigacion: string[];
   descripcionPlanDeContingencia:string;
-  emailsPlanContingencia:string[];
+  emailsPlanDeContingencia:string[];
   valorCriticidad:number;
   estadoDeVidaDelRiesgo:string;
 }

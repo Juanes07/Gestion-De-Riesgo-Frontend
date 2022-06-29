@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SetOptions } from '@angular/fire/compat/firestore';
 import {
   FormBuilder,
   FormControl,
@@ -16,6 +15,7 @@ import {
   TipoRiesgos,
   ProbabilidadOcurriencia,
   ImpactoDeOcurrenciaDelRiesgo,
+  RiesgoStatuses,
 } from 'src/app/models/options.model';
 import * as moment from 'moment';
 
@@ -32,15 +32,16 @@ export class FormCrearRiesgoComponent implements OnInit {
 
 
   formuRiesgo: riesgo = {
-    id: null,
-    idProyecto: null,
+    id: 0,
+    idProyecto: 0,
+    creadorRiesgo: '',
     nombreProyecto: '',
     nombreRiesgo: '',
     fechaDeteccion: '',
     fechaCierre: '',
     etiquetas: [],
     descripcionRiesgo: '',
-    estadoRiesgo: 'Activo',
+    estadoRiesgo: '',
     audiencia: '',
     categoria: '',
     tipoRiesgo: '',
@@ -48,11 +49,11 @@ export class FormCrearRiesgoComponent implements OnInit {
     probabilidadDeOcurrenciaDelRiesgo: 1,
     impactoDeOcurrenciaDelRiesgo: 1,
     descripcionPlanDeMitigacion: '',
-    emailsPlanMitigacion: [],
+    emailsPlanDeMitigacion: [],
     descripcionPlanDeContingencia: '',
-    emailsPlanContingencia: [],
+    emailsPlanDeContingencia: [],
     valorCriticidad: 1,
-    estadoDeVidaDelRiesgo: '',
+    estadoDeVidaDelRiesgo: 'Activo',
   };
 
   /**
@@ -63,6 +64,7 @@ export class FormCrearRiesgoComponent implements OnInit {
   tipoRiesgos = TipoRiesgos;
   ocurrenciariesgo = ProbabilidadOcurriencia;
   impactoDeOcurrenciaDelRiesgo = ImpactoDeOcurrenciaDelRiesgo;
+  estadoRiesgo = RiesgoStatuses;
 
   /**
    * formulario validacion
@@ -76,6 +78,7 @@ export class FormCrearRiesgoComponent implements OnInit {
       Validators.minLength(5),
       Validators.maxLength(699),
     ]),
+    estadoRiesgo: new FormControl('', [Validators.required]),
     audiencia: new FormControl('', Validators.required),
     categoria: new FormControl('', Validators.required),
     TipoRiesgos: new FormControl('', Validators.required),
@@ -84,6 +87,11 @@ export class FormCrearRiesgoComponent implements OnInit {
       Validators.maxLength(499),
     ]),
     descripcionPlanDeMitigacion: new FormControl('', [
+      Validators.required,
+      Validators.minLength(5),
+      Validators.maxLength(1000),
+    ]),
+    descripcionPlanDeContingencia: new FormControl('', [
       Validators.required,
       Validators.minLength(5),
       Validators.maxLength(1000),
@@ -102,10 +110,11 @@ export class FormCrearRiesgoComponent implements OnInit {
   ngOnInit(): void {
     this.route.parent?.parent?.params.subscribe((params) => {
       this.services.getProyectoById(params['id']).subscribe((data) => {
-        this.formuRiesgo.id = data.id;
+        this.formuRiesgo.idProyecto = data.id;
         this.formuRiesgo.nombreProyecto = data.nombre;
       });
     });
+    console.log(this.formuRiesgo.valorCriticidad)
   }
 
   /**
@@ -122,7 +131,7 @@ export class FormCrearRiesgoComponent implements OnInit {
    */
   agregarResponsableMitigacion(emailPlanMitigacion: string): void {
     if (this.metodoComprobarFormatoCorreo(emailPlanMitigacion)) {
-      this.formuRiesgo.emailsPlanMitigacion.push(emailPlanMitigacion)
+      this.formuRiesgo.emailsPlanDeMitigacion.push(emailPlanMitigacion);
       this.messageService.add({
         severity: 'succes',
         summary: '!Exitoso¡',
@@ -135,8 +144,10 @@ export class FormCrearRiesgoComponent implements OnInit {
         detail: 'Responsable no guardado (validar formato correo) ',
       });
     }
-  }
 
+    this.responsableMitigacionHtml = '';
+    console.log(this.formuRiesgo.emailsPlanDeMitigacion);
+  }
 
   /**
    * Metodo para agregar dentro del array de responsables contingencia
@@ -144,7 +155,7 @@ export class FormCrearRiesgoComponent implements OnInit {
    */
   agregarResponsableContingencia(emailPlanMitigacion: string): void {
     if (this.metodoComprobarFormatoCorreo(emailPlanMitigacion)) {
-      this.formuRiesgo.emailsPlanContingencia.push(emailPlanMitigacion)
+      this.formuRiesgo.emailsPlanDeContingencia.push(emailPlanMitigacion);
       this.messageService.add({
         severity: 'succes',
         summary: '!Exitoso¡',
@@ -157,6 +168,7 @@ export class FormCrearRiesgoComponent implements OnInit {
         detail: 'Responsable no guardado (validar formato correo) ',
       });
     }
+    this.responsableContingenciaHtml = '';
   }
 
   /**
@@ -164,34 +176,40 @@ export class FormCrearRiesgoComponent implements OnInit {
    * @param responsable string
    * @returns responsable verificado formato correo
    */
-  metodoComprobarFormatoCorreo(responsable: string){
-    let result  = new RegExp("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
+  metodoComprobarFormatoCorreo(responsable: string) {
+    let result = new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$');
     let otra = result.test(responsable);
-    return otra
+    return otra;
   }
 
-  // guardarProyecto(reisgo: riesgo): void {
-  //   this.cambiarFormatoDate();
-  //   if (this.formuRiesgo.value.name && this,this.formuRiesgo.value.fecha) {
-  //     .subscribe((data) => {
-  //       this.services.guardarProyecto(this.formuRiesgo).subscribe({
-  //       });
-
-  //     })
-  //     this.messageService.add({
-  //       severity: 'success',
-  //       summary: '!Exitoso¡',
-  //       detail: 'Proyecto Guardado exitosamente',
-  //     });
-  //   } else {
-  //     this.messageService.add({
-  //       severity: 'error',
-  //       summary: 'Usuarios Registrado',
-  //       detail: '(campos-vacios) validar campos requeridos',
-  //     });
-  //   }
-  //   console.log(this.formuRiesgo);
-  // }
+  guardarRiesgo(reisgo: riesgo): void {
+    this.cambiarFormatoDate();
+    if (
+      this.formRiesgo.value.name &&
+      this.formRiesgo.value.fecha &&
+      this.formRiesgo.value.detalle &&
+      this.formRiesgo.value.estadoRiesgo &&
+      this.formRiesgo.value.audiencia &&
+      this.formRiesgo.value.categoria &&
+      this.formRiesgo.value.TipoRiesgos &&
+      this.formRiesgo.value.DetalleTipoRiesgo &&
+      this.formRiesgo.value.descripcionPlanDeMitigacion &&
+      this.formRiesgo.value.descripcionPlanDeContingencia
+    ) {
+      this.services.guardarRiesgo(this.formuRiesgo).subscribe({});
+      this.messageService.add({
+        severity: 'success',
+        summary: '!Exitoso¡',
+        detail: 'Proyecto Guardado exitosamente',
+      });
+    } else {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Usuarios Registrado',
+        detail: '(campos-vacios) validar campos requeridos',
+      });
+    }
+  }
 
   cambiarFormatoDate() {
     const date = this.formuRiesgo.fechaDeteccion;
@@ -200,12 +218,42 @@ export class FormCrearRiesgoComponent implements OnInit {
     this.formuRiesgo.fechaDeteccion = myDate;
     const date2 = this.formuRiesgo.fechaCierre;
     const myDate2 = moment(date2, 'YYYYMMDDTHHmmss').format(myFormat);
-    if(myDate2 === 'Invalid date'){
-      this.formuRiesgo.fechaCierre = ''
+    if (myDate2 === 'Invalid date') {
+      this.formuRiesgo.fechaCierre = '';
     } else {
       this.formuRiesgo.fechaCierre = myDate2;
     }
   }
+
+
+  probHtml: number = 1;
+  impactHtml: number = 1;
+
+
+
+  actualizarValorCriticidad(event: Event){
+
+    let probabilidad = this.formuRiesgo.probabilidadDeOcurrenciaDelRiesgo;
+    let impacto = this.formuRiesgo.impactoDeOcurrenciaDelRiesgo;
+    let resultado = probabilidad * impacto;
+    if(resultado < 5){
+      if(probabilidad === 1 && impacto === 4){
+        this.formuRiesgo.valorCriticidad = 2;
+      } else{
+        this.formuRiesgo.valorCriticidad = 1
+      }
+    } else if(resultado >=5 && resultado <=10){
+      if(probabilidad === 2 && impacto === 5){
+        this.formuRiesgo.valorCriticidad = 3
+      } else {
+        this.formuRiesgo.valorCriticidad = 2;
+      }
+    } else if (resultado >=10){
+      this.formuRiesgo.valorCriticidad = 3;
+    }
+  }
+
+
 
 
 }

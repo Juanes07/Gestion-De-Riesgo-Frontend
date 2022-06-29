@@ -15,7 +15,7 @@ import {
   TipoRiesgos,
   ProbabilidadOcurriencia,
   ImpactoDeOcurrenciaDelRiesgo,
-  RiesgoStatuses
+  RiesgoStatuses,
 } from 'src/app/models/options.model';
 import * as moment from 'moment';
 
@@ -29,7 +29,6 @@ export class FormCrearRiesgoComponent implements OnInit {
 
   responsableMitigacionHtml: string = '';
   responsableContingenciaHtml: string = '';
-
 
   formuRiesgo: riesgo = {
     id: 0,
@@ -49,9 +48,9 @@ export class FormCrearRiesgoComponent implements OnInit {
     probabilidadDeOcurrenciaDelRiesgo: 1,
     impactoDeOcurrenciaDelRiesgo: 1,
     descripcionPlanDeMitigacion: '',
-    emailsPlanMitigacion: [],
+    emailsPlanDeMitigacion: [],
     descripcionPlanDeContingencia: '',
-    emailsPlanContingencia: [],
+    emailsPlanDeContingencia: [],
     valorCriticidad: 1,
     estadoDeVidaDelRiesgo: 'Activo',
   };
@@ -64,7 +63,7 @@ export class FormCrearRiesgoComponent implements OnInit {
   tipoRiesgos = TipoRiesgos;
   ocurrenciariesgo = ProbabilidadOcurriencia;
   impactoDeOcurrenciaDelRiesgo = ImpactoDeOcurrenciaDelRiesgo;
-  estadoVidaRiesgo = RiesgoStatuses
+  estadoRiesgo = RiesgoStatuses;
 
   /**
    * formulario validacion
@@ -78,7 +77,7 @@ export class FormCrearRiesgoComponent implements OnInit {
       Validators.minLength(5),
       Validators.maxLength(699),
     ]),
-    estadoRiesgo: new FormControl('',[Validators.required]),
+    estadoRiesgo: new FormControl('', [Validators.required]),
     audiencia: new FormControl('', Validators.required),
     categoria: new FormControl('', Validators.required),
     TipoRiesgos: new FormControl('', Validators.required),
@@ -91,7 +90,7 @@ export class FormCrearRiesgoComponent implements OnInit {
       Validators.minLength(5),
       Validators.maxLength(1000),
     ]),
-    descripcionPlanContingencia: new FormControl('', [
+    descripcionPlanDeContingencia: new FormControl('', [
       Validators.required,
       Validators.minLength(5),
       Validators.maxLength(1000),
@@ -130,7 +129,7 @@ export class FormCrearRiesgoComponent implements OnInit {
    */
   agregarResponsableMitigacion(emailPlanMitigacion: string): void {
     if (this.metodoComprobarFormatoCorreo(emailPlanMitigacion)) {
-      this.formuRiesgo.emailsPlanMitigacion.push(emailPlanMitigacion)
+      this.formuRiesgo.emailsPlanDeMitigacion.push(emailPlanMitigacion);
       this.messageService.add({
         severity: 'succes',
         summary: '!Exitoso¡',
@@ -145,9 +144,8 @@ export class FormCrearRiesgoComponent implements OnInit {
     }
 
     this.responsableMitigacionHtml = '';
-    console.log(this.formuRiesgo.emailsPlanMitigacion)
+    console.log(this.formuRiesgo.emailsPlanDeMitigacion);
   }
-
 
   /**
    * Metodo para agregar dentro del array de responsables contingencia
@@ -155,7 +153,7 @@ export class FormCrearRiesgoComponent implements OnInit {
    */
   agregarResponsableContingencia(emailPlanMitigacion: string): void {
     if (this.metodoComprobarFormatoCorreo(emailPlanMitigacion)) {
-      this.formuRiesgo.emailsPlanContingencia.push(emailPlanMitigacion)
+      this.formuRiesgo.emailsPlanDeContingencia.push(emailPlanMitigacion);
       this.messageService.add({
         severity: 'succes',
         summary: '!Exitoso¡',
@@ -176,18 +174,27 @@ export class FormCrearRiesgoComponent implements OnInit {
    * @param responsable string
    * @returns responsable verificado formato correo
    */
-  metodoComprobarFormatoCorreo(responsable: string){
-    let result  = new RegExp("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
+  metodoComprobarFormatoCorreo(responsable: string) {
+    let result = new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$');
     let otra = result.test(responsable);
-    return otra
+    return otra;
   }
 
   guardarRiesgo(reisgo: riesgo): void {
     this.cambiarFormatoDate();
-    if (this.formRiesgo.value.name && this.formRiesgo.value.fecha) {
-        this.services.guardarRiesgo(this.formuRiesgo).subscribe({
-      })
-      console.log(this.formuRiesgo);
+    if (
+      this.formRiesgo.value.name &&
+      this.formRiesgo.value.fecha &&
+      this.formRiesgo.value.detalle &&
+      this.formRiesgo.value.estadoRiesgo &&
+      this.formRiesgo.value.audiencia &&
+      this.formRiesgo.value.categoria &&
+      this.formRiesgo.value.TipoRiesgos &&
+      this.formRiesgo.value.DetalleTipoRiesgo &&
+      this.formRiesgo.value.descripcionPlanDeMitigacion &&
+      this.formRiesgo.value.descripcionPlanDeContingencia
+    ) {
+      this.services.guardarRiesgo(this.formuRiesgo).subscribe({});
       this.messageService.add({
         severity: 'success',
         summary: '!Exitoso¡',
@@ -200,7 +207,6 @@ export class FormCrearRiesgoComponent implements OnInit {
         detail: '(campos-vacios) validar campos requeridos',
       });
     }
-
   }
 
   cambiarFormatoDate() {
@@ -210,12 +216,10 @@ export class FormCrearRiesgoComponent implements OnInit {
     this.formuRiesgo.fechaDeteccion = myDate;
     const date2 = this.formuRiesgo.fechaCierre;
     const myDate2 = moment(date2, 'YYYYMMDDTHHmmss').format(myFormat);
-    if(myDate2 === 'Invalid date'){
-      this.formuRiesgo.fechaCierre = ''
+    if (myDate2 === 'Invalid date') {
+      this.formuRiesgo.fechaCierre = '';
     } else {
       this.formuRiesgo.fechaCierre = myDate2;
     }
   }
-
-
 }

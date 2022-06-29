@@ -29,23 +29,28 @@
           formControlName="name"
           [(ngModel)]="formuRiesgo.nombreRiesgo"
         />
-        <label>Fecha Deteccion del Riesgo (opcional)</label>
+        <label>Fecha Deteccion del Riesgo </label>
         <p-calendar
           inputId="basic"
           [(ngModel)]="formuRiesgo.fechaDeteccion"
           formControlName="fecha"
           dateFormat="yy/mm/dd"
-          [readonlyInput]="true"
         ></p-calendar>
+        <div
+          class="nombre-requerido mt-2"
+          *ngIf="formuRiesgo.fechaDeteccion == ''"
+        >
+          <p-message severity="error" text="Campo es Requerido"></p-message>
+        </div>
         <br />
-        <label>Fecha de Cierre del Riesgo</label>
+        <label>Fecha de Cierre del Riesgo (opcional)</label>
         <p-calendar
           inputId="basic"
           [(ngModel)]="formuRiesgo.fechaCierre"
           [ngModelOptions]="{ standalone: true }"
-          [readonlyInput]="true"
           dateFormat="yy/mm/dd"
         ></p-calendar>
+
         <br />
         <label>Etiquetas</label>
         <input
@@ -86,13 +91,20 @@
 
         <label>Estado de Riesgo</label>
         <p-dropdown
-          [options]="estadoVidaRiesgo"
-          formControlName="audiencia"
+          [options]="estadoRiesgo"
+          formControlName="estadoRiesgo"
           [(ngModel)]="formuRiesgo.estadoRiesgo"
           placeholder="Estado De Riesgo"
+          [required]="true"
         ></p-dropdown>
         <br />
-
+        <div
+          class="nombre-requerido mt-1 mb-2"
+          *ngIf="formuRiesgo.estadoRiesgo == ''"
+        >
+          <p-message severity="error" text="Campo es Requerido"></p-message>
+        </div>
+        <br />
         <label>Audiencia</label>
         <p-dropdown
           [options]="audiencias"
@@ -101,7 +113,10 @@
           placeholder="Tipo De Audiencia"
         ></p-dropdown>
         <br />
-
+        <div class="nombre-requerido" *ngIf="formuRiesgo.audiencia == ''">
+          <p-message severity="error" text="Campo es Requerido"></p-message>
+        </div>
+        <br />
         <label>Categoria</label>
         <p-dropdown
           [options]="categorias"
@@ -109,6 +124,10 @@
           [(ngModel)]="formuRiesgo.categoria"
           placeholder="Categoria del Riesgo"
         ></p-dropdown>
+        <br />
+        <div class="nombre-requerido" *ngIf="formuRiesgo.categoria == ''">
+          <p-message severity="error" text="Campo es Requerido"></p-message>
+        </div>
         <br />
 
         <label>Tipo de Riesgo</label>
@@ -119,6 +138,9 @@
           placeholder="Categoria del Riesgo"
         ></p-dropdown>
         <br />
+        <div class="nombre-requerido" *ngIf="formuRiesgo.tipoRiesgo == ''">
+          <p-message severity="error" text="Campo es Requerido"></p-message>
+        </div>
 
         <label>Descripcion del Tipo de Riesgo</label>
         <textarea
@@ -167,45 +189,43 @@
           ></p-message>
         </div>
         <label>Responsables Plan de Mitigacion(correo)</label>
-      <br />
-      <input
-        type="email"
-        pInputText
-        [(ngModel)]="responsableMitigacionHtml"
-        placeholder="Correo del responsable"
-        formControlName="emailsPlanMitigacion"
-        pKeyFilter="email"
-      />
-      <br />
-      <br />
-      <p-button
-        class="mt-2"
-        (click)="agregarResponsableMitigacion(responsableMitigacionHtml)"
-      >
-        Agregar Responsable
-      </p-button>
+        <br />
+        <input
+          type="email"
+          pInputText
+          [(ngModel)]="responsableMitigacionHtml"
+          placeholder="Correo del responsable"
+          formControlName="emailsPlanMitigacion"
+          pKeyFilter="email"
+        />
+        <br />
+        <br />
+        <p-button
+          class="mt-2"
+          (click)="agregarResponsableMitigacion(responsableMitigacionHtml)"
+        >
+          Agregar Responsable
+        </p-button>
 
         <div class="mt-2 mb-3">
           <p-chip
             styleClass="mr-2 custom-chip"
             class="etiquetas"
-            *ngFor="let emails of formuRiesgo.emailsPlanMitigacion; index as i"
+            *ngFor="let emails of formuRiesgo.emailsPlanDeMitigacion; index as i"
           >
-            {{ formuRiesgo.emailsPlanMitigacion[i] }}
+            {{ formuRiesgo.emailsPlanDeMitigacion[i] }}
           </p-chip>
         </div>
-
-
 
         <label>Plan de Contingencia</label>
         <textarea
           pInputTextarea
-          formControlName="descripcionPlanContingencia"
+          formControlName="descripcionPlanDeContingencia"
           [(ngModel)]="formuRiesgo.descripcionPlanDeContingencia"
         ></textarea>
         <div
           class="nombre-requerido mb-5"
-          *ngIf="formuRiesgo.descripcionPlanDeContingencia == ''"
+          *ngIf="formuRiesgo.descripcionPlanDeContingencia.length < 5"
         >
           <p-message
             severity="error"
@@ -213,38 +233,39 @@
           ></p-message>
         </div>
         <label>Responsables Plan de Contingencia(correo)</label>
-      <br />
-      <input
-        type="email"
-        pInputText
-        [(ngModel)]="responsableContingenciaHtml"
-        placeholder="Correo del responsable"
-        formControlName="emailsPlanContingencia"
-        pKeyFilter="email"
-      />
-      <br />
-      <br />
-      <p-button
-        class="mt-2"
-        (click)="agregarResponsableContingencia(responsableContingenciaHtml)"
-      >
-        Agregar Responsable
-      </p-button>
+        <br />
+        <input
+          type="email"
+          pInputText
+          [(ngModel)]="responsableContingenciaHtml"
+          placeholder="Correo del responsable"
+          formControlName="emailsPlanContingencia"
+          pKeyFilter="email"
+        />
+        <br />
+        <br />
+        <p-button
+          class="mt-2"
+          (click)="agregarResponsableContingencia(responsableContingenciaHtml)"
+        >
+          Agregar Responsable
+        </p-button>
 
         <div class="mt-2 mb-3">
           <p-chip
             styleClass="mr-2 custom-chip"
             class="etiquetas"
-            *ngFor="let emails of formuRiesgo.emailsPlanContingencia; index as i"
+            *ngFor="
+              let emails of formuRiesgo.emailsPlanDeContingencia;
+              index as i
+            "
           >
-            {{ formuRiesgo.emailsPlanContingencia[i] }}
+            {{ formuRiesgo.emailsPlanDeContingencia[i] }}
           </p-chip>
         </div>
-
-
+        <p-button (click)="guardarRiesgo(formuRiesgo)">Guardar Riesgo</p-button>
       </form>
-
     </div>
-    <p-button (click)="guardarRiesgo(formuRiesgo)">Guardar Riesgo</p-button>
+
   </div>
 </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { LoginService } from 'src/app/service/login.service';
 
 @Component({
   selector: 'app-proyectos',
@@ -23,7 +24,13 @@ export class ProyectosComponent implements OnInit {
 
   activeItem = this.items[0];
 
-  constructor() {}
+  constructor(
+    private auth: LoginService
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    if(this.auth.getUser().rol != 'administrador'){
+      this.items[1].visible = false
+    }
+  }
 }

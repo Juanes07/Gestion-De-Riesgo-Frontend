@@ -30,7 +30,7 @@ export class ProyectosComponent implements OnInit {
 
   ngOnInit() {
     if(this.auth.getUser().rol != 'administrador'){
-      this.items[1].visible = false
+      this.items[1].disabled = true
     }
   }
 }

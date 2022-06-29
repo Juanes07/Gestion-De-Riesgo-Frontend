@@ -1,5 +1,9 @@
 <div class="m-5 p-4 border-solid border-200 border-round-md" *ngIf="!isLoading">
-  <span class="font-medium">ID: {{ riesgo.id }}</span>
+  <div class="flex justify-content-between">
+    <span class="font-medium">ID: {{ riesgo.id }}</span>
+    <button [routerLink]="['../../../riesgos']" (click)="deleteRiesgo()" *ngIf="isDeleteable" pButton
+      class="p-button-danger p-button-sm" icon="pi pi-trash" label="Eliminar"></button>
+  </div>
   <div class="text-center">
     <h1>{{ riesgo.nombreRiesgo.toUpperCase() }}</h1>
     <p>
@@ -10,15 +14,22 @@
     </p>
     <p>
       <b>Estado: </b>
-      <span
-        [ngClass]="{
+      <span [ngClass]="{
           abierto: riesgo.estadoRiesgo === 'Abierto',
           mitigado: riesgo.estadoRiesgo === 'Mitigado',
           cerrado: riesgo.estadoRiesgo === 'Cerrado',
           problema: riesgo.estadoRiesgo === 'Problema'
-        }"
-      >
+        }">
         {{ riesgo.estadoRiesgo }}
+      </span>
+    </p>
+    <p>
+      <b>Estado de vida: </b>
+      <span [ngClass]="{
+        activo: riesgo.estadoDeVidaDelRiesgo === 'Activo',
+        inactivo: riesgo.estadoDeVidaDelRiesgo === 'Inactivo'
+      }">
+        {{riesgo.estadoDeVidaDelRiesgo}}
       </span>
     </p>
   </div>
@@ -55,8 +66,7 @@
   <!-- Criticidad -->
   <p-panel header="Criticidad">
     <p>
-      <b>Probabilidad de Ocurrencia: </b
-      >{{ riesgo.probabilidadDeOcurrenciaDelRiesgo }}
+      <b>Probabilidad de Ocurrencia: </b>{{ riesgo.probabilidadDeOcurrenciaDelRiesgo }}
     </p>
     <p>
       <b>Impacto de Ocurrencia: </b>{{ riesgo.impactoDeOcurrenciaDelRiesgo }}

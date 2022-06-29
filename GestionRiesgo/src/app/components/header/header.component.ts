@@ -33,8 +33,8 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  SignOut() {
-    this.loginService.logout();
+  async SignOut() {
+    await this.loginService.logout();
     this.router.navigate(['/proyectos/lista']);
     window.location.reload()
   }

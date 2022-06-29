@@ -30,6 +30,7 @@ export class FormCrearRiesgoComponent implements OnInit {
   responsableMitigacionHtml: string = '';
   responsableContingenciaHtml: string = '';
 
+
   formuRiesgo: riesgo = {
     id: 0,
     idProyecto: 0,
@@ -113,6 +114,7 @@ export class FormCrearRiesgoComponent implements OnInit {
         this.formuRiesgo.nombreProyecto = data.nombre;
       });
     });
+    console.log(this.formuRiesgo.valorCriticidad)
   }
 
   /**
@@ -222,4 +224,36 @@ export class FormCrearRiesgoComponent implements OnInit {
       this.formuRiesgo.fechaCierre = myDate2;
     }
   }
+
+
+  probHtml: number = 1;
+  impactHtml: number = 1;
+
+
+
+  actualizarValorCriticidad(event: Event){
+
+    let probabilidad = this.formuRiesgo.probabilidadDeOcurrenciaDelRiesgo;
+    let impacto = this.formuRiesgo.impactoDeOcurrenciaDelRiesgo;
+    let resultado = probabilidad * impacto;
+    if(resultado < 5){
+      if(probabilidad === 1 && impacto === 4){
+        this.formuRiesgo.valorCriticidad = 2;
+      } else{
+        this.formuRiesgo.valorCriticidad = 1
+      }
+    } else if(resultado >=5 && resultado <=10){
+      if(probabilidad === 2 && impacto === 5){
+        this.formuRiesgo.valorCriticidad = 3
+      } else {
+        this.formuRiesgo.valorCriticidad = 2;
+      }
+    } else if (resultado >=10){
+      this.formuRiesgo.valorCriticidad = 3;
+    }
+  }
+
+
+
+
 }

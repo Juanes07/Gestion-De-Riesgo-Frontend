@@ -58,5 +58,9 @@ export class ProyectoService {
     })
   }
 
+  getRiesgoById(id:any): Observable<riesgo> {
+    let direccion = this.url + 'obtenerRiesgo/' + id;
+    return this.http.get<riesgo>(direccion);
+  }
 
 }

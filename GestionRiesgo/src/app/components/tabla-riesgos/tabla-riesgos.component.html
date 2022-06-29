@@ -1,7 +1,4 @@
 <div>
-  <!--
-    TODO: correo del creador del riesgo,
-   -->
   <p-table [value]="riesgos" [loading]="loading" [paginator]="true" [rows]="30" styleClass="p-datatable-striped"
     [rowHover]="true" [globalFilterFields]="[
       'id',
@@ -10,8 +7,9 @@
       'fechaCierre',
       'audiencia',
       'categoria',
-      'estado',
-      'estadoVida'
+      'creadorRiesgo',
+      'estadoRiesgo',
+      'estadoDeVidaDelRiesgo'
     ]" sortField="id">
     <!-- Encabezado -->
     <ng-template pTemplate="header">
@@ -34,11 +32,14 @@
         <th pSortableColumn="categoria">
           CATEGORIA <p-sortIcon field="categoria"></p-sortIcon>
         </th>
+        <th pSortableColumn="creadorRiesgo">
+          CREADOR <p-sortIcon field="creadorRiesgo"></p-sortIcon>
+        </th>
         <th pSortableColumn="estadoRiesgo">
           ESTADO <p-sortIcon field="estadoRiesgo"></p-sortIcon>
         </th>
-        <th pSortableColumn="estadoVida">
-          ESTADO DE VIDA <p-sortIcon field="estadoVida"></p-sortIcon>
+        <th pSortableColumn="estadoDeVidaDelRiesgo">
+          ESTADO DE VIDA <p-sortIcon field="estadoDeVidaDelRiesgo"></p-sortIcon>
         </th>
       </tr>
       <!-- Header for Filters -->
@@ -90,7 +91,11 @@
           </p-columnFilter>
         </th>
         <th>
-          <p-columnFilter type="text" field="estado" matchMode="equals" [showMenu]="false">
+          <p-columnFilter type="text" field="creadorRiesgo" matchMode="contains" placeholder="Filtrar Por Creador">
+          </p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="estadoRiesgo" matchMode="equals" [showMenu]="false">
             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
               <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Todos"
                 [showClear]="true">
@@ -104,7 +109,7 @@
           </p-columnFilter>
         </th>
         <th>
-          <p-columnFilter type="text" field="estadoVida" matchMode="equals" [showMenu]="false">
+          <p-columnFilter type="text" field="estadoDeVidaDelRiesgo" matchMode="equals" [showMenu]="false">
             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
               <p-dropdown [ngModel]="value" [options]="lifeStatuses" (onChange)="filter($event.value)" placeholder="Todos"
                 [showClear]="true">
@@ -130,6 +135,7 @@
         <td>{{ riesgo.fechaCierre }}</td>
         <td>{{ riesgo.audiencia }}</td>
         <td>{{ riesgo.categoria }}</td>
+        <td>{{ riesgo.creadorRiesgo }}</td>
         <td>{{ riesgo.estadoRiesgo }}</td>
         <td>{{ riesgo.estadoDeVidaDelRiesgo }}</td>
       </tr>
@@ -137,7 +143,7 @@
     <!-- Show if not found risks -->
     <ng-template pTemplate="emptymessage">
       <tr>
-        <td colspan="8">No risks found.</td>
+        <td colspan="9">No risks found.</td>
       </tr>
     </ng-template>
   </p-table>

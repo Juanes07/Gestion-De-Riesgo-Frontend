@@ -51,3 +51,9 @@ export const ImpactoDeOcurrenciaDelRiesgo=[
   {label: '4: Impacto en la verificacion de la solucion', value: 4},
   {label: '5: Impacto en la entrega', value: 5},
 ]
+
+export const RolesStatuses = [
+  { label: 'lector', value: 'lector' },
+  { label: 'lider de proyecto', value: 'lider de proyecto' },
+  { label: 'mantenedor', value: 'mantenedor' },
+]

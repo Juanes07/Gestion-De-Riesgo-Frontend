@@ -23,8 +23,9 @@ import { RegisterComponent } from './pages/usuarios/register/register.component'
 import { RiesgosComponent } from './pages/riesgos/riesgos.component';
 import { RiesgoPageComponent } from './pages/riesgo-page/riesgo-page.component';
 import { DetalleRiesgoComponent } from './components/detalle-riesgo/detalle-riesgo.component';
+import { RolesComponent } from './pages/usuarios/roles/roles.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { EditarProyectoComponent } from './components/editar-proyecto/editar-proyecto.component';
-
 
 @NgModule({
   declarations: [
@@ -43,12 +44,14 @@ import { EditarProyectoComponent } from './components/editar-proyecto/editar-pro
     RiesgosComponent,
     RiesgoPageComponent,
     DetalleRiesgoComponent,
+    RolesComponent,
     EditarProyectoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     PrimeNgModule,
+    NgxPaginationModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,

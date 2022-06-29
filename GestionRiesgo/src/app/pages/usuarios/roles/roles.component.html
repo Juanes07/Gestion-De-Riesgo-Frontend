@@ -1,0 +1,163 @@
+<p-toast></p-toast>
+
+<div class="card">
+  <p-table #dt [value]="usuarios" [rows]="10" [paginator]="true" responsiveLayout="scroll"
+  currentPageReportTemplate="Observando {first} a {last} de {totalRecords} entradas" [showCurrentPageReport]="true">
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="nombre">
+          Nombre <p-sortIcon field="nombre"></p-sortIcon>
+        </th>
+        <th pSortableColumn="email">
+          Email <p-sortIcon field="email"></p-sortIcon>
+        </th>
+        <th pSortableColumn="roles">
+          Roles <p-sortIcon field="roles"></p-sortIcon>
+        </th>
+        <th></th>
+      </tr>
+      <tr>
+        <th>
+          <p-columnFilter
+            type="text"
+            field="nombre"
+            matchMode="contains"
+            placeholder="Filtrar Por Nombre"
+          >
+          </p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter
+            type="text"
+            field="email"
+            matchMode="contains"
+            placeholder="Filtrar Por Email"
+          >
+          </p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter
+            type="text"
+            field="roles"
+            matchMode="contains"
+            placeholder="Filtrar por Rol"
+          >
+          </p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter
+            type="text"
+            field="estado"
+            matchMode="equals"
+            [showMenu]="false"
+          >
+            <ng-template
+              pTemplate="filter"
+              let-value
+              let-filter="filterCallback"
+            >
+            </ng-template>
+          </p-columnFilter>
+        </th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-usuarios>
+      <tr>
+        <td>{{ usuarios.nombre }}</td>
+        <td>{{ usuarios.email }}</td>
+        <td>{{ usuarios.roles[0] }}</td>
+        <td>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-success p-mr-2"
+            (click)="showModalDialog(usuarios)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        Un total de {{ usuarios ? usuarios.length : 0 }} usuarios.
+      </div>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog
+  [(visible)]="displayModal"
+  [style]="{ width: '500px', height: '450px' }"
+  header="Detalles de Usuario"
+  [modal]="true"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <div class="p-field">
+      <label for="nombre">Nombre</label>
+      <input
+        type="text"
+        pInputText
+        id="nombre"
+        [(ngModel)]="usuario.nombre"
+        required
+        autofocus
+      />
+      <small class="p-invalid" *ngIf="submitted && !usuario.nombre"
+        >Nombre es requerido.</small
+      >
+    </div>
+    <div class="p-field">
+      <label for="email">Email</label>
+      <input
+        type="text"
+        pInputText
+        id="email"
+        [(ngModel)]="usuario.email"
+        required
+        autofocus
+      />
+      <small class="p-invalid" *ngIf="submitted && !usuario.email"
+        >Email es requerido.</small
+      >
+    </div>
+    <div class="field">
+      <label for="inventoryStatus">Roles</label>
+      <p-dropdown
+        [(ngModel)]="usuario.roles"
+        inputId="inventoryStatus"
+        [options]="statuses"
+        placeholder="Select"
+      >
+        <ng-template let-option pTemplate="item">
+          <span [class]="'product-badge status-' + option.value">{{
+            option.label
+          }}</span>
+        </ng-template>
+      </p-dropdown>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="hideDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Save"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="editUser(usuario)"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '700px' }"></p-confirmDialog>

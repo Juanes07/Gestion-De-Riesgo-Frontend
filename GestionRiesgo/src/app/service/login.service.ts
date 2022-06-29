@@ -15,14 +15,19 @@ import { UserMongo } from '../models/usermongo.model';
 @Injectable({
   providedIn: 'root',
 })
+
+/**
+ * Servicio de autenticación
+ */
 export class LoginService {
+
+  // variables
   userData: any;
   userMongo: UserMongo = {
     nombre: '',
     email: '',
     roles: [],
   };
-
   credential: any;
   private url: string = environment.url;
   public userLogin: User = {
@@ -41,7 +46,11 @@ export class LoginService {
     public store: AngularFirestore,
     public http: HttpClient
   ) {}
-
+/**
+ * Guarda el usuario en la base de datos
+ * @param user
+ * @returns response http
+ */
   saveUser(user: any): Observable<any> {
     let direction = this.url + 'crearUsuario';
 
@@ -50,10 +59,19 @@ export class LoginService {
     });
   }
 
+  /**
+   * Obtiene los datos del usuario
+   * @returns user
+   */
   getUser() {
     return this.userData;
   }
 
+  /**
+   * Verifica el registro del usuario
+   * @param user
+   * @returns validation
+   */
   async verifyUserRegistered(user: User) {
     return this.store.collection('users').doc(user.uid).valueChanges();
   }
@@ -148,6 +166,10 @@ export class LoginService {
     await this.afauth.sendPasswordResetEmail(email);
   }
 
+  /**
+   * Guarda en el localstorage el registro del usuario cuando se loguea
+   * @param user
+   */
   getPropertyValue(user: any) {
     let direction = this.url + 'obtenerUsuarios';
     this.http.get<any>(direction).subscribe((data) => {
@@ -172,30 +194,6 @@ export class LoginService {
           }
         }
       );
-    });
-  }
-
-  getRole(email: string) {
-    let direction = this.url + 'obtenerUsuarios';
-    return this.http.get<any>(direction).subscribe((data) => {
-      data.forEach((element: { email: any; roles: any }) => {
-        if (element.email === email) {
-          console.log('Element Role', element.roles[0]);
-          this.rolUser = element.roles[0];
-        }
-      });
-    });
-  }
-
-  getId(email: string) {
-    let direction = this.url + 'obtenerUsuarios';
-    return this.http.get<any>(direction).subscribe((data) => {
-      data.forEach((element: { email: any; id: any }) => {
-        if (element.email === email) {
-          console.log('Element Id', element.id);
-          this.idUser = element.id;
-        }
-      });
     });
   }
 

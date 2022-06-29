@@ -21,16 +21,29 @@ import {BadgeModule} from 'primeng/badge';
 import {KeyFilterModule} from 'primeng/keyfilter';
 import { ChipModule } from 'primeng/chip';
 import {MultiSelectModule} from 'primeng/multiselect';
-
-
+import {SliderModule} from 'primeng/slider';
+import {ContextMenuModule} from 'primeng/contextmenu';
+import { DropdownModule } from 'primeng/dropdown';
+import {ProgressBarModule} from 'primeng/progressbar';
+import {FileUploadModule} from 'primeng/fileupload';
+import {RadioButtonModule} from 'primeng/radiobutton';
+import {InputNumberModule} from 'primeng/inputnumber';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 //Services
 import {MessageService} from 'primeng/api';
-import { DropdownModule } from 'primeng/dropdown';
+import { ConfirmationService } from 'primeng/api';
 
 @NgModule({
   declarations: [],
   exports: [
+    ConfirmDialogModule,
+    FileUploadModule,
+    ProgressBarModule,
+    ContextMenuModule,
+    SliderModule,
+    InputNumberModule,
+    RadioButtonModule,
     ButtonModule,
     CardModule,
     InputTextModule,
@@ -55,6 +68,6 @@ import { DropdownModule } from 'primeng/dropdown';
     ChipModule,
     MultiSelectModule
   ],
-  providers: [MessageService]
+  providers: [MessageService, ConfirmationService]
 })
 export class PrimeNgModule { }

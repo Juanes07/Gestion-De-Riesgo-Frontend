@@ -81,7 +81,7 @@ export class LoginComponent implements OnInit {
     this.mostrar = !this.mostrar;
     this.loginService.loginWithGoogle()
     .then((res) => {
-      if (res === undefined) {
+      if (res === null) {
         this.showError('Error al Iniciar Sesión');
         setTimeout(() => {
           localStorage.clear();

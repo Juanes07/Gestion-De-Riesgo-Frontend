@@ -1,5 +1,5 @@
 export interface riesgo{
-  id:number | null;
+  id:number;
   idProyecto: number;
   creadorRiesgo: string;
   nombreProyecto: string;

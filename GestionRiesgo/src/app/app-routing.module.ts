@@ -19,12 +19,12 @@ import { RiesgoPageComponent } from './pages/riesgo-page/riesgo-page.component';
 import { DetalleRiesgoComponent } from './components/detalle-riesgo/detalle-riesgo.component';
 import { RolesComponent } from './pages/usuarios/roles/roles.component';
 import { EditarProyectoComponent } from './components/editar-proyecto/editar-proyecto.component';
-
+import { AdminGuard, ResponsableGuard, MantenedorGuard } from './shared/guards/auth.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'roles', component: RolesComponent },
+  { path: 'roles', component: RolesComponent , canActivate: [AdminGuard]},
   {
     path: 'proyectos',
     component: ProyectosComponent,
@@ -38,10 +38,9 @@ const routes: Routes = [
     path: 'proyecto/:id',
     component: ProyectoPageComponent,
     children: [
-      { path: 'detalle', component: DetalleProyectoComponent },
-      { path:'editar',component: EditarProyectoComponent},
-      // { path: 'edit', component: EditProyectoComponent },
-      { path: 'riesgos', component: RiesgosComponent,
+      { path: 'detalle', component: DetalleProyectoComponent, canActivate: [ResponsableGuard] },
+      { path:'editar',component: EditarProyectoComponent },
+      { path: 'riesgos', component: RiesgosComponent, canActivate: [ResponsableGuard],
         children: [
           { path: 'lista', component: TablaRiesgosComponent },
           { path: 'crear', component: FormCrearRiesgoComponent },
@@ -49,6 +48,7 @@ const routes: Routes = [
         ]
       },
       { path: 'riesgo/:id',
+        canActivate: [ResponsableGuard],
         component: RiesgoPageComponent,
         children: [
           { path: 'detalle', component: DetalleRiesgoComponent },

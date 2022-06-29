@@ -22,7 +22,7 @@ import { UserMongo } from '../models/usermongo.model';
 export class LoginService {
 
   // variables
-  userData: any;
+
   userMongo: UserMongo = {
     nombre: '',
     email: '',
@@ -64,7 +64,9 @@ export class LoginService {
    * @returns user
    */
   getUser() {
-    return this.userData;
+    return JSON.parse(localStorage.getItem('user')!) !== null
+    ? JSON.parse(localStorage.getItem('user')!)
+    : 'No user logged';
   }
 
   /**

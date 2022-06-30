@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { MessageService } from 'primeng/api';
-import { ProyectoStatuses } from 'src/app/models/options.model';
+import { estadoSinCreado } from 'src/app/models/options.model';
 import { proyecto } from 'src/app/models/proyecto-modelo.model';
 import { ProyectoService } from 'src/app/service/proyecto-servicio.service';
 
@@ -16,7 +16,8 @@ export class EditarProyectoComponent implements OnInit {
 
   isLoading: boolean = true;
   etiquetshtml:string = '';
-  estados = ProyectoStatuses;
+  estados = estadoSinCreado;
+
 
   liderHtml: string = '';
 

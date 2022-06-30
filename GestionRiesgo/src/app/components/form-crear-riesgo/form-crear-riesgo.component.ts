@@ -32,6 +32,8 @@ export class FormCrearRiesgoComponent implements OnInit {
   responsableContingenciaHtml: string = '';
 
 
+  fechaHoy: Date = new Date();
+
   formuRiesgo: riesgo = {
     id: 0,
     idProyecto: 0,
@@ -109,6 +111,8 @@ export class FormCrearRiesgoComponent implements OnInit {
     private messageService: MessageService,
     private auth: LoginService
   ) {}
+
+
 
   ngOnInit(): void {
     this.formuRiesgo.creadorRiesgo = this.auth.getUser().email
@@ -190,7 +194,7 @@ export class FormCrearRiesgoComponent implements OnInit {
   guardarRiesgo(riesgo: riesgo): void {
     this.cambiarFormatoDate();
     if (
-      this.formRiesgo.value.name &&
+      (this.formRiesgo.value.name.length <=50) &&
       this.formRiesgo.value.fecha &&
       this.formRiesgo.value.detalle &&
       this.formRiesgo.value.estadoRiesgo &&
@@ -201,6 +205,7 @@ export class FormCrearRiesgoComponent implements OnInit {
       this.formRiesgo.value.descripcionPlanDeMitigacion &&
       this.formRiesgo.value.descripcionPlanDeContingencia
     ) {
+
       this.services.guardarRiesgo(riesgo).subscribe({});
       console.log(riesgo)
       this.messageService.add({

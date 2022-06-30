@@ -9,6 +9,7 @@
         pInputText
         [readonly]="true"
         value="{{ formuRiesgo.idProyecto }}"
+        required
       />
       <br />
       <br />
@@ -29,6 +30,10 @@
           formControlName="name"
           [(ngModel)]="formuRiesgo.nombreRiesgo"
         />
+        <div class="mb-3" *ngIf="formuRiesgo.nombreRiesgo.length < 5 ||  formuRiesgo.nombreRiesgo.length >= 50 ">
+          <p-message severity="error" text="Campo excedio limite de caracteres permitidos (50)"></p-message>
+        </div>
+
         <label>Fecha Deteccion del Riesgo </label>
         <p-calendar
           inputId="basic"

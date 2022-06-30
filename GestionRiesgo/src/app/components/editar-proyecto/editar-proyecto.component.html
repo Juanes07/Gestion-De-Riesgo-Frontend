@@ -19,6 +19,16 @@
       </div>
       <br />
       <br />
+      <div  *ngIf="modelo.estado !='Creado'">
+        <label >Estado del Proyecto</label>
+        <br>
+        <p-dropdown [options]="estados" [(ngModel)]="modelo.estado"
+        [ngModelOptions]="{ standalone: true }"
+        >
+        </p-dropdown>
+      </div>
+      <br>
+      <br>
       <label for="basic">Fecha de Inicio Proyecto</label>
       <br />
       <br />
@@ -41,25 +51,36 @@
         inputId="basic"
         [(ngModel)]="modelo.fechaFin"
         [ngModelOptions]="{ standalone: true }"
-        placeholder="{{modelo.fechaFin}}"
+        placeholder="{{ modelo.fechaFin }}"
         dateFormat="yy/mm/dd"
       ></p-calendar>
       <br />
       <br />
       <label>Etiquetas</label>
       <br />
-      <input type="text" pInputText
-      [(ngModel)]="etiquetshtml"
-      [ngModelOptions]="{ standalone: true }"
+      <input
+        type="text"
+        pInputText
+        [(ngModel)]="etiquetshtml"
+        [ngModelOptions]="{ standalone: true }"
       />
       <br />
-      <button pButton class="mt-2" (click)="agregarEtiqueta(etiquetshtml)"> Agregar Etiqueta </button>
+      <button pButton class="mt-2" (click)="agregarEtiqueta(etiquetshtml)">
+        Agregar Etiqueta
+      </button>
       <br />
       <div class="mt-2" *ngFor="let etiquetas of modelo.etiquetas; index as i">
         <p-chip styleClass="mr-2 custom-chip" class="etiquetas">
           {{ modelo.etiquetas[i] }}
         </p-chip>
-        <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger p-button-outlined p-button-sm" (click)="eliminarEtiqueta(i)"></button>
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-times"
+          class="p-button-rounded p-button-danger p-button-outlined p-button-sm"
+          (click)="eliminarEtiqueta(i)"
+        ></button>
       </div>
       <br />
       <label>Responsables (correo)</label>
@@ -74,8 +95,13 @@
       />
       <br />
       <br />
-      <p-button class="mt-2" (click)="agregarResponsable(responsableHtml)" > Agregar Responsable </p-button>
-      <div  class="nombre-requerido mb-5 mt-3" *ngIf="modelo.responsables.length < 1">
+      <p-button class="mt-2" (click)="agregarResponsable(responsableHtml)">
+        Agregar Responsable
+      </p-button>
+      <div
+        class="nombre-requerido mb-5 mt-3"
+        *ngIf="modelo.responsables.length < 1"
+      >
         <p-message severity="error" text="Ingrese un correo valido"></p-message>
       </div>
       <div
@@ -85,7 +111,15 @@
         <p-chip styleClass="mr-2 custom-chip">
           {{ modelo.responsables[i] }}
         </p-chip>
-        <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger p-button-outlined p-button-sm" pButton (click)="eliminarResponsable(i)"></button>
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-times"
+          class="p-button-rounded p-button-danger p-button-outlined p-button-sm"
+          pButton
+          (click)="eliminarResponsable(i)"
+        ></button>
       </div>
       <br />
       <label>Descripcion del formulario</label>
@@ -110,12 +144,22 @@
         (ngOnChanges)="metodoComprobarFormatoCorreo(modelo.liderProyecto)"
         value="{{ modelo.liderProyecto }}"
       />
-      <br>
-      <div  class="nombre-requerido mb-5 mt-2" *ngIf="modelo.liderProyecto == ''">
+      <br />
+      <div
+        class="nombre-requerido mb-5 mt-2"
+        *ngIf="modelo.liderProyecto == ''"
+      >
         <p-message severity="error" text="Ingrese un correo valido"></p-message>
       </div>
 
-      <button  pButton pRipple type="button" label="Actualizar Proyecto" class="p-button-raised p-button-success mt-2"(click)="actualizarProyecto(modelo)"></button>
+      <button
+        pButton
+        pRipple
+        type="button"
+        label="Actualizar Proyecto"
+        class="p-button-raised p-button-success mt-2"
+        (click)="actualizarProyecto(modelo)"
+      ></button>
     </form>
 
     <br />

@@ -1,0 +1,44 @@
+<div class="m-5 p-4 border-solid border-200 border-round-md" *ngIf="!isLoading">
+
+  <div class="flex justify-content-between">
+    <span class="font-medium">ID: {{ proyecto.id }}</span>
+    <button *ngIf="isDeleteable" pButton class="p-button-danger p-button-sm" icon="pi pi-trash" label="Eliminar" (click)="deleteProyecto()"></button>
+  </div>
+
+  <h1 class="text-center">{{ proyecto.nombre.toUpperCase() }}</h1>
+  <div class="text-center">
+    <b>Estado: </b>
+    <span [ngClass]="{
+      creado: proyecto.estado === 'Creado',
+      activo: proyecto.estado === 'Activo',
+      culminado: proyecto.estado === 'Culminado',
+      cancelado: proyecto.estado === 'Cancelado',
+      pausado: proyecto.estado === 'Pausado'
+    }">
+      {{ proyecto.estado }}
+    </span>
+  </div>
+  <p class="text-center"><b>Lider: </b>{{ proyecto.liderProyecto }}</p>
+  <p-panel header="Fechas del proyecto">
+    <b>Fecha de inicio:</b> {{ proyecto.fechaInicio }}
+    <br />
+    <b>Fecha de fin:</b> {{ proyecto.fechaFin }}
+  </p-panel>
+  <p-panel header="Descripción">
+    {{ proyecto.descripcion }}
+  </p-panel>
+  <p-panel header="Etiquetas">
+    <div class="flex flex-row">
+      <div *ngFor="let etiqueta of proyecto.etiquetas">
+        <p-badge [value]="etiqueta" class="ml-2"></p-badge>
+      </div>
+    </div>
+  </p-panel>
+  <p-panel header="Responsables">
+    <div class="flex flex-row">
+      <div *ngFor="let responsable of proyecto.responsables">
+        <p-chip [label]="responsable" class="ml-2"></p-chip>
+      </div>
+    </div>
+  </p-panel>
+</div>

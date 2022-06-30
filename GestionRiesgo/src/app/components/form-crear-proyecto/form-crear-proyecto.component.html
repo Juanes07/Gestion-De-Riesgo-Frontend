@@ -1,0 +1,129 @@
+<p-toast></p-toast>
+<h2>Crea un nuevo Proyecto</h2>
+<div class="m-5 p-4 border-solid border-200 border-round-md">
+  <div class="field col-12 md:col-4">
+    <form [formGroup]="form">
+      <label for="basic">Nombre Proyecto</label>
+      <br />
+      <input
+        type="text"
+        [(ngModel)]="formulario.nombre"
+        placeholder="Ingresa el nombre del proyecto"
+        formControlName="name"
+        pInputText
+      />
+      <div class="nombre-requerido mb-5" *ngIf="formulario.nombre == ''">
+        <p-message severity="error" text="Campo es Requerido"></p-message>
+      </div>
+      <br />
+      <br />
+      <label for="basic">Fecha de Inicio Proyecto</label>
+      <br />
+      <br />
+      <p-calendar
+        inputId="basic"
+        [(ngModel)]="formulario.fechaInicio"
+        formControlName="fecha"
+        dateFormat="yy/mm/dd"
+        [readonlyInput]="true"
+      ></p-calendar>
+      <br />
+      <div class="nombre-requerido mb-5" *ngIf="formulario.fechaInicio == ''">
+        <p-message severity="error" text="Campo es Requerido"></p-message>
+      </div>
+      <br />
+      <br />
+      <label for="basic">Fecha de Fin Proyecto (opcional)</label>
+      <br />
+      <p-calendar
+        inputId="basic"
+        [(ngModel)]="formulario.fechaFin"
+        [ngModelOptions]="{ standalone: true }"
+        [readonlyInput]="true"
+        dateFormat="yy/mm/dd"
+      ></p-calendar>
+      <br />
+      <br />
+      <label>Etiquetas</label>
+      <br />
+      <input
+        type="text"
+        pInputText
+        [(ngModel)]="etiquetshtml"
+        [ngModelOptions]="{ standalone: true }"
+      />
+      <br />
+      <br />
+      <p-button class="mt-2" (click)="agregarEtiqueta(etiquetshtml)">
+        Agregar Etiqueta
+      </p-button>
+      <br />
+      <div class="mt-2">
+        <p-chip
+          styleClass="mr-2 custom-chip"
+          class="etiquetas"
+          *ngFor="let etiquetas of formulario.etiquetas; index as i"
+        >
+          {{ formulario.etiquetas[i] }}
+        </p-chip>
+      </div>
+      <br />
+      <label>Responsables (correo)</label>
+      <br />
+      <input
+        type="email"
+        pInputText
+        [(ngModel)]="responsableHtml"
+        placeholder="Correo del responsable"
+        formControlName="email"
+        pKeyFilter="email"
+      />
+      <br />
+      <br />
+      <p-button
+        class="mt-2"
+        (click)="agregarResponsable(responsableHtml)"
+      >
+        Agregar Responsable
+      </p-button>
+      <div>
+        <h5
+          class="responsables"
+          *ngFor="let responsable of formulario.responsables; index as i"
+        >
+          {{ formulario.responsables[i] }}
+        </h5>
+      </div>
+      <br />
+      <label>Descripcion del formulario</label>
+      <br />
+      <textarea
+        pInputTextarea
+        [(ngModel)]="formulario.descripcion"
+        formControlName="detalle"
+      ></textarea>
+      <div class="nombre-requerido mb-5" *ngIf="formulario.descripcion == ''">
+        <p-message severity="error" text="Campo es Requerido"></p-message>
+      </div>
+      <br />
+      <br />
+      <label>Lider Proyecto</label>
+      <br />
+      <input
+        type="text"
+        [(ngModel)]="liderHtml"
+        formControlName="emailLider"
+        pInputText
+      />
+      <br>
+      <br>
+      <p-button (click)="agregarLider(liderHtml)">
+        agregar Lider de Proyecto
+      </p-button>
+    </form>
+    <br />
+  </div>
+  <button pButton (click)="guardarProyecto(formulario)">
+    Guardar formulario
+  </button>
+</div>

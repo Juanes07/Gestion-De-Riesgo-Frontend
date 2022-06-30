@@ -1,0 +1,63 @@
+<p-toast position="top-center" key="success"></p-toast>
+<p-toast position="top-center" key="error"></p-toast>
+
+<div class="container" style="text-align: center">
+  <div class="card text-center">
+    <h1>Registro De Usuarios</h1>
+  </div>
+  <div class="card-body" style="margin: 20px">
+    <form [formGroup]="form">
+      <span class="p-float-label" style="margin: 20px">
+        <input
+          id="float-input"
+          type="text"
+          formControlName="name"
+          pInputText
+          placeholder="Nombre"
+        />
+      </span>
+
+      <span class="p-float-label" style="margin: 20px">
+        <input
+          id="float-input"
+          type="text"
+          formControlName="email"
+          pInputText
+          placeholder="Correo electrónico"
+        />
+      </span>
+
+      <span class="p-float-label" style="margin: 20px; margin-top: 30px">
+        <p-password formControlName="password" placeholder="Contraseña">
+        </p-password>
+      </span>
+      <br />
+
+      <button
+      [disabled]="form.invalid"
+      (click)="register()"
+      pButton
+      pRipple
+      type="button"
+      label="Registrar"
+      class="p-button-raised p-button-success"
+      style="margin-bottom: 10px"
+    ></button>
+
+    <br />
+
+    <h5>Registro con Google</h5>
+
+    <button
+      (click)="registerWithGoogle()"
+      pButton
+      pRipple
+      type="button"
+      label="Registro con Google"
+      class="p-button-raised p-button-google"
+      style="margin-bottom: 10px"
+    ></button>
+
+    </form>
+  </div>
+</div>

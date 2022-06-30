@@ -1,0 +1,122 @@
+<p-toast></p-toast>
+<h2>Editar Proyecto</h2>
+<div class="m-5 p-4 border-solid border-200 border-round-md">
+  <div class="field col-12 md:col-4">
+    <label class="mb-3">Identificador del Proyecto: {{ modelo.id }}</label>
+    <form [formGroup]="form">
+      <label for="basic">Nombre Proyecto</label>
+      <br />
+      <input
+        type="text"
+        [(ngModel)]="modelo.nombre"
+        placeholder="Ingresa el nombre del proyecto"
+        formControlName="name"
+        pInputText
+        value="{{ modelo.nombre }}"
+      />
+      <div class="nombre-requerido mb-5" *ngIf="modelo.nombre.length < 5">
+        <p-message severity="error" text="Campo es Requerido"></p-message>
+      </div>
+      <br />
+      <br />
+      <label for="basic">Fecha de Inicio Proyecto</label>
+      <br />
+      <br />
+      <input
+        pInputText
+        readonly="true"
+        [ngModelOptions]="{ standalone: true }"
+        [(ngModel)]="modelo.fechaInicio"
+        value="{{ modelo.fechaInicio }}"
+      />
+      <br />
+      <div class="nombre-requerido mb-5" *ngIf="modelo.fechaInicio == ''">
+        <p-message severity="error" text="Campo es Requerido"></p-message>
+      </div>
+      <br />
+      <br />
+      <label for="basic">Fecha de Fin Proyecto (opcional)</label>
+      <br />
+      <p-calendar
+        inputId="basic"
+        [(ngModel)]="modelo.fechaFin"
+        [ngModelOptions]="{ standalone: true }"
+        placeholder="{{modelo.fechaFin}}"
+        dateFormat="yy/mm/dd"
+      ></p-calendar>
+      <br />
+      <br />
+      <label>Etiquetas</label>
+      <br />
+      <input type="text" pInputText />
+      <br />
+      <br />
+      <p-button class="mt-2"> Agregar Etiqueta </p-button>
+      <br />
+      <div class="mt-2" *ngFor="let etiquetas of modelo.etiquetas; index as i">
+        <p-chip styleClass="mr-2 custom-chip" class="etiquetas">
+          {{ modelo.etiquetas[i] }}
+        </p-chip>
+        <p-button (click)="eliminarEtiqueta(i)">eliminar</p-button>
+      </div>
+      <br />
+      <label>Responsables (correo)</label>
+      <br />
+      <input
+        type="email"
+        pInputText
+        [(ngModel)]="responsableHtml"
+        placeholder="Correo del responsable"
+        formControlName="email"
+        pKeyFilter="email"
+      />
+      <br />
+      <br />
+      <p-button class="mt-2" (click)="agregarResponsable(responsableHtml)" > Agregar Responsable </p-button>
+      <div  class="nombre-requerido mb-5 mt-3" *ngIf="modelo.responsables.length < 1">
+        <p-message severity="error" text="Ingrese un correo valido"></p-message>
+      </div>
+      <div
+        class="mt-2"
+        *ngFor="let responsable of modelo.responsables; index as i"
+      >
+        <p-chip class="responsables">
+          {{ modelo.responsables[i] }}
+        </p-chip>
+        <button (click)="eliminarResponsable(i)">eliminar</button>
+      </div>
+      <br />
+      <label>Descripcion del formulario</label>
+      <br />
+      <textarea
+        pInputTextarea
+        [(ngModel)]="modelo.descripcion"
+        formControlName="detalle"
+      ></textarea>
+      <div class="nombre-requerido mb-5" *ngIf="modelo.descripcion == ''">
+        <p-message severity="error" text="Campo es Requerido"></p-message>
+      </div>
+      <br />
+      <br />
+      <label>Lider Proyecto</label>
+      <br />
+      <input
+        type="text"
+        formControlName="emailLider"
+        pInputText
+        [(ngModel)]="modelo.liderProyecto"
+        (ngOnChanges)="metodoComprobarFormatoCorreo(modelo.liderProyecto)"
+        value="{{ modelo.liderProyecto }}"
+      />
+      <br>
+      <div  class="nombre-requerido mb-5 mt-2" *ngIf="modelo.liderProyecto == ''">
+        <p-message severity="error" text="Ingrese un correo valido"></p-message>
+      </div>
+
+      <br />
+      <p-button class="mt-2" (click)="actualizarProyecto(modelo)"> Actualizar Proyecto </p-button>
+    </form>
+
+    <br />
+  </div>
+</div>

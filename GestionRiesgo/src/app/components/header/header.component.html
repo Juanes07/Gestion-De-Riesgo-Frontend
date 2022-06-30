@@ -1,0 +1,48 @@
+<p-toolbar>
+  <div class="p-toolbar-group-left">
+    <a href="/">
+      <img
+        src="https://ik.imagekit.io/lvh0tltbeph/SofkaU/logo-sofkau_1Fn3uH-1S.png"
+        alt="logo-sofkaU"
+        width="200"
+        height="75"
+      />
+    </a>
+  </div>
+  <div class="p-toolbar-group-right">
+    <span
+      class="mr-2 border-solid border-round-2xl border-blue-500 font-medium p-2"
+      >{{ correo }}</span
+    >
+    <div class="text-end font1" *ngIf="rol == 'administrador'">
+      <button
+        pButton
+        (click)="adminRoles()"
+        type="button"
+        label="Administrar Roles"
+        class="p-button-secondary"
+        style="margin: 10px"
+      ></button>
+    </div>
+
+
+    <div class="text-end font1" *ngIf="correo != ''">
+      <button
+        pButton
+        (click)="SignOut()"
+        type="button"
+        label="Cerrar Sesión"
+        class="p-button-danger"
+      ></button>
+    </div>
+    <div class="text-end font1" *ngIf="correo == ''">
+      <button
+        pButton
+        (click)="login()"
+        type="button"
+        label="Login"
+        class="p-button-primary"
+      ></button>
+    </div>
+  </div>
+</p-toolbar>

@@ -1,6 +1,7 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { MessageService } from 'primeng/api';
 import { estadoSinCreado } from 'src/app/models/options.model';
@@ -10,18 +11,16 @@ import { ProyectoService } from 'src/app/service/proyecto-servicio.service';
 @Component({
   selector: 'app-editar-proyecto',
   templateUrl: './editar-proyecto.component.html',
-  styleUrls: ['./editar-proyecto.component.css']
+  styleUrls: ['./editar-proyecto.component.css'],
 })
 export class EditarProyectoComponent implements OnInit {
-
   isLoading: boolean = true;
-  etiquetshtml:string = '';
+  etiquetshtml: string = '';
   estados = estadoSinCreado;
-
 
   liderHtml: string = '';
 
-  responsableHtml: string='';
+  responsableHtml: string = '';
 
   modelo: proyecto = {
     id: 0,
@@ -39,32 +38,32 @@ export class EditarProyectoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private services: ProyectoService,
     private messageService: MessageService,
-    private router: Router,
+    private _location: Location,
     private route: ActivatedRoute) { }
-
   ngOnInit(): void {
-    this.route.parent?.params.subscribe(params => {
-      this.services.getProyectoById(params['id']).subscribe(data => {
+    this.route.parent?.params.subscribe((params) => {
+      this.services.getProyectoById(params['id']).subscribe((data) => {
         this.modelo = data;
         this.isLoading = false;
       });
     });
   }
 
-
   public form: FormGroup = new FormGroup({
-    name: new FormControl ('', Validators.required),
-    email: new FormControl( '',Validators.email),
-    detalle: new FormControl ('', [Validators.required, Validators.minLength(5), Validators.maxLength(700)]),
+    name: new FormControl('', Validators.required),
+    email: new FormControl('', Validators.email),
+    detalle: new FormControl('', [
+      Validators.required,
+      Validators.minLength(5),
+      Validators.maxLength(700),
+    ]),
     emailLider: new FormControl('', Validators.email),
   });
 
-
-  eliminarResponsable(responsableIndex: number){
-    this.modelo.responsables.forEach((value, index)=>{
-      if(index == responsableIndex)
-      this.modelo.responsables.splice(index,1);
-    })
+  eliminarResponsable(responsableIndex: number) {
+    this.modelo.responsables.forEach((value, index) => {
+      if (index == responsableIndex) this.modelo.responsables.splice(index, 1);
+    });
   }
 
   agregarEtiqueta(etiqueta: string): void {
@@ -72,21 +71,18 @@ export class EditarProyectoComponent implements OnInit {
     this.etiquetshtml = '';
   }
 
-
-  eliminarEtiqueta(etiquetaIndex: number){
-    this.modelo.etiquetas.forEach((value, index)=>{
-      if(index == etiquetaIndex)
-      this.modelo.etiquetas.splice(index,1);
-    })
+  eliminarEtiqueta(etiquetaIndex: number) {
+    this.modelo.etiquetas.forEach((value, index) => {
+      if (index == etiquetaIndex) this.modelo.etiquetas.splice(index, 1);
+    });
   }
 
-
-  actualizarProyecto(modelo: proyecto){
-
+  actualizarProyecto(modelo: proyecto) {
     this.cambiarFormatoDate();
     if (
-      (this.form.value.name.length <=50) &&
-      (this.form.value.detalle.length <700)
+      this.form.value.name.length <= 50 &&
+      this.modelo.responsables.length >= 1 &&
+      this.modelo.descripcion.length < 700
     ) {
       this.services.actualizarProyecto(modelo).subscribe({});
       this.liderHtml = '';
@@ -94,10 +90,10 @@ export class EditarProyectoComponent implements OnInit {
         severity: 'success',
         summary: '!Exitoso¡',
         detail: 'Proyecto Guardado exitosamente',
-      })
+      });
       setTimeout(() => {
-          this.router.navigateByUrl('/detalle')
-      }, 2000);
+          this._location.back();
+      }, 1500);
     } else {
       this.messageService.add({
         severity: 'error',
@@ -105,9 +101,6 @@ export class EditarProyectoComponent implements OnInit {
         detail: '(campos-vacios) validar campos requeridos',
       });
     }
-
-
-
   }
 
   cambiarFormatoDate() {
@@ -147,6 +140,4 @@ export class EditarProyectoComponent implements OnInit {
       });
     }
   }
-
-
 }

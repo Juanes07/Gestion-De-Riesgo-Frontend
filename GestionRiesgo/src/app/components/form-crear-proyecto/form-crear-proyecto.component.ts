@@ -56,12 +56,13 @@ export class FormCrearProyectoComponent implements OnInit {
     emailLider: ['', [Validators.email]],
   });
 
-  guardarProyecto(proyecto: proyecto): void {
+  guardarProyecto(): void {
     this.cambiarFormatoDate();
     if (
       this.form.value.name &&
       this.form.value.fecha &&
-      this.form.value.detalle
+      this.form.value.detalle &&
+      this.form.value.liderProyecto
     ) {
       this.services.guardarProyecto(this.formulario).subscribe({});
       this.liderHtml = '';
@@ -70,7 +71,9 @@ export class FormCrearProyectoComponent implements OnInit {
         summary: '!Exitoso¡',
         detail: 'Proyecto Guardado exitosamente',
       });
-      this.route.navigate(['/proyectos']);
+      setTimeout(() => {
+        this.route.navigate(['/proyectos']);
+      }, 1500);
     } else {
       this.messageService.add({
         severity: 'error',
@@ -84,6 +87,15 @@ export class FormCrearProyectoComponent implements OnInit {
     this.formulario.etiquetas.push(etiqueta);
     this.etiquetshtml = '';
   }
+
+  eliminarEtiqueta(etiquetaIndex: number) {
+    this.formulario.etiquetas.forEach((value, index) => {
+      if (index == etiquetaIndex) this.formulario.etiquetas.splice(index, 1);
+    });
+  }
+
+
+
 
   agregarResponsable(responsable: string): void {
     if (this.metodoComprobarFormatoCorreo(responsable)) {

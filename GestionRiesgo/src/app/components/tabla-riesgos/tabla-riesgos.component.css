@@ -1,5 +1,23 @@
-
-th, td {
-  font-size: 12px;;
+.abierto {
+    font-weight: 700;
+    color: #2196f3;
+    text-transform: uppercase;
 }
 
+.mitigado, .activo, .bajo {
+    font-weight: 700;
+    color: #66BB6A;
+    text-transform: uppercase;
+}
+
+.cerrado, .inactivo, .alto{
+    font-weight: 700;
+    color: #FF5252;
+    text-transform: uppercase;
+}
+
+.problema, .medio {
+    font-weight: 700;
+    color: #FFA726;
+    text-transform: uppercase;
+}

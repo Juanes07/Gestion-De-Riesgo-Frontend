@@ -1,8 +1,8 @@
   <p-table
     [responsive]="true"
-    [resizableColumns]="true"
     [value]="riesgos"
     [loading]="loading"
+    [resizableColumns]="true"
     [paginator]="true"
     [rows]="30"
     styleClass="p-datatable-striped"
@@ -17,7 +17,7 @@
       'creadorRiesgo',
       'estadoRiesgo',
       'estadoDeVidaDelRiesgo',
-      'criticidad',
+      'valorCriticidad',
       'tipoRiesgo'
     ]"
     sortField="id">
@@ -51,8 +51,8 @@
         <th pSortableColumn="estadoDeVidaDelRiesgo" >
           ESTADO DE VIDA <p-sortIcon field="estadoDeVidaDelRiesgo"></p-sortIcon>
         </th>
-        <th pSortableColumn="criticidad" >
-          CRITICIDAD <p-sortIcon field="criticidad"></p-sortIcon>
+        <th pSortableColumn="valorCriticidad" >
+          CRITICIDAD <p-sortIcon field="valorCriticidad"></p-sortIcon>
         </th>
         <th pSortableColumn="tipoRiesgo" >
           TIPO DE RIESGO <p-sortIcon field="tipoRiesgo"></p-sortIcon>
@@ -115,6 +115,7 @@
                 (onChange)="filter($event.value)"
                 placeholder="Todos"
                 [showClear]="true"
+                appendTo="body"
               >
                 <ng-template let-option pTemplate="item">
                   <span [class]="'customer-badge status-' + option.value">{{
@@ -143,6 +144,7 @@
                 (onChange)="filter($event.value)"
                 placeholder="Todos"
                 [showClear]="true"
+                appendTo="body"
               >
                 <ng-template let-option pTemplate="item">
                   <span [class]="'customer-badge status-' + option.value">{{
@@ -180,6 +182,7 @@
                 (onChange)="filter($event.value)"
                 placeholder="Todos"
                 [showClear]="true"
+                appendTo="body"
               >
                 <ng-template let-option pTemplate="item">
                   <span [class]="'customer-badge status-' + option.value">{{
@@ -208,6 +211,7 @@
                 (onChange)="filter($event.value)"
                 placeholder="Todos"
                 [showClear]="true"
+                appendTo="body"
               >
                 <ng-template let-option pTemplate="item">
                   <span [class]="'customer-badge status-' + option.value">{{
@@ -221,19 +225,59 @@
         <th>
           <p-columnFilter
             type="text"
-            field="criticidad"
-            matchMode="contains"
+            field="valorCriticidad"
+            matchMode="equals"
             [showMenu]="false"
           >
+            <ng-template
+              pTemplate="filter"
+              let-value
+              let-filter="filterCallback"
+            >
+              <p-dropdown
+                [ngModel]="value"
+                [options]="criticidades"
+                (onChange)="filter($event.value)"
+                placeholder="Todos"
+                [showClear]="true"
+                appendTo="body"
+              >
+                <ng-template let-option pTemplate="item">
+                  <span [class]="'customer-badge status-' + option.value">{{
+                    option.label
+                  }}</span>
+                </ng-template>
+              </p-dropdown>
+            </ng-template>
           </p-columnFilter>
         </th>
         <th>
           <p-columnFilter
             type="text"
             field="tipoRiesgo"
-            matchMode="contains"
+            matchMode="equals"
             [showMenu]="false"
           >
+            <ng-template
+              pTemplate="filter"
+              let-value
+              let-filter="filterCallback"
+            >
+              <p-dropdown
+                [ngModel]="value"
+                [options]="tipoRiesgos"
+                (onChange)="filter($event.value)"
+                placeholder="Todos"
+                [showClear]="true"
+                appendTo="body"
+              >
+                <ng-template let-option pTemplate="item">
+                  <span [class]="'customer-badge status-' + option.value">{{
+                    option.label
+                  }}</span>
+                </ng-template>
+              </p-dropdown>
+            </ng-template>
           </p-columnFilter>
         </th>
       </tr>
@@ -245,25 +289,67 @@
           class="font-bold cursor-pointer text-primary hover:underline"
           [routerLink]="['../../riesgo', riesgo.id]"
         >
-          {{ riesgo.id }}
+          <span class="p-column-title">ID</span>
+          <span class="image-text">{{ riesgo.id }}</span>
         </td>
-        <td >{{ riesgo.nombreRiesgo }}</td>
-        <td >{{ riesgo.fechaDeteccion }}</td>
-        <td >{{ riesgo.fechaCierre }}</td>
-        <td >{{ riesgo.audiencia }}</td>
-        <td >{{ riesgo.categoria }}</td>
-        <td >{{ riesgo.creadorRiesgo }}</td>
-        <td >{{ riesgo.estadoRiesgo }}</td>
-        <td >{{ riesgo.estadoDeVidaDelRiesgo }}</td>
         <td >
-          {{
-            getCriticidad(
-              riesgo.probabilidadDeOcurrenciaDelRiesgo,
-              riesgo.impactoDeOcurrenciaDelRiesgo
-            )
-          }}
+          <span class="p-column-title">NOMBRE</span>
+          <span class="image-text">{{ riesgo.nombreRiesgo }}</span>
         </td>
-        <td >{{ riesgo.tipoRiesgo }}</td>
+        <td >
+          <span class="p-column-title">FECHA DETECCIÓN</span>
+          <span class="image-text">{{ riesgo.fechaDeteccion }}</span>
+        </td>
+        <td >
+          <span class="p-column-title">FECHA CIERRE</span>
+          <span class="image-text">{{ riesgo.fechaCierre }}</span>
+        </td>
+        <td >
+          <span class="p-column-title">AUDIENCIA</span>
+          <span class="image-text">{{ riesgo.audiencia }}</span>
+        </td>
+        <td >
+          <span class="p-column-title">CATEGORIA</span>
+          <span class="image-text">{{ riesgo.categoria }}</span>
+        </td>
+        <td >
+          <span class="p-column-title">CREADOR</span>
+          <span class="image-text">{{ riesgo.creadorRiesgo }}</span>
+        </td>
+        <td >
+          <span class="p-column-title">ESTADO</span>
+          <span class="image-text"
+          [ngClass]="{
+            abierto: riesgo.estadoRiesgo === 'Abierto',
+            mitigado: riesgo.estadoRiesgo === 'Mitigado',
+            cerrado: riesgo.estadoRiesgo === 'Cerrado',
+            problema: riesgo.estadoRiesgo === 'Problema'
+          }"
+          >{{ riesgo.estadoRiesgo }}</span>
+        </td>
+        <td >
+          <span class="p-column-title">ESTADO DE VIDA</span>
+          <span class="image-text"
+          [ngClass]="{
+            activo: riesgo.estadoDeVidaDelRiesgo === 'Activo',
+            inactivo: riesgo.estadoDeVidaDelRiesgo === 'Inactivo'
+          }"
+          >{{ riesgo.estadoDeVidaDelRiesgo }}</span>
+        </td>
+        <td >
+          <span class="p-column-title">CRITICIDAD</span>
+          <span class="image-text"
+          [ngClass]="{
+            alto: riesgo.valorCriticidad === 3,
+            medio: riesgo.valorCriticidad === 2,
+            bajo: riesgo.valorCriticidad === 1
+          }"
+          >{{getCriticidad(riesgo.valorCriticidad)}}</span>
+        </td>
+        <td >
+          <span class="p-column-title">TIPO DE RIESGO</span>
+          <span class="image-text">{{ riesgo.tipoRiesgo }}</span>
+        </td>
       </tr>
     </ng-template>
     <!-- Show if not found risks -->

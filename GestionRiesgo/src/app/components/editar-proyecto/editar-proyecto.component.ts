@@ -1,6 +1,7 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { MessageService } from 'primeng/api';
 import { estadoSinCreado } from 'src/app/models/options.model';
@@ -39,7 +40,7 @@ export class EditarProyectoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private services: ProyectoService,
     private messageService: MessageService,
-    private router: Router,
+    private _location: Location,
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -96,8 +97,8 @@ export class EditarProyectoComponent implements OnInit {
         detail: 'Proyecto Guardado exitosamente',
       })
       setTimeout(() => {
-          this.router.navigateByUrl('/detalle')
-      }, 2000);
+          this._location.back();
+      }, 1500);
     } else {
       this.messageService.add({
         severity: 'error',

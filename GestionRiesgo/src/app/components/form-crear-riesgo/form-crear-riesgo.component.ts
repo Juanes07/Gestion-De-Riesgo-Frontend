@@ -5,7 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { riesgo } from 'src/app/models/riesgo-modelo.models';
 import { ProyectoService } from 'src/app/service/proyecto-servicio.service';
@@ -20,6 +20,7 @@ import {
 import * as moment from 'moment';
 import { LoginService } from 'src/app/service/login.service';
 import { proyecto } from 'src/app/models/proyecto-modelo.model';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-form-crear-riesgo',
@@ -112,7 +113,8 @@ export class FormCrearRiesgoComponent implements OnInit {
     private route: ActivatedRoute,
     private services: ProyectoService,
     private messageService: MessageService,
-    private auth: LoginService
+    private auth: LoginService,
+    private _location: Location
   ) {}
 
 
@@ -217,6 +219,9 @@ export class FormCrearRiesgoComponent implements OnInit {
         summary: '!Exitoso¡',
         detail: 'Proyecto Guardado exitosamente',
       });
+      setTimeout(() => {
+        this._location.back();
+      }, 1500);
     } else {
       this.messageService.add({
         severity: 'error',

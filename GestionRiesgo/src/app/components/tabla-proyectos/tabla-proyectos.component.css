@@ -1,0 +1,31 @@
+.creado {
+    font-weight: 700;
+    color: #2196f3;
+    text-transform: uppercase;
+}
+
+.cancelado {
+    font-weight: 700;
+    color: #FF5252;
+    text-decoration: line-through;
+    text-transform: uppercase;
+}
+
+.pausado {
+    font-weight: 700;
+    color: #FFA726;
+    text-transform: uppercase;
+}
+
+.activo {
+    font-weight: 700;
+    color: #66BB6A;
+    text-transform: uppercase;
+}
+
+.culminado {
+    font-weight: 700;
+    color: #4caf50;
+    text-decoration: underline;
+    text-transform: uppercase;
+}

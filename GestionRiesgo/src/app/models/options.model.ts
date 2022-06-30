@@ -1,18 +1,18 @@
 // Proyectos Dropdown Options //
 export const ProyectoStatuses = [
-  { label: 'Creado', value: 'creado' },
-  { label: 'Activo', value: 'activo' },
-  { label: 'Cancelado', value: 'cancelado' },
-  { label: 'Pausado', value: 'pausado' },
-  { label: 'Culminado', value: 'culminado' },
+  { label: 'Creado', value: 'Creado' },
+  { label: 'Activo', value: 'Activo' },
+  { label: 'Cancelado', value: 'Cancelado' },
+  { label: 'Pausado', value: 'Pausado' },
+  { label: 'Culminado', value: 'Culminado' },
 ];
 
 // Proyectos Dropdown Options //
 export const estadoSinCreado = [
-  { label: 'Activo', value: 'activo' },
-  { label: 'Cancelado', value: 'cancelado' },
-  { label: 'Pausado', value: 'pausado' },
-  { label: 'Culminado', value: 'culminado' },
+  { label: 'Activo', value: 'Activo' },
+  { label: 'Cancelado', value: 'Cancelado' },
+  { label: 'Pausado', value: 'Pausado' },
+  { label: 'Culminado', value: 'Culminado' },
 ];
 
 // Riesgos Dropdown Options //
@@ -40,7 +40,7 @@ export const RiesgoLifeStatuses = [
 ];
 
 export const  TipoRiesgos = [
-  { label: 'Riesgo de Producto o calidad', value: 'Riesgo de Producto o calidad' },
+  { label: 'Riesgo de Producto o Calidad', value: 'Riesgo de Producto o Calidad' },
   { label: 'Riesgo de Proyecto', value: 'Riesgo de Proyecto' },
 ];
 
@@ -61,6 +61,6 @@ export const ImpactoDeOcurrenciaDelRiesgo=[
 ]
 
 export const RolesStatuses = [
-  { label: 'lector', value: 'lector' },
-  { label: 'mantenedor', value: 'mantenedor' },
+  { label: 'Lector', value: 'lector' },
+  { label: 'Mantenedor', value: 'mantenedor' },
 ]

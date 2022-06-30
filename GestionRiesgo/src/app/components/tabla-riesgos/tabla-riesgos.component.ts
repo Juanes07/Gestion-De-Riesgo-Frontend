@@ -7,6 +7,8 @@ import {
   Audiencias,
   RiesgoStatuses,
   RiesgoLifeStatuses,
+  CriticidadesRiesgo,
+  TipoRiesgos,
 } from 'src/app/models/options.model';
 
 @Component({
@@ -27,6 +29,8 @@ export class TablaRiesgosComponent implements OnInit {
   audiencias = Audiencias;
   statuses = RiesgoStatuses;
   lifeStatuses = RiesgoLifeStatuses;
+  criticidades = CriticidadesRiesgo;
+  tipoRiesgos = TipoRiesgos;
 
   constructor(
     private route: ActivatedRoute,
@@ -68,58 +72,7 @@ export class TablaRiesgosComponent implements OnInit {
     console.log("go to page");
   }
 
-  getCriticidad(probabilidad: number, impacto: number) {
-    if (probabilidad == 1 && impacto == 1) {
-      return 'Bajo';
-    } else if (probabilidad == 2 && impacto == 1) {
-      return 'Bajo';
-    } else if (probabilidad == 3 && impacto == 1) {
-      return 'Bajo';
-    } else if (probabilidad == 4 && impacto == 1) {
-      return 'Bajo';
-    } else if (probabilidad == 1 && impacto == 2) {
-      return 'Bajo';
-    } else if (probabilidad == 2 && impacto == 2) {
-      return 'Bajo';
-    } else if (probabilidad == 1 && impacto == 3) {
-      return 'Bajo';
-    } else if (probabilidad == 5 && impacto == 1) {
-      return 'Medio';
-    } else if (probabilidad == 5 && impacto == 2) {
-      return 'Medio';
-    } else if (probabilidad == 4 && impacto == 2) {
-      return 'Medio';
-    } else if (probabilidad == 3 && impacto == 2) {
-      return 'Medio';
-    } else if (probabilidad == 3 && impacto == 3) {
-      return 'Medio';
-    } else if (probabilidad == 2 && impacto == 3) {
-      return 'Medio';
-    } else if (probabilidad == 2 && impacto == 4) {
-      return 'Medio';
-    } else if (probabilidad == 1 && impacto == 4) {
-      return 'Medio';
-    } else if (probabilidad == 1 && impacto == 5) {
-      return 'Medio';
-    } else if (probabilidad == 5 && impacto == 3) {
-      return 'Alto';
-    } else if (probabilidad == 4 && impacto == 3) {
-      return 'Alto';
-    } else if (probabilidad ==5 && impacto == 4) {
-      return 'Alto';
-    } else if (probabilidad == 4 && impacto == 4) {
-      return 'Alto';
-    } else if (probabilidad == 3 && impacto == 4) {
-      return 'Alto';
-    } else if (probabilidad == 5 && impacto == 5) {
-      return 'Alto';
-    } else if (probabilidad == 4 && impacto == 5) {
-      return 'Alto';
-    } else if (probabilidad == 3 && impacto == 5) {
-      return 'Alto';
-    } else if (probabilidad == 2 && impacto == 5) {
-      return 'Alto';
-    }
-    return "No definido";
+  getCriticidad(criticidad: number): string {
+    return criticidad === 1 ? 'Bajo' : (criticidad === 2 ? 'Medio' : 'Alto');
   }
 }

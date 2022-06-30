@@ -41,7 +41,7 @@
           cerrado: riesgo.estadoRiesgo === 'Cerrado',
           problema: riesgo.estadoRiesgo === 'Problema'
         }">
-        {{ riesgo.estadoRiesgo.toUpperCase() }}
+        {{ riesgo.estadoRiesgo }}
       </span>
     </p>
     <p>
@@ -50,7 +50,7 @@
         activo: riesgo.estadoDeVidaDelRiesgo === 'Activo',
         inactivo: riesgo.estadoDeVidaDelRiesgo === 'Inactivo'
       }">
-        {{riesgo.estadoDeVidaDelRiesgo.toUpperCase()}}
+        {{ riesgo.estadoDeVidaDelRiesgo }}
       </span>
     </p>
   </div>
@@ -92,7 +92,15 @@
     <p>
       <b>Impacto de Ocurrencia: </b>{{ riesgo.impactoDeOcurrenciaDelRiesgo }}
     </p>
-    <p><b>Criticidad: </b>{{ getCriticidad(riesgo.probabilidadDeOcurrenciaDelRiesgo,riesgo.impactoDeOcurrenciaDelRiesgo)}}</p>
+    <p><b>Criticidad: </b>
+      <span [ngClass]="{
+        alto: riesgo.valorCriticidad === 3,
+        medio: riesgo.valorCriticidad === 2,
+        bajo: riesgo.valorCriticidad === 1
+      }">
+      {{ getCriticidad(riesgo.valorCriticidad)}}
+    </span>
+    </p>
   </p-panel>
   <!-- Mitigacion -->
   <p-panel header="Mitigación">

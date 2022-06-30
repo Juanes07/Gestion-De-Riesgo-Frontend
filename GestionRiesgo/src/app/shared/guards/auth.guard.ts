@@ -87,3 +87,60 @@ export class MantenedorGuard implements CanActivate {
     });
   }
 }
+
+@Injectable({
+  providedIn: 'root',
+})
+export class RiesgoProyectoGuard implements CanActivate {
+  constructor(
+    private proyectoService: ProyectoService,
+    private auth: LoginService,
+    private router: Router
+  ) {}
+
+  email!: string;
+
+  canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
+    return new Observable<boolean>((obs) => {
+      this.proyectoService
+        .getRiesgoById(route.parent?.paramMap.get('id'))
+        .subscribe((data) => {
+          if (
+            data.idProyecto === Number(route.parent?.parent?.paramMap.get('id'))) {
+            obs.next(true);
+          } else {
+            this.router.navigateByUrl('/proyectos');
+            obs.next(false);
+          }
+        });
+    });
+  }
+}
+
+@Injectable({
+  providedIn: 'root',
+})
+export class CrearRiesgoGuard implements CanActivate {
+  constructor(
+    private proyectoService: ProyectoService,
+    private auth: LoginService,
+    private router: Router
+  ) {}
+
+  email!: string;
+
+  canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
+    return new Observable<boolean>((obs) => {
+      this.proyectoService
+        .getProyectoById(route.parent?.parent?.paramMap.get('id'))
+        .subscribe((data) => {
+          if (data.estado === 'Activo' || data.estado === 'Creado'){
+            obs.next(true);
+          }else {
+            this.router.navigateByUrl('/proyectos');
+            obs.next(false);
+          }
+        });
+    });
+  }
+}

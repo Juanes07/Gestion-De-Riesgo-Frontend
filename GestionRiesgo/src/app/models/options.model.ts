@@ -39,6 +39,12 @@ export const RiesgoLifeStatuses = [
   { label: 'Inactivo', value: 'Inactivo' },
 ];
 
+export const CriticidadesRiesgo = [
+  { label: 'Bajo', value: 1 },
+  { label: 'Medio', value: 2 },
+  { label: 'Alto', value: 3 },
+];
+
 export const  TipoRiesgos = [
   { label: 'Riesgo de Producto o Calidad', value: 'Riesgo de Producto o Calidad' },
   { label: 'Riesgo de Proyecto', value: 'Riesgo de Proyecto' },

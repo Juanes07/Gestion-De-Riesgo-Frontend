@@ -7,6 +7,8 @@ import {
   Audiencias,
   RiesgoStatuses,
   RiesgoLifeStatuses,
+  CriticidadesRiesgo,
+  TipoRiesgos,
 } from 'src/app/models/options.model';
 
 @Component({
@@ -27,6 +29,8 @@ export class TablaRiesgosComponent implements OnInit {
   audiencias = Audiencias;
   statuses = RiesgoStatuses;
   lifeStatuses = RiesgoLifeStatuses;
+  criticidades = CriticidadesRiesgo;
+  tipoRiesgos = TipoRiesgos;
 
   constructor(
     private route: ActivatedRoute,
@@ -66,5 +70,9 @@ export class TablaRiesgosComponent implements OnInit {
 
   riskPage(id: any){
     console.log("go to page");
+  }
+
+  getCriticidad(criticidad: number): string {
+    return criticidad === 1 ? 'Bajo' : (criticidad === 2 ? 'Medio' : 'Alto');
   }
 }

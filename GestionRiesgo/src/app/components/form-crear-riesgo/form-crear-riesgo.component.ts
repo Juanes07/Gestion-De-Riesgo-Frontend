@@ -201,13 +201,12 @@ export class FormCrearRiesgoComponent implements OnInit {
       this.formRiesgo.value.audiencia &&
       this.formRiesgo.value.categoria &&
       this.formRiesgo.value.TipoRiesgos &&
-      this.formRiesgo.value.DetalleTipoRiesgo &&
-      this.formRiesgo.value.descripcionPlanDeMitigacion &&
-      this.formRiesgo.value.descripcionPlanDeContingencia
+      (this.formRiesgo.value.DetalleTipoRiesgo.length < 500) &&
+    (this.formRiesgo.value.descripcionPlanDeMitigacion.length <=1000) &&
+      (this.formRiesgo.value.descripcionPlanDeContingencia.length <=1000)
     ) {
 
       this.services.guardarRiesgo(riesgo).subscribe({});
-      console.log(riesgo)
       this.messageService.add({
         severity: 'success',
         summary: '!Exitoso¡',

@@ -14,22 +14,19 @@ export class RiesgoPageComponent implements OnInit {
       label: 'Detalle de Riesgo',
       icon: 'pi pi-fw pi-file',
       routerLink: ['detalle'],
-    },
-    {
-      label: 'Editar Riesgo',
-      icon: 'pi pi-fw pi-pencil',
-      routerLink: ['editar'],
-    },
+    }
   ]
 
   activeItem = this.items[0];
 
-  constructor(private auth: LoginService) {}
+  constructor() {}
 
   ngOnInit() {
+    /*
+    private auth: LoginService
     this.items
     if(this.auth.getUser().rol != 'administrador' || this.auth.getUser().rol != 'mantenedor'){
       this.items[1].disabled = false
-    }
+    } */
   }
 }

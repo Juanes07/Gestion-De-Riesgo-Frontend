@@ -1,6 +1,9 @@
 <div>
-  <p-table [value]="riesgos" [loading]="loading" [paginator]="true" [rows]="30" styleClass="p-datatable-striped"
-    [rowHover]="true" [globalFilterFields]="[
+  <p-table [value]="riesgos" [loading]="loading" [paginator]="true" [rows]="30"
+    styleClass="p-datatable-striped p-datatable-sm"
+    [rowHover]="true"
+    sortField="id"
+    [globalFilterFields]="[
       'id',
       'nombreRiesgo',
       'fechaDeteccion',
@@ -10,7 +13,7 @@
       'creadorRiesgo',
       'estadoRiesgo',
       'estadoDeVidaDelRiesgo'
-    ]" sortField="id">
+    ]">
     <!-- Encabezado -->
     <ng-template pTemplate="header">
       <!-- Header with Sort -->

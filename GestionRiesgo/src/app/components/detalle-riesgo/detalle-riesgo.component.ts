@@ -28,9 +28,16 @@ export class DetalleRiesgoComponent implements OnInit {
       this.services.getRiesgoById(params['id']).subscribe((data) => {
         this.riesgo = data;
         this.isLoading = false;
-        this.riesgo.estadoDeVidaDelRiesgo === 'Activo' &&
+
         (this.auth.getUser().rol === 'administrador' ||
-          this.auth.getUser().rol === 'mantenedor')
+          this.auth.getUser().rol === 'mantenedor') &&
+        this.riesgo.estadoDeVidaDelRiesgo === 'Activo'
+          ? (this.isEditable = true)
+          : (this.isEditable = false);
+
+        (this.auth.getUser().rol === 'administrador' ||
+          this.auth.getUser().rol === 'mantenedor') &&
+        this.riesgo.estadoDeVidaDelRiesgo !== 'Inactivo'
           ? (this.isDeleteable = true)
           : (this.isDeleteable = false);
       });

@@ -29,6 +29,10 @@
           formControlName="name"
           [(ngModel)]="formuRiesgo.nombreRiesgo"
         />
+        <div class="mb-3" *ngIf="formuRiesgo.nombreRiesgo.length >50">
+          <p-message severity="error" text="Campo excedio limite de caracteres permitidos (50)"></p-message>
+        </div>
+
         <label>Fecha Deteccion del Riesgo </label>
         <p-calendar
           inputId="basic"
@@ -49,6 +53,7 @@
           [(ngModel)]="formuRiesgo.fechaCierre"
           [ngModelOptions]="{ standalone: true }"
           dateFormat="yy/mm/dd"
+          [minDate]="fechaHoy"
         ></p-calendar>
 
         <br />

@@ -1,10 +1,18 @@
 // Proyectos Dropdown Options //
 export const ProyectoStatuses = [
-  { label: 'Creado', value: 'Creado' },
-  { label: 'Activo', value: 'Activo' },
-  { label: 'Cancelado', value: 'Cancelado' },
-  { label: 'Pausado', value: 'Pausado' },
-  { label: 'Culminado', value: 'Culminado' },
+  { label: 'Creado', value: 'creado' },
+  { label: 'Activo', value: 'activo' },
+  { label: 'Cancelado', value: 'cancelado' },
+  { label: 'Pausado', value: 'pausado' },
+  { label: 'Culminado', value: 'culminado' },
+];
+
+// Proyectos Dropdown Options //
+export const estadoSinCreado = [
+  { label: 'Activo', value: 'activo' },
+  { label: 'Cancelado', value: 'cancelado' },
+  { label: 'Pausado', value: 'pausado' },
+  { label: 'Culminado', value: 'culminado' },
 ];
 
 // Riesgos Dropdown Options //

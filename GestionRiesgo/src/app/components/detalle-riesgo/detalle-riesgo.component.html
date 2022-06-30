@@ -71,7 +71,7 @@
     <p>
       <b>Impacto de Ocurrencia: </b>{{ riesgo.impactoDeOcurrenciaDelRiesgo }}
     </p>
-    <p><b>Criticidad: </b>{{ riesgo.valorCriticidad }}</p>
+    <p><b>Criticidad: </b>{{ getCriticidad(riesgo.probabilidadDeOcurrenciaDelRiesgo,riesgo.impactoDeOcurrenciaDelRiesgo)}}</p>
   </p-panel>
   <!-- Mitigacion -->
   <p-panel header="Mitigación">

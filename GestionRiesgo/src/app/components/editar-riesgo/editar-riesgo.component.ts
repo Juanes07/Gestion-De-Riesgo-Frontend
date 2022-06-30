@@ -30,7 +30,30 @@ export class EditarRiesgoComponent implements OnInit {
   riesgo!: riesgo;
   isLoading: boolean = true;
 
-  formuRiesgo!: riesgo;
+  formuRiesgo: riesgo = {
+    id: 0,
+    idProyecto: 0,
+    creadorRiesgo: '',
+    nombreProyecto: '',
+    nombreRiesgo: '',
+    fechaDeteccion: '',
+    fechaCierre: '',
+    etiquetas: [],
+    descripcionRiesgo: '',
+    estadoRiesgo: '',
+    audiencia: '',
+    categoria: '',
+    tipoRiesgo: '',
+    detalleTipoRiesgo: '',
+    probabilidadDeOcurrenciaDelRiesgo: 1,
+    impactoDeOcurrenciaDelRiesgo: 1,
+    descripcionPlanDeMitigacion: '',
+    emailsPlanDeMitigacion: [],
+    descripcionPlanDeContingencia: '',
+    emailsPlanDeContingencia: [],
+    valorCriticidad: 1,
+    estadoDeVidaDelRiesgo: 'Activo',
+  };
 
   audiencias = Audiencias;
   categorias = Categorias;
@@ -83,7 +106,6 @@ export class EditarRiesgoComponent implements OnInit {
       this.services.getRiesgoById(params['id']).subscribe((data) => {
         this.formuRiesgo = data;
         this.isLoading = false;
-
       });
     });
   }
@@ -111,6 +133,7 @@ export class EditarRiesgoComponent implements OnInit {
         summary: '!Exitoso¡',
         detail: 'Responsable guardado ',
       });
+      console.log(this.formuRiesgo.emailsPlanDeMitigacion);
     } else {
       this.messageService.add({
         severity: 'error',
@@ -119,7 +142,7 @@ export class EditarRiesgoComponent implements OnInit {
       });
     }
     this.responsableMitigacionHtml = '';
-    console.log(this.formuRiesgo.emailsPlanDeMitigacion);
+
   }
 
 
@@ -168,7 +191,7 @@ export class EditarRiesgoComponent implements OnInit {
   actualizarRiesgo(riesgo: riesgo): void {
     this.cambiarFormatoDate();
     if (
-      this.formRiesgo.value.name &&
+      (this.formRiesgo.value.name.length <=50) &&
       this.formRiesgo.value.detalle &&
       this.formRiesgo.value.estadoRiesgo &&
       this.formRiesgo.value.audiencia &&

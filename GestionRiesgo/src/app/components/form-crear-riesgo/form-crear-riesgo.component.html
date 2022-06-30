@@ -29,8 +29,17 @@
           formControlName="name"
           [(ngModel)]="formuRiesgo.nombreRiesgo"
         />
-        <div class="mb-3" *ngIf="formuRiesgo.nombreRiesgo.length >50">
-          <p-message severity="error" text="Campo excedio limite de caracteres permitidos (50)"></p-message>
+        <div class="mb-3" *ngIf="formuRiesgo.nombreRiesgo.length > 50">
+          <p-message
+            severity="error"
+            text="Campo excedio limite de caracteres permitidos (50)"
+          ></p-message>
+        </div>
+        <div class="mb-3" *ngIf="formuRiesgo.nombreRiesgo.length < 5">
+          <p-message
+            severity="error"
+            text="Campo Rquerido"
+          ></p-message>
         </div>
 
         <label>Fecha Deteccion del Riesgo </label>
@@ -64,22 +73,30 @@
           [(ngModel)]="etiquetahtml"
           [ngModelOptions]="{ standalone: true }"
         />
-        <p-button
-          class="mt-2"
+        <button pButton
+          class="mt-2 mb-2 "
           *ngIf="etiquetahtml != ''"
           (click)="agregarEtiqueta(etiquetahtml)"
           pButton
         >
           Agregar Etiqueta
-        </p-button>
-        <div class="mt-2 mb-3">
+        </button>
+        <div class="mt-2 mb-5" *ngFor="let etiquetas of formuRiesgo.etiquetas; index as i">
           <p-chip
             styleClass="mr-2 custom-chip"
             class="etiquetas"
-            *ngFor="let etiquetas of formuRiesgo.etiquetas; index as i"
           >
             {{ formuRiesgo.etiquetas[i] }}
           </p-chip>
+          <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-times"
+          class="p-button-rounded p-button-danger p-button-outlined p-button-sm "
+          (click)="eliminarEtiqueta(i)"
+        ></button>
+        <br>
         </div>
         <label>Descripcion del Riesgo</label>
         <textarea
@@ -185,7 +202,7 @@
           (onChange)="actualizarValorCriticidad($event)"
         ></p-dropdown>
         <br />
-        <label >Valor de Criticidad</label>
+        <label>Valor de Criticidad</label>
         <div class="mt-3" *ngIf="formuRiesgo.valorCriticidad === 1">
           <p-chip styleClass="mr-2 custom-chip"> Bajo </p-chip>
         </div>
@@ -224,24 +241,40 @@
         />
         <br />
         <br />
-        <p-button
+        <button pButton
           class="mt-2"
           (click)="agregarResponsableMitigacion(responsableMitigacionHtml)"
         >
           Agregar Responsable
-        </p-button>
+        </button>
 
-        <div class="mt-2 mb-3">
-          <p-chip
-            styleClass="mr-2 custom-chip"
-            class="etiquetas"
-            *ngFor="
-              let emails of formuRiesgo.emailsPlanDeMitigacion;
-              index as i
-            "
-          >
+
+
+        <div
+          class="mt-2 mb-3"
+          *ngFor="let emails of formuRiesgo.emailsPlanDeMitigacion; index as i"
+        >
+          <p-chip styleClass="mr-2 custom-chip" class="etiquetas">
             {{ formuRiesgo.emailsPlanDeMitigacion[i] }}
           </p-chip>
+          <button
+            pButton
+            pRipple
+            type="button"
+            icon="pi pi-times"
+            class="p-button-rounded p-button-danger p-button-outlined p-button-sm"
+            (click)="eliminarResponsablePlanMitigacion(i)"
+          ></button>
+        </div>
+
+        <div
+          class="nombre-requerido mb-5"
+          *ngIf="formuRiesgo.emailsPlanDeMitigacion.length < 1"
+        >
+          <p-message
+            severity="error"
+            text="Campo Requerido, Debe existir al menos un Responsable"
+          ></p-message>
         </div>
 
         <label>Plan de Contingencia</label>
@@ -271,24 +304,40 @@
         />
         <br />
         <br />
-        <p-button
+        <button pButton
           class="mt-2"
           (click)="agregarResponsableContingencia(responsableContingenciaHtml)"
         >
           Agregar Responsable
-        </p-button>
+        </button>
+        <div
+          class="nombre-requerido mb-5"
+          *ngIf="formuRiesgo.emailsPlanDeContingencia.length < 1"
+        >
+          <p-message
+            severity="error"
+            text="Campo Requerido, Debe existir al menos un Responsable"
+          ></p-message>
+        </div>
 
-        <div class="mt-2 mb-3">
-          <p-chip
-            styleClass="mr-2 custom-chip"
-            class="etiquetas"
-            *ngFor="
-              let emails of formuRiesgo.emailsPlanDeContingencia;
-              index as i
-            "
-          >
+        <div
+          class="mt-2 mb-3"
+          *ngFor="
+            let emails of formuRiesgo.emailsPlanDeContingencia;
+            index as i
+          "
+        >
+          <p-chip styleClass="mr-2 custom-chip" class="etiquetas">
             {{ formuRiesgo.emailsPlanDeContingencia[i] }}
           </p-chip>
+          <button
+            pButton
+            pRipple
+            type="button"
+            icon="pi pi-times"
+            class="p-button-rounded p-button-danger p-button-outlined p-button-sm"
+            (click)="eliminarResponsablePlanContingencia(i)"
+          ></button>
         </div>
         <p-button (click)="guardarRiesgo(formuRiesgo)">Guardar Riesgo</p-button>
       </form>

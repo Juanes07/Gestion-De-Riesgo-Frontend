@@ -1,5 +1,9 @@
-<p-table>
-    <ng-template pTemplate="header">
+<p-table [columns]="selectedEstados" [value]="matrizBi"  responsiveLayout="scroll">
+  <ng-template pTemplate="caption">
+    <p-multiSelect [options]="cols" [(ngModel)]="selectedEstados" optionLabel="header"
+    selectedItemsLabel="Todos los estados seleccionados" [style]="{minWidth: '200px'}" placeholder="Elige Un Estado"></p-multiSelect>
+  </ng-template>
+  <ng-template pTemplate="header">
         <!-- row 1 -->
         <tr>
             <th>Frecuente</th>

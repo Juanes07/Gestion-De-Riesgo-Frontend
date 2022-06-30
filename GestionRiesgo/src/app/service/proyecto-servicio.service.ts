@@ -13,6 +13,7 @@ export class ProyectoService {
 
   constructor(private http: HttpClient) {}
 
+  // Servicios de Proyecto(s) //
 
   guardarProyecto(proyecto: proyecto): Observable<proyecto> {
     let direccion = this.url + 'crearProyecto';
@@ -31,6 +32,19 @@ export class ProyectoService {
     return this.http.get<proyecto>(direccion);
   }
 
+  actualizarProyecto(proyecto: proyecto): Observable<any>{
+    let direccion = this.url + 'actualizarProyecto/' + proyecto.id
+    return this.http.put<any>(direccion, proyecto,{
+      responseType: 'text' as 'json',
+    })
+  }
+
+  eliminarProyecto(id:number): Observable<any>{
+    let direccion = this.url + 'eliminarProyecto/' + id;
+    return this.http.delete<any>(direccion);
+  }
+
+  // Servicios de Riesgos //
 
   getRiesgosByProyectoId(id:any): Observable<riesgo[]> {
     let direccion = this.url + 'obtenerRiesgoPorProyecto/' + id;
@@ -50,11 +64,9 @@ export class ProyectoService {
     return this.http.get<riesgo>(direccion);
   }
 
-  actualizarProyecto(proyeto:proyecto): Observable<any>{
-    let direccion = this.url + 'actualizarProyecto/' + proyeto.id
-    return this.http.put<any>(direccion, proyeto,{
-      responseType: 'text' as 'json',
-    })
+  eliminarRiesgo(id:number): Observable<any>{
+    let direccion = this.url + 'eliminarRiesgoPorId/' + id;
+    return this.http.put<any>(direccion, {});
   }
 
   actualizarRiesgo(riesgo:riesgo): Observable<any>{

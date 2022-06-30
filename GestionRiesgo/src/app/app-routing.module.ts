@@ -19,7 +19,7 @@ import { RiesgoPageComponent } from './pages/riesgo-page/riesgo-page.component';
 import { DetalleRiesgoComponent } from './components/detalle-riesgo/detalle-riesgo.component';
 import { RolesComponent } from './pages/usuarios/roles/roles.component';
 import { EditarProyectoComponent } from './components/editar-proyecto/editar-proyecto.component';
-import { AdminGuard, ResponsableGuard, MantenedorGuard } from './shared/guards/auth.guard';
+import { AdminGuard, ResponsableGuard, MantenedorGuard, RiesgoProyectoGuard } from './shared/guards/auth.guard';
 import { EditarRiesgoComponent } from './components/editar-riesgo/editar-riesgo.component';
 
 const routes: Routes = [
@@ -52,8 +52,8 @@ const routes: Routes = [
         canActivate:[ResponsableGuard],
         component: RiesgoPageComponent,
         children: [
-          { path: 'detalle', component: DetalleRiesgoComponent,  },
-          { path: 'editar', component: EditarRiesgoComponent, canActivate:[MantenedorGuard] },
+          { path: 'detalle', component: DetalleRiesgoComponent, canActivate: [RiesgoProyectoGuard] },
+          { path: 'editar', component: EditarRiesgoComponent, canActivate:[MantenedorGuard, RiesgoProyectoGuard] },
           { path: '**', pathMatch: 'full', redirectTo: 'detalle' },
         ]
       },

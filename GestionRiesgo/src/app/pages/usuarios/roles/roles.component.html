@@ -71,6 +71,7 @@
         <td>{{ (usuarios.roles[0].charAt(0).toUpperCase())+ (usuarios.roles[0].slice(1))}}</td>
         <td>
           <button
+          *ngIf="usuarios.roles[0] !== 'administrador'"
             pButton
             pRipple
             icon="pi pi-pencil"

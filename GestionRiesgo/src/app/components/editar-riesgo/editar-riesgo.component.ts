@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -96,7 +97,8 @@ export class EditarRiesgoComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private services: ProyectoService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private _location: Location
   ) {}
 
   ngOnInit(): void {
@@ -200,6 +202,9 @@ export class EditarRiesgoComponent implements OnInit {
         summary: '!Exitoso¡',
         detail: 'Proyecto Guardado exitosamente',
       });
+      setTimeout(() => {
+        this._location.back();
+      }, 1500);
     } else {
       this.messageService.add({
         severity: 'error',

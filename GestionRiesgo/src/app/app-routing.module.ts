@@ -49,11 +49,11 @@ const routes: Routes = [
         ]
       },
       { path: 'riesgo/:id',
-        canActivate: [ResponsableGuard],
+        canActivate:[ResponsableGuard],
         component: RiesgoPageComponent,
         children: [
-          { path: 'detalle', component: DetalleRiesgoComponent },
-          { path: 'edit', component: EditarRiesgoComponent, canActivate: [MantenedorGuard] },
+          { path: 'detalle', component: DetalleRiesgoComponent,  },
+          { path: 'editar', component: EditarRiesgoComponent, canActivate:[MantenedorGuard] },
           { path: '**', pathMatch: 'full', redirectTo: 'detalle' },
         ]
       },

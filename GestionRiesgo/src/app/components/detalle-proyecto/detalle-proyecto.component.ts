@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { proyecto } from 'src/app/models/proyecto-modelo.model';
 import { LoginService } from 'src/app/service/login.service';
 import { ProyectoService } from 'src/app/service/proyecto-servicio.service';
+import { EditarProyectoComponent } from '../editar-proyecto/editar-proyecto.component';
 
 @Component({
   selector: 'app-detalle-proyecto',
@@ -35,6 +36,8 @@ export class DetalleProyectoComponent implements OnInit {
       });
     });
   }
+
+
 
   deleteProyecto() {
     if (this.proyecto.estado === 'Creado') {

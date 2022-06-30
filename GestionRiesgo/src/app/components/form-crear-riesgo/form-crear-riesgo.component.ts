@@ -72,7 +72,7 @@ export class FormCrearRiesgoComponent implements OnInit {
    */
   public formRiesgo: FormGroup = new FormGroup({
     etiquetahtml: new FormControl('', Validators.minLength(2)),
-    name: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required, Validators.minLength(5),Validators.maxLength(50)]),
     fecha: new FormControl('', [Validators.required]),
     detalle: new FormControl('', [
       Validators.required,
@@ -85,6 +85,7 @@ export class FormCrearRiesgoComponent implements OnInit {
     TipoRiesgos: new FormControl('', Validators.required),
     DetalleTipoRiesgo: new FormControl('', [
       Validators.required,
+      Validators.minLength(5),
       Validators.maxLength(499),
     ]),
     descripcionPlanDeMitigacion: new FormControl('', [

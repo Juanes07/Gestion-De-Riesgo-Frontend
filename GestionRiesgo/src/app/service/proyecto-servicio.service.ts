@@ -57,4 +57,11 @@ export class ProyectoService {
     })
   }
 
+  actualizarRiesgo(riesgo:riesgo): Observable<any>{
+    let direccion = this.url + 'actualizarRiesgo/' + riesgo.id
+    return this.http.put<any>(direccion, riesgo,{
+      responseType: 'text' as 'json',
+    })
+  }
+
 }

@@ -1,65 +1,37 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import * as moment from 'moment';
 import { MessageService } from 'primeng/api';
+import {
+  Audiencias,
+  Categorias,
+  ImpactoDeOcurrenciaDelRiesgo,
+  ProbabilidadOcurriencia,
+  RiesgoStatuses,
+  TipoRiesgos,
+} from 'src/app/models/options.model';
 import { riesgo } from 'src/app/models/riesgo-modelo.models';
 import { ProyectoService } from 'src/app/service/proyecto-servicio.service';
-import {
-  Categorias,
-  Audiencias,
-  TipoRiesgos,
-  ProbabilidadOcurriencia,
-  ImpactoDeOcurrenciaDelRiesgo,
-  RiesgoStatuses,
-} from 'src/app/models/options.model';
-import * as moment from 'moment';
-import { LoginService } from 'src/app/service/login.service';
 
 @Component({
-  selector: 'app-form-crear-riesgo',
-  templateUrl: './form-crear-riesgo.component.html',
-  styleUrls: ['./form-crear-riesgo.component.css'],
+  selector: 'app-editar-riesgo',
+  templateUrl: './editar-riesgo.component.html',
+  styleUrls: ['./editar-riesgo.component.css'],
 })
-export class FormCrearRiesgoComponent implements OnInit {
+export class EditarRiesgoComponent implements OnInit {
   etiquetahtml: string = '';
+
+  fechaHoy: Date = new Date();
 
   responsableMitigacionHtml: string = '';
   responsableContingenciaHtml: string = '';
 
+  riesgo!: riesgo;
+  isLoading: boolean = false;
 
-  formuRiesgo: riesgo = {
-    id: 0,
-    idProyecto: 0,
-    creadorRiesgo: '',
-    nombreProyecto: '',
-    nombreRiesgo: '',
-    fechaDeteccion: '',
-    fechaCierre: '',
-    etiquetas: [],
-    descripcionRiesgo: '',
-    estadoRiesgo: '',
-    audiencia: '',
-    categoria: '',
-    tipoRiesgo: '',
-    detalleTipoRiesgo: '',
-    probabilidadDeOcurrenciaDelRiesgo: 1,
-    impactoDeOcurrenciaDelRiesgo: 1,
-    descripcionPlanDeMitigacion: '',
-    emailsPlanDeMitigacion: [],
-    descripcionPlanDeContingencia: '',
-    emailsPlanDeContingencia: [],
-    valorCriticidad: 1,
-    estadoDeVidaDelRiesgo: 'Activo',
-  };
+  formuRiesgo!: riesgo;
 
-  /**
-   * opciones del dropdown
-   */
   audiencias = Audiencias;
   categorias = Categorias;
   tipoRiesgos = TipoRiesgos;
@@ -73,7 +45,6 @@ export class FormCrearRiesgoComponent implements OnInit {
   public formRiesgo: FormGroup = new FormGroup({
     etiquetahtml: new FormControl('', Validators.minLength(2)),
     name: new FormControl('', [Validators.required]),
-    fecha: new FormControl('', [Validators.required]),
     detalle: new FormControl('', [
       Validators.required,
       Validators.minLength(5),
@@ -102,22 +73,18 @@ export class FormCrearRiesgoComponent implements OnInit {
   });
 
   constructor(
-    private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private services: ProyectoService,
-    private messageService: MessageService,
-    private auth: LoginService
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
-    this.formuRiesgo.creadorRiesgo = this.auth.getUser().email
-    this.route.parent?.parent?.params.subscribe((params) => {
-      this.services.getProyectoById(params['id']).subscribe((data) => {
-        this.formuRiesgo.idProyecto = data.id;
-        this.formuRiesgo.nombreProyecto = data.nombre;
+    this.route.parent?.params.subscribe((params) => {
+      this.services.getRiesgoById(params['id']).subscribe((data) => {
+        this.formuRiesgo = data;
+        this.isLoading = true;
       });
     });
-    console.log(this.formuRiesgo.valorCriticidad)
   }
 
   /**
@@ -128,10 +95,13 @@ export class FormCrearRiesgoComponent implements OnInit {
     this.formuRiesgo.etiquetas.push(etiqueta);
   }
 
-  /**
-   * Metodo para agregar dentro del array de responsables mitigacion
-   * @param emailPlanMitigacion string
-   */
+  eliminarEtiqueta(etiquetaIndex: number){
+    this.formuRiesgo.etiquetas.forEach((value, index)=>{
+      if(index == etiquetaIndex)
+      this.formuRiesgo.etiquetas.splice(index,1);
+    })
+  }
+
   agregarResponsableMitigacion(emailPlanMitigacion: string): void {
     if (this.metodoComprobarFormatoCorreo(emailPlanMitigacion)) {
       this.formuRiesgo.emailsPlanDeMitigacion.push(emailPlanMitigacion);
@@ -147,18 +117,23 @@ export class FormCrearRiesgoComponent implements OnInit {
         detail: 'Responsable no guardado (validar formato correo) ',
       });
     }
-
     this.responsableMitigacionHtml = '';
     console.log(this.formuRiesgo.emailsPlanDeMitigacion);
   }
 
-  /**
-   * Metodo para agregar dentro del array de responsables contingencia
-   * @param emailPlanContingencia string
-   */
-  agregarResponsableContingencia(responsableContingenciaHtml:string ): void {
-    if (this.metodoComprobarFormatoCorreo(responsableContingenciaHtml)) {
-      this.formuRiesgo.emailsPlanDeContingencia.push(responsableContingenciaHtml);
+
+  eliminarResponsableMitigacion(responsableIndex: number){
+    this.formuRiesgo.emailsPlanDeMitigacion.forEach((value, index)=>{
+      if(index == responsableIndex)
+      this.formuRiesgo.emailsPlanDeMitigacion.splice(index,1);
+    })
+    console.log(this.formuRiesgo.emailsPlanDeMitigacion)
+  }
+
+
+  agregarResponsableContingencia(emailPlanMitigacion: string): void {
+    if (this.metodoComprobarFormatoCorreo(emailPlanMitigacion)) {
+      this.formuRiesgo.emailsPlanDeContingencia.push(emailPlanMitigacion);
       this.messageService.add({
         severity: 'succes',
         summary: '!Exitoso¡',
@@ -172,25 +147,27 @@ export class FormCrearRiesgoComponent implements OnInit {
       });
     }
     this.responsableContingenciaHtml = '';
+  }
+
+
+  eliminarResponsableContingencia(responsableIndex: number){
+    this.formuRiesgo.emailsPlanDeContingencia.forEach((value, index)=>{
+      if(index == responsableIndex)
+      this.formuRiesgo.emailsPlanDeContingencia.splice(index,1);
+    })
     console.log(this.formuRiesgo.emailsPlanDeContingencia)
   }
 
-  /**
-   * Metodo para comprobar que se agregue un correo con formato valido
-   * @param responsable string
-   * @returns responsable verificado formato correo
-   */
   metodoComprobarFormatoCorreo(responsable: string) {
     let result = new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$');
     let otra = result.test(responsable);
     return otra;
   }
 
-  guardarRiesgo(riesgo: riesgo): void {
+  actualizarRiesgo(riesgo: riesgo): void {
     this.cambiarFormatoDate();
     if (
       this.formRiesgo.value.name &&
-      this.formRiesgo.value.fecha &&
       this.formRiesgo.value.detalle &&
       this.formRiesgo.value.estadoRiesgo &&
       this.formRiesgo.value.audiencia &&
@@ -200,8 +177,7 @@ export class FormCrearRiesgoComponent implements OnInit {
       this.formRiesgo.value.descripcionPlanDeMitigacion &&
       this.formRiesgo.value.descripcionPlanDeContingencia
     ) {
-      this.services.guardarRiesgo(riesgo).subscribe({});
-      console.log(riesgo)
+      this.services.actualizarRiesgo(riesgo).subscribe({});
       this.messageService.add({
         severity: 'success',
         summary: '!Exitoso¡',
@@ -216,6 +192,7 @@ export class FormCrearRiesgoComponent implements OnInit {
     }
   }
 
+
   cambiarFormatoDate() {
     const date = this.formuRiesgo.fechaDeteccion;
     const myFormat = 'YYYY-MM-DD';
@@ -229,8 +206,6 @@ export class FormCrearRiesgoComponent implements OnInit {
       this.formuRiesgo.fechaCierre = myDate2;
     }
   }
-
-
 
   actualizarValorCriticidad(event: Event){
 
@@ -253,4 +228,5 @@ export class FormCrearRiesgoComponent implements OnInit {
       this.formuRiesgo.valorCriticidad = 3;
     }
   }
+
 }

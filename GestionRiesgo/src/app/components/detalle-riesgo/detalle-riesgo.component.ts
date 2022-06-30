@@ -23,6 +23,7 @@ export class DetalleRiesgoComponent implements OnInit {
       this.services.getRiesgoById(params['id']).subscribe(data => {
         this.riesgo = data;
         this.isLoading = false;
+        console.log(this.riesgo)
       });
     });
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { MessageService } from 'primeng/api';
 import { ProyectoStatuses } from 'src/app/models/options.model';
@@ -15,7 +15,7 @@ import { ProyectoService } from 'src/app/service/proyecto-servicio.service';
 export class EditarProyectoComponent implements OnInit {
 
   isLoading: boolean = true;
-
+  etiquetshtml:string = '';
   estados = ProyectoStatuses;
 
   liderHtml: string = '';
@@ -38,6 +38,7 @@ export class EditarProyectoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private services: ProyectoService,
     private messageService: MessageService,
+    private router: Router,
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -65,6 +66,11 @@ export class EditarProyectoComponent implements OnInit {
     })
   }
 
+  agregarEtiqueta(etiqueta: string): void {
+    this.modelo.etiquetas.push(etiqueta);
+    this.etiquetshtml = '';
+  }
+
 
   eliminarEtiqueta(etiquetaIndex: number){
     this.modelo.etiquetas.forEach((value, index)=>{
@@ -83,12 +89,15 @@ export class EditarProyectoComponent implements OnInit {
     ) {
       this.services.actualizarProyecto(modelo).subscribe({});
       this.liderHtml = '';
-      console.log(modelo);
+
       this.messageService.add({
         severity: 'success',
         summary: '!Exitoso¡',
         detail: 'Proyecto Guardado exitosamente',
-      });
+      })
+      setTimeout(() => {
+          this.router.navigateByUrl('/detalle')
+      }, 2000);
     } else {
       this.messageService.add({
         severity: 'error',
@@ -96,6 +105,7 @@ export class EditarProyectoComponent implements OnInit {
         detail: '(campos-vacios) validar campos requeridos',
       });
     }
+
 
 
   }
@@ -128,6 +138,7 @@ export class EditarProyectoComponent implements OnInit {
         summary: '!Exitoso¡',
         detail: 'Responsable guardado ',
       });
+      this.responsableHtml = '';
     } else {
       this.messageService.add({
         severity: 'error',

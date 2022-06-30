@@ -1,5 +1,5 @@
 <p-toast></p-toast>
-<div class="m-5 p-4 border-solid border-200 border-round-md" *ngIf="isLoading">
+<div class="m-5 p-4 border-solid border-200 border-round-md" *ngIf="!isLoading">
   <h2>Editar Riesgo</h2>
   <div class="p-fluid p-grid p-formgrid">
     <div class="field col-12 md:col-4">
@@ -52,7 +52,6 @@
           [(ngModel)]="formuRiesgo.fechaCierre"
           [ngModelOptions]="{ standalone: true }"
           dateFormat="yy/mm/dd"
-          [ngModel]="formuRiesgo.fechaCierre"
           [minDate]="fechaHoy"
         ></p-calendar>
 
@@ -63,7 +62,6 @@
           pInputText
           [(ngModel)]="etiquetahtml"
           [ngModelOptions]="{ standalone: true }"
-          value="''"
         />
         <p-button
           class="mt-2"
@@ -231,12 +229,12 @@
         />
         <br />
         <br />
-        <p-button
+        <button pButton
           class="mt-2"
           (click)="agregarResponsableMitigacion(responsableMitigacionHtml)"
         >
           Agregar Responsable
-        </p-button>
+        </button>
 
         <div
           class="mt-2 mb-3"
@@ -282,12 +280,12 @@
         />
         <br />
         <br />
-        <p-button
-          class="mt-2"
+        <button pButton
+          class="mt-2 mb-2"
           (click)="agregarResponsableContingencia(responsableContingenciaHtml)"
         >
           Agregar Responsable
-        </p-button>
+        </button>
 
         <div
           class="mt-2 mb-3"
@@ -308,7 +306,7 @@
             (click)="eliminarResponsableContingencia(i)"
           ></button>
         </div>
-        <p-button (click)="actualizarRiesgo(formuRiesgo)" [routerLink]="['../../../riesgos']">Actualizar Riesgo</p-button>
+        <button pButton class="mt-3" (click)="actualizarRiesgo(formuRiesgo)" [routerLink]="['../../../riesgos']">Actualizar Riesgo</button>
       </form>
     </div>
   </div>

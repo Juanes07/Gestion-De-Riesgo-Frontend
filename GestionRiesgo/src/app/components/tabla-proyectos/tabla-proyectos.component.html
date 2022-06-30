@@ -1,10 +1,12 @@
 <div>
   <p-table
     [value]="proyectos"
+    [responsive]="true"
+    [resizableColumns]="true"
     [loading]="loading"
     [paginator]="true"
     [rows]="20"
-    styleClass="p-datatable-striped"
+    styleClass="p-datatable-striped p-datatable-sm"
     [rowHover]="true"
     [globalFilterFields]="[
       'id',
@@ -124,13 +126,37 @@
           class="font-bold cursor-pointer text-primary hover:underline"
           [routerLink]="['/proyecto', proyecto.id]"
         >
-          {{ proyecto.id }}
+        <span class="p-column-title">ID</span>
+        <span class="image-text">{{ proyecto.id }}</span>
         </td>
-        <td>{{ proyecto.nombre }}</td>
-        <td>{{ proyecto.fechaInicio }}</td>
-        <td>{{ proyecto.fechaFin }}</td>
-        <td>{{ proyecto.liderProyecto }}</td>
-        <td>{{ proyecto.estado }}</td>
+        <td>
+          <span class="p-column-title">NOMBRE</span>
+          <span class="image-text">{{ proyecto.nombre }}</span>
+        </td>
+        <td>
+          <span class="p-column-title">FECHA DE INICIO</span>
+          <span class="image-text">{{ proyecto.fechaInicio }}</span>
+
+        </td>
+        <td>
+          <span class="p-column-title">FECHA DE FIN</span>
+          <span class="image-text">{{ proyecto.fechaFin }}</span>
+        </td>
+        <td>
+          <span class="p-column-title">LIDER DE PROYECTO</span>
+          <span class="image-text">{{ proyecto.liderProyecto }}</span>
+        </td>
+        <td>
+          <span class="p-column-title">ESTADO</span>
+          <span class="image-text"
+          [ngClass]="{
+            creado: proyecto.estado === 'Creado',
+            activo: proyecto.estado === 'Activo',
+            culminado: proyecto.estado === 'Culminado',
+            cancelado: proyecto.estado === 'Cancelado',
+            pausado: proyecto.estado === 'Pausado'
+          }" >{{ proyecto.estado }}</span>
+        </td>
       </tr>
     </ng-template>
     <!-- Show if not found projects -->

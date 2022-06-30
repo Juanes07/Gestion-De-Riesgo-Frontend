@@ -3,12 +3,13 @@
     <span class="font-medium">ID: {{ proyecto.id }}</span>
     <div>
       <button
-        *ngIf="isDeleteable"
+        *ngIf="isEditable"
         pButton
         pRipple
         type="button"
         label="Editar"
-        class="p-button-sm p-button-success ml-2 pi pi-pencil"
+        icon="pi pi-pencil"
+        class="p-button-sm p-button-success ml-2"
         [routerLink]="['../editar']"
       ></button>
     </div>
@@ -36,7 +37,7 @@
         pausado: proyecto.estado === 'Pausado'
       }"
     >
-      {{ proyecto.estado }}
+      {{ proyecto.estado.toUpperCase() }}
     </span>
   </div>
   <p class="text-center"><b>Lider: </b>{{ proyecto.liderProyecto }}</p>

@@ -70,6 +70,7 @@ export class FormCrearProyectoComponent implements OnInit {
         summary: '!Exitoso¡',
         detail: 'Proyecto Guardado exitosamente',
       });
+      this.route.navigate(['/proyectos']);
     } else {
       this.messageService.add({
         severity: 'error',
@@ -99,6 +100,13 @@ export class FormCrearProyectoComponent implements OnInit {
         detail: 'Responsable no guardado (validar formato correo) ',
       });
     }
+  }
+
+  eliminarResponsable(responsableIndex: number){
+    this.formulario.responsables.forEach((value, index)=>{
+      if(index == responsableIndex)
+      this.formulario.responsables.splice(index,1);
+    })
   }
 
   agregarLider(responsable: string): void {

@@ -1,9 +1,30 @@
 <div class="m-5 p-4 border-solid border-200 border-round-md" *ngIf="!isLoading">
   <div class="flex justify-content-between">
     <span class="font-medium">ID: {{ riesgo.id }}</span>
-    <button [routerLink]="['../../../riesgos']" (click)="deleteRiesgo()" *ngIf="isDeleteable" pButton
-      class="p-button-danger p-button-sm" icon="pi pi-trash" label="Eliminar"></button>
+    <div>
+      <button
+        *ngIf="isEditable"
+        pButton
+        pRipple
+        type="button"
+        label="Editar"
+        icon="pi pi-pencil"
+        class="p-button-sm p-button-success ml-2"
+        [routerLink]="['../editar']"
+      ></button>
+    </div>
   </div>
+  <div class="flex justify-content-end mt-2" >
+    <button
+      *ngIf="isDeleteable"
+      pButton
+      class="p-button-danger p-button-sm"
+      icon="pi pi-trash"
+      label="Eliminar"
+      (click)="deleteRiesgo()"
+    ></button>
+  </div>
+
   <div class="text-center">
     <h1>{{ riesgo.nombreRiesgo.toUpperCase() }}</h1>
     <p>
@@ -20,7 +41,7 @@
           cerrado: riesgo.estadoRiesgo === 'Cerrado',
           problema: riesgo.estadoRiesgo === 'Problema'
         }">
-        {{ riesgo.estadoRiesgo }}
+        {{ riesgo.estadoRiesgo.toUpperCase() }}
       </span>
     </p>
     <p>
@@ -29,7 +50,7 @@
         activo: riesgo.estadoDeVidaDelRiesgo === 'Activo',
         inactivo: riesgo.estadoDeVidaDelRiesgo === 'Inactivo'
       }">
-        {{riesgo.estadoDeVidaDelRiesgo}}
+        {{riesgo.estadoDeVidaDelRiesgo.toUpperCase()}}
       </span>
     </p>
   </div>

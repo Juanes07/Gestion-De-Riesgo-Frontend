@@ -19,6 +19,7 @@ import {
 } from 'src/app/models/options.model';
 import * as moment from 'moment';
 import { LoginService } from 'src/app/service/login.service';
+import { proyecto } from 'src/app/models/proyecto-modelo.model';
 
 @Component({
   selector: 'app-form-crear-riesgo',
@@ -33,6 +34,8 @@ export class FormCrearRiesgoComponent implements OnInit {
 
 
   fechaHoy: Date = new Date();
+
+  proyecto!: proyecto ;
 
   formuRiesgo: riesgo = {
     id: 0,
@@ -120,9 +123,9 @@ export class FormCrearRiesgoComponent implements OnInit {
       this.services.getProyectoById(params['id']).subscribe((data) => {
         this.formuRiesgo.idProyecto = data.id;
         this.formuRiesgo.nombreProyecto = data.nombre;
+        this.proyecto = data
       });
     });
-    console.log(this.formuRiesgo.valorCriticidad)
   }
 
   /**
@@ -177,7 +180,6 @@ export class FormCrearRiesgoComponent implements OnInit {
       });
     }
     this.responsableContingenciaHtml = '';
-    console.log(this.formuRiesgo.emailsPlanDeContingencia)
   }
 
   /**
@@ -205,8 +207,11 @@ export class FormCrearRiesgoComponent implements OnInit {
     (this.formRiesgo.value.descripcionPlanDeMitigacion.length <=1000) &&
       (this.formRiesgo.value.descripcionPlanDeContingencia.length <=1000)
     ) {
-
-      this.services.guardarRiesgo(riesgo).subscribe({});
+      this.services.guardarRiesgo(riesgo).subscribe({
+      });
+      this.proyecto.estado = 'Activo'
+      this.services.actualizarProyecto(this.proyecto).subscribe({
+      })
       this.messageService.add({
         severity: 'success',
         summary: '!Exitoso¡',

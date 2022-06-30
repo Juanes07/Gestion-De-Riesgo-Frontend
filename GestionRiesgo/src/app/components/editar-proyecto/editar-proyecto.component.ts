@@ -32,7 +32,7 @@ export class EditarProyectoComponent implements OnInit {
     responsables: [],
     descripcion: '',
     liderProyecto: '',
-    estado: 'creado',
+    estado: 'Creado',
   };
 
   constructor(
@@ -55,7 +55,7 @@ export class EditarProyectoComponent implements OnInit {
   public form: FormGroup = new FormGroup({
     name: new FormControl ('', Validators.required),
     email: new FormControl( '',Validators.email),
-    detalle: new FormControl ('', [Validators.required, Validators.minLength(5)]),
+    detalle: new FormControl ('', [Validators.required, Validators.minLength(5), Validators.maxLength(700)]),
     emailLider: new FormControl('', Validators.email),
   });
 
@@ -85,12 +85,11 @@ export class EditarProyectoComponent implements OnInit {
 
     this.cambiarFormatoDate();
     if (
-      this.form.value.name &&
-      this.form.value.detalle
+      (this.form.value.name.length <=50) &&
+      (this.form.value.detalle.length <700)
     ) {
       this.services.actualizarProyecto(modelo).subscribe({});
       this.liderHtml = '';
-
       this.messageService.add({
         severity: 'success',
         summary: '!Exitoso¡',

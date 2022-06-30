@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { proyecto } from 'src/app/models/proyecto-modelo.model';
 import { LoginService } from 'src/app/service/login.service';
 import { ProyectoService } from 'src/app/service/proyecto-servicio.service';
-import { EditarProyectoComponent } from '../editar-proyecto/editar-proyecto.component';
 
 @Component({
   selector: 'app-detalle-proyecto',
@@ -13,7 +12,7 @@ import { EditarProyectoComponent } from '../editar-proyecto/editar-proyecto.comp
 export class DetalleProyectoComponent implements OnInit {
   proyecto!: proyecto;
   isLoading: boolean = true;
-  isEditable: boolean = true;
+  isEditable: boolean = false;
   isDeleteable: boolean = false;
 
   constructor(
@@ -28,16 +27,18 @@ export class DetalleProyectoComponent implements OnInit {
       this.services.getProyectoById(params['id']).subscribe((data) => {
         this.proyecto = data;
         this.isLoading = false;
-        this.proyecto.estado === 'Creado' &&
-        (this.auth.getUser().rol === 'administrador' ||
-          this.auth.getUser().rol === 'mantenedor')
+
+        this.auth.getUser().rol === 'administrador' ||
+        this.auth.getUser().rol === 'mantenedor'
+          ? (this.isEditable = true)
+          : (this.isEditable = false);
+
+        this.proyecto.estado === 'Creado' && this.isEditable
           ? (this.isDeleteable = true)
           : (this.isDeleteable = false);
       });
     });
   }
-
-
 
   deleteProyecto() {
     if (this.proyecto.estado === 'Creado') {

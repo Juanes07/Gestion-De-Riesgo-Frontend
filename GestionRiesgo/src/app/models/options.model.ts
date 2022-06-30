@@ -7,6 +7,14 @@ export const ProyectoStatuses = [
   { label: 'Culminado', value: 'Culminado' },
 ];
 
+// Proyectos Dropdown Options //
+export const estadoSinCreado = [
+  { label: 'Activo', value: 'Activo' },
+  { label: 'Cancelado', value: 'Cancelado' },
+  { label: 'Pausado', value: 'Pausado' },
+  { label: 'Culminado', value: 'Culminado' },
+];
+
 // Riesgos Dropdown Options //
 export const Categorias = [
   { label: 'Costo', value: 'Costo' },
@@ -32,7 +40,7 @@ export const RiesgoLifeStatuses = [
 ];
 
 export const  TipoRiesgos = [
-  { label: 'Riesgo de Producto o calidad', value: 'Riesgo de Producto o calidad' },
+  { label: 'Riesgo de Producto o Calidad', value: 'Riesgo de Producto o Calidad' },
   { label: 'Riesgo de Proyecto', value: 'Riesgo de Proyecto' },
 ];
 
@@ -53,6 +61,6 @@ export const ImpactoDeOcurrenciaDelRiesgo=[
 ]
 
 export const RolesStatuses = [
-  { label: 'lector', value: 'lector' },
-  { label: 'mantenedor', value: 'mantenedor' },
+  { label: 'Lector', value: 'lector' },
+  { label: 'Mantenedor', value: 'mantenedor' },
 ]

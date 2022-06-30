@@ -19,6 +19,7 @@ import {
 } from 'src/app/models/options.model';
 import * as moment from 'moment';
 import { LoginService } from 'src/app/service/login.service';
+import { proyecto } from 'src/app/models/proyecto-modelo.model';
 
 @Component({
   selector: 'app-form-crear-riesgo',
@@ -31,6 +32,10 @@ export class FormCrearRiesgoComponent implements OnInit {
   responsableMitigacionHtml: string = '';
   responsableContingenciaHtml: string = '';
 
+
+  fechaHoy: Date = new Date();
+
+  proyecto!: proyecto ;
 
   formuRiesgo: riesgo = {
     id: 0,
@@ -110,15 +115,17 @@ export class FormCrearRiesgoComponent implements OnInit {
     private auth: LoginService
   ) {}
 
+
+
   ngOnInit(): void {
     this.formuRiesgo.creadorRiesgo = this.auth.getUser().email
     this.route.parent?.parent?.params.subscribe((params) => {
       this.services.getProyectoById(params['id']).subscribe((data) => {
         this.formuRiesgo.idProyecto = data.id;
         this.formuRiesgo.nombreProyecto = data.nombre;
+        this.proyecto = data
       });
     });
-    console.log(this.formuRiesgo.valorCriticidad)
   }
 
   /**
@@ -173,7 +180,6 @@ export class FormCrearRiesgoComponent implements OnInit {
       });
     }
     this.responsableContingenciaHtml = '';
-    console.log(this.formuRiesgo.emailsPlanDeContingencia)
   }
 
   /**
@@ -190,19 +196,22 @@ export class FormCrearRiesgoComponent implements OnInit {
   guardarRiesgo(riesgo: riesgo): void {
     this.cambiarFormatoDate();
     if (
-      this.formRiesgo.value.name &&
+      (this.formRiesgo.value.name.length <=50) &&
       this.formRiesgo.value.fecha &&
       this.formRiesgo.value.detalle &&
       this.formRiesgo.value.estadoRiesgo &&
       this.formRiesgo.value.audiencia &&
       this.formRiesgo.value.categoria &&
       this.formRiesgo.value.TipoRiesgos &&
-      this.formRiesgo.value.DetalleTipoRiesgo &&
-      this.formRiesgo.value.descripcionPlanDeMitigacion &&
-      this.formRiesgo.value.descripcionPlanDeContingencia
+      (this.formRiesgo.value.DetalleTipoRiesgo.length < 500) &&
+    (this.formRiesgo.value.descripcionPlanDeMitigacion.length <=1000) &&
+      (this.formRiesgo.value.descripcionPlanDeContingencia.length <=1000)
     ) {
-      this.services.guardarRiesgo(riesgo).subscribe({});
-      console.log(riesgo)
+      this.services.guardarRiesgo(riesgo).subscribe({
+      });
+      this.proyecto.estado = 'Activo'
+      this.services.actualizarProyecto(this.proyecto).subscribe({
+      })
       this.messageService.add({
         severity: 'success',
         summary: '!Exitoso¡',

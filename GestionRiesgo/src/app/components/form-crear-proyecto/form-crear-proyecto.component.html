@@ -12,8 +12,14 @@
         formControlName="name"
         pInputText
       />
-      <div class="nombre-requerido mb-5" *ngIf="formulario.nombre == ''">
-        <p-message severity="error" text="Campo es Requerido"></p-message>
+      <div
+        class="nombre-requerido mb-5"
+        *ngIf="formulario.nombre.length < 5 || formulario.nombre.length >= 50"
+      >
+        <p-message
+          severity="error"
+          text="Campo excede los 50 caracteres (minimo 5 caracteres)"
+        ></p-message>
       </div>
       <br />
       <br />
@@ -25,7 +31,6 @@
         [(ngModel)]="formulario.fechaInicio"
         formControlName="fecha"
         dateFormat="yy/mm/dd"
-        [readonlyInput]="true"
       ></p-calendar>
       <br />
       <div class="nombre-requerido mb-5" *ngIf="formulario.fechaInicio == ''">
@@ -80,19 +85,25 @@
       />
       <br />
       <br />
-      <p-button
-        class="mt-2"
-        (click)="agregarResponsable(responsableHtml)"
-      >
+      <p-button class="mt-2" (click)="agregarResponsable(responsableHtml)">
         Agregar Responsable
       </p-button>
-      <div>
-        <h5
-          class="responsables"
-          *ngFor="let responsable of formulario.responsables; index as i"
-        >
+      <div
+        class="mt-2"
+        *ngFor="let responsable of formulario.responsables; index as i"
+      >
+        <p-chip styleClass="mr-2 custom-chip">
           {{ formulario.responsables[i] }}
-        </h5>
+        </p-chip>
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-times"
+          class="p-button-rounded p-button-danger p-button-outlined p-button-sm"
+          pButton
+          (click)="eliminarResponsable(i)"
+        ></button>
       </div>
       <br />
       <label>Descripcion del formulario</label>
@@ -115,15 +126,20 @@
         formControlName="emailLider"
         pInputText
       />
-      <br>
-      <br>
+      <div class="nombre-requerido" *ngIf="formulario.liderProyecto == ''">
+        <p-message severity="error" text="Campo es Requerido"></p-message>
+      </div>
       <p-button (click)="agregarLider(liderHtml)">
-        agregar Lider de Proyecto
+        Agregar Lider de Proyecto
       </p-button>
     </form>
     <br />
   </div>
-  <button pButton (click)="guardarProyecto(formulario)">
-    Guardar formulario
-  </button>
+  <button
+    pButton
+    class="p-button p-button-success"
+    icon="pi pi-save"
+    label="Crear Proyecto"
+    (click)="guardarProyecto(formulario)"
+  ></button>
 </div>

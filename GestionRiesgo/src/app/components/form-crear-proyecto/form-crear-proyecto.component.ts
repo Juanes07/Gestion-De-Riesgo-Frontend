@@ -9,7 +9,6 @@ import {
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { MessageService } from 'primeng/api';
-import { idProyectoModel } from 'src/app/models/idproyecto-modelo.model';
 import { proyecto } from 'src/app/models/proyecto-modelo.model';
 import { ProyectoService } from 'src/app/service/proyecto-servicio.service';
 
@@ -25,6 +24,8 @@ export class FormCrearProyectoComponent implements OnInit {
 
   responsableHtml: string = '';
   liderHtml: string = '';
+
+
 
   formulario: proyecto = {
     id: 0,
@@ -69,6 +70,7 @@ export class FormCrearProyectoComponent implements OnInit {
         summary: '!Exitoso¡',
         detail: 'Proyecto Guardado exitosamente',
       });
+      this.route.navigate(['/proyectos']);
     } else {
       this.messageService.add({
         severity: 'error',
@@ -98,6 +100,13 @@ export class FormCrearProyectoComponent implements OnInit {
         detail: 'Responsable no guardado (validar formato correo) ',
       });
     }
+  }
+
+  eliminarResponsable(responsableIndex: number){
+    this.formulario.responsables.forEach((value, index)=>{
+      if(index == responsableIndex)
+      this.formulario.responsables.splice(index,1);
+    })
   }
 
   agregarLider(responsable: string): void {

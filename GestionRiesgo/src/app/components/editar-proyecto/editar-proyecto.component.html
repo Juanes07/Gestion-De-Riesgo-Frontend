@@ -19,16 +19,18 @@
       </div>
       <br />
       <br />
-      <div  *ngIf="modelo.estado !='Creado'">
-        <label >Estado del Proyecto</label>
-        <br>
-        <p-dropdown [options]="estados" [(ngModel)]="modelo.estado"
-        [ngModelOptions]="{ standalone: true }"
+      <div *ngIf="modelo.estado != 'Creado'">
+        <label>Estado del Proyecto</label>
+        <br />
+        <p-dropdown
+          [options]="estados"
+          [(ngModel)]="modelo.estado"
+          [ngModelOptions]="{ standalone: true }"
         >
         </p-dropdown>
       </div>
-      <br>
-      <br>
+      <br />
+      <br />
       <label for="basic">Fecha de Inicio Proyecto</label>
       <br />
       <br />

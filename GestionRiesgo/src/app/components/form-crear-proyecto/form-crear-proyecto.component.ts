@@ -102,6 +102,13 @@ export class FormCrearProyectoComponent implements OnInit {
     }
   }
 
+  eliminarResponsable(responsableIndex: number){
+    this.formulario.responsables.forEach((value, index)=>{
+      if(index == responsableIndex)
+      this.formulario.responsables.splice(index,1);
+    })
+  }
+
   agregarLider(responsable: string): void {
     if (this.metodoComprobarFormatoCorreo(responsable)) {
       this.formulario.liderProyecto = responsable;

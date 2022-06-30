@@ -2,7 +2,7 @@
   <p-table [value]="riesgos" [loading]="loading" [paginator]="true" [rows]="30" styleClass="p-datatable-striped"
     [rowHover]="true" [globalFilterFields]="[
       'id',
-      'nombre',
+      'nombreRiesgo',
       'fechaDeteccion',
       'fechaCierre',
       'audiencia',
@@ -17,8 +17,8 @@
       <tr>
         <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon>
         </th>
-        <th pSortableColumn="nombre">
-          NOMBRE <p-sortIcon field="nombre"></p-sortIcon>
+        <th pSortableColumn="nombreRiesgo">
+          NOMBRE <p-sortIcon field="nombreRiesgo"></p-sortIcon>
         </th>
         <th pSortableColumn="fechaDeteccion">
           FECHA DE DETECCION <p-sortIcon field="fechaDeteccion"></p-sortIcon>
@@ -49,7 +49,7 @@
           </p-columnFilter>
         </th>
         <th>
-          <p-columnFilter type="text" field="nombre" matchMode="contains" placeholder="Filtrar Por Nombre">
+          <p-columnFilter type="text" field="nombreRiesgo" matchMode="contains" placeholder="Filtrar Por Nombre">
           </p-columnFilter>
         </th>
         <th>

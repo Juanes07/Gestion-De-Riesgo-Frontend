@@ -70,6 +70,7 @@ export class FormCrearProyectoComponent implements OnInit {
         summary: '!Exitoso¡',
         detail: 'Proyecto Guardado exitosamente',
       });
+      this.route.navigate(['/proyectos']);
     } else {
       this.messageService.add({
         severity: 'error',

@@ -1,5 +1,6 @@
 <p-toast></p-toast>
-
+<div class="mx-5 mb-5">
+  <h1>Administrador de usuarios/roles</h1>
 <div class="card">
   <p-table #dt [value]="usuarios" [rows]="10" [paginator]="true" responsiveLayout="scroll"
   currentPageReportTemplate="Observando {first} a {last} de {totalRecords} entradas" [showCurrentPageReport]="true">
@@ -67,7 +68,7 @@
       <tr>
         <td>{{ usuarios.nombre }}</td>
         <td>{{ usuarios.email }}</td>
-        <td>{{ usuarios.roles[0] }}</td>
+        <td>{{ (usuarios.roles[0].charAt(0).toUpperCase())+ (usuarios.roles[0].slice(1))}}</td>
         <td>
           <button
             pButton
@@ -103,7 +104,7 @@
         id="nombre"
         [(ngModel)]="usuario.nombre"
         required
-        autofocus
+        readonly
       />
       <small class="p-invalid" *ngIf="submitted && !usuario.nombre"
         >Nombre es requerido.</small
@@ -117,7 +118,7 @@
         id="email"
         [(ngModel)]="usuario.email"
         required
-        autofocus
+        readonly
       />
       <small class="p-invalid" *ngIf="submitted && !usuario.email"
         >Email es requerido.</small
@@ -129,7 +130,7 @@
         [(ngModel)]="usuario.roles"
         inputId="inventoryStatus"
         [options]="statuses"
-        placeholder="Select"
+        placeholder="Seleccionar rol"
       >
         <ng-template let-option pTemplate="item">
           <span [class]="'product-badge status-' + option.value">{{
@@ -161,3 +162,4 @@
 </p-dialog>
 
 <p-confirmDialog [style]="{ width: '700px' }"></p-confirmDialog>
+</div>

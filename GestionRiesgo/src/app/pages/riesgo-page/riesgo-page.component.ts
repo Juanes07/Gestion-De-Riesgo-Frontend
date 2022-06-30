@@ -29,7 +29,7 @@ export class RiesgoPageComponent implements OnInit {
   ngOnInit() {
     this.items
     if(this.auth.getUser().rol != 'administrador' || this.auth.getUser().rol != 'mantenedor'){
-      this.items[1].disabled = true
+      this.items[1].disabled = false
     }
   }
 }

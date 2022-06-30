@@ -28,7 +28,7 @@ export class EditarRiesgoComponent implements OnInit {
   responsableContingenciaHtml: string = '';
 
   riesgo!: riesgo;
-  isLoading: boolean = false;
+  isLoading: boolean = true;
 
   formuRiesgo!: riesgo;
 
@@ -60,12 +60,10 @@ export class EditarRiesgoComponent implements OnInit {
     ]),
     descripcionPlanDeMitigacion: new FormControl('', [
       Validators.required,
-      Validators.minLength(5),
       Validators.maxLength(1000),
     ]),
     descripcionPlanDeContingencia: new FormControl('', [
       Validators.required,
-      Validators.minLength(5),
       Validators.maxLength(1000),
     ]),
     emailsPlanMitigacion: new FormControl('', Validators.email),
@@ -76,13 +74,16 @@ export class EditarRiesgoComponent implements OnInit {
     private route: ActivatedRoute,
     private services: ProyectoService,
     private messageService: MessageService
-  ) {}
+  ) {
+
+  }
 
   ngOnInit(): void {
     this.route.parent?.params.subscribe((params) => {
       this.services.getRiesgoById(params['id']).subscribe((data) => {
         this.formuRiesgo = data;
-        this.isLoading = true;
+        this.isLoading = false;
+
       });
     });
   }

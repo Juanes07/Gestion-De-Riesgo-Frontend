@@ -1,20 +1,41 @@
 <div class="m-5 p-4 border-solid border-200 border-round-md" *ngIf="!isLoading">
-
   <div class="flex justify-content-between">
     <span class="font-medium">ID: {{ proyecto.id }}</span>
-    <button *ngIf="isDeleteable" pButton class="p-button-danger p-button-sm" icon="pi pi-trash" label="Eliminar" (click)="deleteProyecto()"></button>
+    <div>
+      <button
+        *ngIf="isDeleteable"
+        pButton
+        pRipple
+        type="button"
+        label="Editar"
+        class="p-button-sm p-button-success ml-2 pi pi-pencil"
+        [routerLink]="['../editar']"
+      ></button>
+    </div>
+  </div>
+  <div class="flex justify-content-end mt-2" >
+    <button
+      *ngIf="isDeleteable"
+      pButton
+      class="p-button-danger p-button-sm"
+      icon="pi pi-trash"
+      label="Eliminar"
+      (click)="deleteProyecto()"
+    ></button>
   </div>
 
   <h1 class="text-center">{{ proyecto.nombre.toUpperCase() }}</h1>
   <div class="text-center">
     <b>Estado: </b>
-    <span [ngClass]="{
-      creado: proyecto.estado === 'Creado',
-      activo: proyecto.estado === 'Activo',
-      culminado: proyecto.estado === 'Culminado',
-      cancelado: proyecto.estado === 'Cancelado',
-      pausado: proyecto.estado === 'Pausado'
-    }">
+    <span
+      [ngClass]="{
+        creado: proyecto.estado === 'Creado',
+        activo: proyecto.estado === 'Activo',
+        culminado: proyecto.estado === 'Culminado',
+        cancelado: proyecto.estado === 'Cancelado',
+        pausado: proyecto.estado === 'Pausado'
+      }"
+    >
       {{ proyecto.estado }}
     </span>
   </div>

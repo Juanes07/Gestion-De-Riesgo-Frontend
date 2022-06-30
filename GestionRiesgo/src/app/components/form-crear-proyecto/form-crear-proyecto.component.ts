@@ -76,13 +76,11 @@ export class FormCrearProyectoComponent implements OnInit {
         detail: '(campos-vacios) validar campos requeridos',
       });
     }
-
-    console.log(this.formulario);
   }
 
   agregarEtiqueta(etiqueta: string): void {
     this.formulario.etiquetas.push(etiqueta);
-    console.log(this.formulario.etiquetas);
+    this.etiquetshtml = '';
   }
 
   agregarResponsable(responsable: string): void {

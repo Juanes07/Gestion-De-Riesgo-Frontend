@@ -19,7 +19,7 @@ import { RiesgoPageComponent } from './pages/riesgo-page/riesgo-page.component';
 import { DetalleRiesgoComponent } from './components/detalle-riesgo/detalle-riesgo.component';
 import { RolesComponent } from './pages/usuarios/roles/roles.component';
 import { EditarProyectoComponent } from './components/editar-proyecto/editar-proyecto.component';
-import { AdminGuard, ResponsableGuard, MantenedorGuard, RiesgoProyectoGuard } from './shared/guards/auth.guard';
+import { AdminGuard, ResponsableGuard, MantenedorGuard, RiesgoProyectoGuard, CrearRiesgoGuard } from './shared/guards/auth.guard';
 import { EditarRiesgoComponent } from './components/editar-riesgo/editar-riesgo.component';
 
 const routes: Routes = [
@@ -44,7 +44,7 @@ const routes: Routes = [
       { path: 'riesgos', component: RiesgosComponent, canActivate: [ResponsableGuard],
         children: [
           { path: 'lista', component: TablaRiesgosComponent },
-          { path: 'crear', component: FormCrearRiesgoComponent },
+          { path: 'crear', component: FormCrearRiesgoComponent, canActivate: [CrearRiesgoGuard] },
           { path: '**', pathMatch: 'full', redirectTo: 'lista' },
         ]
       },

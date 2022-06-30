@@ -12,8 +12,8 @@
         formControlName="name"
         pInputText
       />
-      <div class="nombre-requerido mb-5" *ngIf="formulario.nombre == ''">
-        <p-message severity="error" text="Campo es Requerido"></p-message>
+      <div class="nombre-requerido mb-5" *ngIf="formulario.nombre.length < 5  || formulario.nombre.length >=50">
+        <p-message severity="error" text="Campo excede los 50 caracteres (minimo 5 caracteres)"></p-message>
       </div>
       <br />
       <br />
@@ -25,7 +25,6 @@
         [(ngModel)]="formulario.fechaInicio"
         formControlName="fecha"
         dateFormat="yy/mm/dd"
-        [readonlyInput]="true"
       ></p-calendar>
       <br />
       <div class="nombre-requerido mb-5" *ngIf="formulario.fechaInicio == ''">

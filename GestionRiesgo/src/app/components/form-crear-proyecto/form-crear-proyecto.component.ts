@@ -9,7 +9,6 @@ import {
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { MessageService } from 'primeng/api';
-import { idProyectoModel } from 'src/app/models/idproyecto-modelo.model';
 import { proyecto } from 'src/app/models/proyecto-modelo.model';
 import { ProyectoService } from 'src/app/service/proyecto-servicio.service';
 
@@ -25,6 +24,8 @@ export class FormCrearProyectoComponent implements OnInit {
 
   responsableHtml: string = '';
   liderHtml: string = '';
+
+
 
   formulario: proyecto = {
     id: 0,

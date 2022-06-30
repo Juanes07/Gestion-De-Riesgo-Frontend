@@ -8,10 +8,11 @@ import { ProyectoService } from 'src/app/service/proyecto-servicio.service';
   templateUrl: './matriz-riesgo.component.html',
   styleUrls: ['./matriz-riesgo.component.css'],
 })
+/**
+ * Componente que muestra la matriz de riesgo
+ */
 export class MatrizRiesgoComponent implements OnInit {
   riesgo!: riesgo;
-
-  estado!: string[];
 
   cols!: any[];
 
@@ -24,6 +25,7 @@ export class MatrizRiesgoComponent implements OnInit {
     [0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0],
   ];
+
 
   constructor(
     private service: ProyectoService,
@@ -48,47 +50,48 @@ export class MatrizRiesgoComponent implements OnInit {
   }
 
   set selectedEstados(val: any[]) {
-    this.matrizBi = [
+    // restaura orden original
+    this._selectedEstados = this.cols.filter((col) => val.includes(col));
+
+    // limpiar la matriz
+    this.matrizBi =  [
       [0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0],
     ];
-    // restaura orden original
-    this._selectedEstados = this.cols.filter((col) => val.includes(col));
-    this._selectedEstados.forEach((col) => {
-      if (col.field === 'Abierto') {
+
+    //si se selecciona todos los filtros
+    if (this._selectedEstados.length === 4) {
+      this.metodoInicial();
+      return;
+    }
+
+    //filtros para la matriz
+    this._selectedEstados.filter((col) => {
+      if (col.field === "Abierto") {
         this.metodoAbierto();
-      } else if (col.field === 'Mitigado') {
+      } else if (col.field === "Mitigado") {
         this.metodoMitigado();
-      } else if (col.field === 'Cerrado') {
+      } else if (col.field === "Cerrado") {
         this.metodoCerrado();
-      } else if (col.field === 'Problema') {
+      } else if (col.field === "Problema") {
         this.metodoProblema();
-      } else if (col.field === 'Todos') {
-        this.metodoInicial();
       }
     });
+
   }
 
   metodoInicial() {
+    console.log("metodo inicial");
     this.route.parent?.params.subscribe((params) => {
       this.service.getRiesgosByProyectoId(params['id']).subscribe((data) => {
         for (let riesgo = 0; riesgo < data.length; riesgo++) {
           this.riesgo = data[riesgo];
-          if ((this.riesgo.estadoDeVidaDelRiesgo === 'Activo' ||
-          this.riesgo.estadoDeVidaDelRiesgo === 'activo')){
-          for (let fila = 0; fila < this.matrizBi.length; fila++) {
-            for (let columna = 0; columna < this.matrizBi.length; columna++) {
-              if (
-                this.riesgo.probabilidadDeOcurrenciaDelRiesgo - 1 == fila &&
-                this.riesgo.impactoDeOcurrenciaDelRiesgo - 1 == columna
-              ) {
-                this.matrizBi[fila][columna] += 1;
-              }
-            }
-          }
+          if ((this.riesgo.estadoDeVidaDelRiesgo === "activo" ||
+          this.riesgo.estadoDeVidaDelRiesgo === "Activo")){
+            this.pintarMatriz();
         }
       }
       });
@@ -101,20 +104,11 @@ export class MatrizRiesgoComponent implements OnInit {
         for (let riesgo = 0; riesgo < data.length; riesgo++) {
           this.riesgo = data[riesgo];
           if (
-            this.riesgo.estadoRiesgo === 'Abierto' &&
-            (this.riesgo.estadoDeVidaDelRiesgo === 'Activo' ||
-              this.riesgo.estadoDeVidaDelRiesgo === 'activo')
+            this.riesgo.estadoRiesgo === "Abierto" &&
+            (this.riesgo.estadoDeVidaDelRiesgo === "Activo" ||
+              this.riesgo.estadoDeVidaDelRiesgo === "activo")
           ) {
-            for (let fila = 0; fila < this.matrizBi.length; fila++) {
-              for (let columna = 0; columna < this.matrizBi.length; columna++) {
-                if (
-                  this.riesgo.probabilidadDeOcurrenciaDelRiesgo - 1 == fila &&
-                  this.riesgo.impactoDeOcurrenciaDelRiesgo - 1 == columna
-                ) {
-                  this.matrizBi[fila][columna] += 1;
-                }
-              }
-            }
+            this.pintarMatriz();
           }
         }
       });
@@ -127,20 +121,11 @@ export class MatrizRiesgoComponent implements OnInit {
         for (let riesgo = 0; riesgo < data.length; riesgo++) {
           this.riesgo = data[riesgo];
           if (
-            this.riesgo.estadoRiesgo === 'Mitigado' &&
-            (this.riesgo.estadoDeVidaDelRiesgo === 'Activo' ||
-              this.riesgo.estadoDeVidaDelRiesgo === 'activo')
+            this.riesgo.estadoRiesgo === "Mitigado" &&
+            (this.riesgo.estadoDeVidaDelRiesgo === "Activo" ||
+              this.riesgo.estadoDeVidaDelRiesgo === "activo")
           ) {
-            for (let fila = 0; fila < this.matrizBi.length; fila++) {
-              for (let columna = 0; columna < this.matrizBi.length; columna++) {
-                if (
-                  this.riesgo.probabilidadDeOcurrenciaDelRiesgo - 1 == fila &&
-                  this.riesgo.impactoDeOcurrenciaDelRiesgo - 1 == columna
-                ) {
-                  this.matrizBi[fila][columna] += 1;
-                }
-              }
-            }
+            this.pintarMatriz();
           }
         }
       });
@@ -153,20 +138,11 @@ export class MatrizRiesgoComponent implements OnInit {
         for (let riesgo = 0; riesgo < data.length; riesgo++) {
           this.riesgo = data[riesgo];
           if (
-            this.riesgo.estadoRiesgo === 'Cerrado' &&
-            (this.riesgo.estadoDeVidaDelRiesgo === 'Activo' ||
-              this.riesgo.estadoDeVidaDelRiesgo === 'activo')
+            this.riesgo.estadoRiesgo === "Cerrado" &&
+            (this.riesgo.estadoDeVidaDelRiesgo === "Activo" ||
+              this.riesgo.estadoDeVidaDelRiesgo === "activo")
           ) {
-            for (let fila = 0; fila < this.matrizBi.length; fila++) {
-              for (let columna = 0; columna < this.matrizBi.length; columna++) {
-                if (
-                  this.riesgo.probabilidadDeOcurrenciaDelRiesgo - 1 == fila &&
-                  this.riesgo.impactoDeOcurrenciaDelRiesgo - 1 == columna
-                ) {
-                  this.matrizBi[fila][columna] += 1;
-                }
-              }
-            }
+            this.pintarMatriz();
           }
         }
       });
@@ -179,23 +155,27 @@ export class MatrizRiesgoComponent implements OnInit {
         for (let riesgo = 0; riesgo < data.length; riesgo++) {
           this.riesgo = data[riesgo];
           if (
-            this.riesgo.estadoRiesgo === 'Problema' &&
-            (this.riesgo.estadoDeVidaDelRiesgo === 'Activo' ||
-              this.riesgo.estadoDeVidaDelRiesgo === 'activo')
+            this.riesgo.estadoRiesgo === "Problema" &&
+            (this.riesgo.estadoDeVidaDelRiesgo === "Activo" ||
+              this.riesgo.estadoDeVidaDelRiesgo === "activo")
           ) {
-            for (let fila = 0; fila < this.matrizBi.length; fila++) {
-              for (let columna = 0; columna < this.matrizBi.length; columna++) {
-                if (
-                  this.riesgo.probabilidadDeOcurrenciaDelRiesgo - 1 == fila &&
-                  this.riesgo.impactoDeOcurrenciaDelRiesgo - 1 == columna
-                ) {
-                  this.matrizBi[fila][columna] += 1;
-                }
-              }
-            }
+            this.pintarMatriz();
           }
         }
       });
     });
+  }
+
+  pintarMatriz() {
+    for (let fila = 0; fila < this.matrizBi.length; fila++) {
+      for (let columna = 0; columna < this.matrizBi.length; columna++) {
+        if (
+          this.riesgo.probabilidadDeOcurrenciaDelRiesgo - 1 == fila &&
+          this.riesgo.impactoDeOcurrenciaDelRiesgo - 1 == columna
+        ) {
+          this.matrizBi[fila][columna] += 1;
+        }
+      }
+    }
   }
 }

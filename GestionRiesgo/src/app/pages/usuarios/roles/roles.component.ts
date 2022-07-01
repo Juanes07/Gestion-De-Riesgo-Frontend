@@ -71,9 +71,7 @@ export class RolesComponent implements OnInit {
     try {
       this.usuario = { ...this.usuario };
       const response = this.rolesService.updateUsuarios(user);
-      response.subscribe((res) => {
-        console.log(res);
-      });
+      response.subscribe((res) => {});
       this.usuario = {
         id: 0,
         nombre: '',

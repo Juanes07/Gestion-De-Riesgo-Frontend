@@ -69,7 +69,6 @@ export class TablaRiesgosComponent implements OnInit {
   }
 
   riskPage(id: any){
-    console.log("go to page");
   }
 
   getCriticidad(criticidad: number): string {

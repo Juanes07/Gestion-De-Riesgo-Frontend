@@ -105,6 +105,7 @@ export class FormCrearProyectoComponent implements OnInit {
         summary: '!Exitoso¡',
         detail: 'Responsable guardado ',
       });
+      this.responsableHtml = '';
     } else {
       this.messageService.add({
         severity: 'error',

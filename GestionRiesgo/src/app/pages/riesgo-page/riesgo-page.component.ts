@@ -22,11 +22,5 @@ export class RiesgoPageComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    /*
-    private auth: LoginService
-    this.items
-    if(this.auth.getUser().rol != 'administrador' || this.auth.getUser().rol != 'mantenedor'){
-      this.items[1].disabled = false
-    } */
   }
 }

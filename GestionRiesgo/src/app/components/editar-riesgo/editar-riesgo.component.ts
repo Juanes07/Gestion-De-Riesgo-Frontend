@@ -132,7 +132,6 @@ export class EditarRiesgoComponent implements OnInit {
         summary: '!Exitoso¡',
         detail: 'Responsable guardado ',
       });
-      console.log(this.formuRiesgo.emailsPlanDeMitigacion);
     } else {
       this.messageService.add({
         severity: 'error',
@@ -148,7 +147,6 @@ export class EditarRiesgoComponent implements OnInit {
       if (index == responsableIndex)
         this.formuRiesgo.emailsPlanDeMitigacion.splice(index, 1);
     });
-    console.log(this.formuRiesgo.emailsPlanDeMitigacion);
   }
 
   agregarResponsableContingencia(emailPlanMitigacion: string): void {
@@ -174,7 +172,6 @@ export class EditarRiesgoComponent implements OnInit {
       if (index == responsableIndex)
         this.formuRiesgo.emailsPlanDeContingencia.splice(index, 1);
     });
-    console.log(this.formuRiesgo.emailsPlanDeContingencia);
   }
 
   metodoComprobarFormatoCorreo(responsable: string) {

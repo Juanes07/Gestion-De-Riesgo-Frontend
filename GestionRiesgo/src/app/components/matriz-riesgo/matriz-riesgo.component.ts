@@ -84,7 +84,6 @@ export class MatrizRiesgoComponent implements OnInit {
   }
 
   metodoInicial() {
-    console.log("metodo inicial");
     this.route.parent?.params.subscribe((params) => {
       this.service.getRiesgosByProyectoId(params['id']).subscribe((data) => {
         for (let riesgo = 0; riesgo < data.length; riesgo++) {

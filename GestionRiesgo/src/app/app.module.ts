@@ -27,6 +27,7 @@ import { RolesComponent } from './pages/usuarios/roles/roles.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { EditarProyectoComponent } from './components/editar-proyecto/editar-proyecto.component';
 import { EditarRiesgoComponent } from './components/editar-riesgo/editar-riesgo.component';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { EditarRiesgoComponent } from './components/editar-riesgo/editar-riesgo.
     ReactiveFormsModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent],

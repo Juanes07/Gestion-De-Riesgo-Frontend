@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import {
-  AngularFirestore,
-  AngularFirestoreDocument,
-} from '@angular/fire/compat/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 import firebase from 'firebase/compat/app';
 import { User } from '../models/usuario-i.model';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 import { UserMongo } from '../models/usermongo.model';
@@ -35,8 +32,7 @@ export class LoginService {
     email: '',
     rol: '',
     displayName: '',
-    photoURL: '',
-    emailVerified: false,
+    token: '',
   };
   public idUser = '';
   public rolUser = '';
@@ -74,8 +70,12 @@ export class LoginService {
    * @param user
    * @returns validation
    */
-  async verifyUserRegistered(user: User) {
-    return this.store.collection('users').doc(user.uid).valueChanges();
+  async verifyUserRegistered(userLogin: User) {
+    return new Promise<any>((resolve) => {
+      this.store.collection('users').doc(userLogin.uid.toString()).valueChanges().subscribe((data) => {
+        resolve(data);
+      })
+    })
   }
 
   async loginWithGoogle() {
@@ -85,8 +85,7 @@ export class LoginService {
       );
       if (this.credential.user !== null) {
         const user = this.credential.user;
-        this.getPropertyValue(user);
-        return this.credential;
+        return await this.getPropertyValue(user) ? this.credential : undefined;
       }
     } catch (error) {
       return null;
@@ -100,9 +99,7 @@ export class LoginService {
           password
         );
         const user = this.credential.user;
-        this.getPropertyValue(user);
-        return this.credential;
-
+        return await this.getPropertyValue(user) ? this.credential : undefined;
         } catch (error) {
           return null;
         }
@@ -138,9 +135,6 @@ export class LoginService {
       this.credential = await this.afauth.signInWithPopup(provider);
       if (this.credential.user !== null) {
         const user = this.credential.user;
-        const userRef: AngularFirestoreDocument<any> = this.store.doc(
-          `users/${user.uid}`
-        );
         this.userMongo = {
           nombre: user.displayName,
           email: user.email,
@@ -150,9 +144,6 @@ export class LoginService {
         response.subscribe((data) => {
           console.log(data);
         });
-        return userRef.set(this.userMongo, {
-          merge: true,
-        });
       }
     } catch (error) {
       return console.log(error);
@@ -160,9 +151,13 @@ export class LoginService {
   }
 
   async logout() {
+    let id = this.getUser().uid;
+    await this.store.collection('users').doc(id.toString()).update({token: ''});
     await this.afauth.signOut();
     localStorage.removeItem('user');
   }
+
+
 
   async resetPassword(email: string): Promise<void> {
     await this.afauth.sendPasswordResetEmail(email);
@@ -174,29 +169,42 @@ export class LoginService {
    */
   getPropertyValue(user: any) {
     let direction = this.url + 'obtenerUsuarios';
-    this.http.get<any>(direction).subscribe((data) => {
-      data.forEach(
-        async (element: { email: any; id: string; roles: string }) => {
-          if (element.email === user.email) {
-            this.userLogin = {
-              uid: element.id,
-              email: user.email,
-              rol: element.roles[0],
-              displayName: user.displayName,
-              photoURL: user.photoURL,
-              emailVerified: user.emailVerified,
-            };
-            const verify = await this.verifyUserRegistered(user);
-            if (verify) {
-              JSON.parse(localStorage.getItem('user')!);
-              localStorage.setItem('user', JSON.stringify(this.userLogin));
-            } else {
-              this.logout();
+    return new Promise<any>((resolve) => {
+      this.http.get<any>(direction).subscribe((data) => {
+        data.forEach(
+          async (element: { email: any; id: string; roles: string }) => {
+            if (element.email === user.email) {
+              this.userLogin = {
+                uid: element.id,
+                email: user.email,
+                rol: element.roles[0],
+                displayName: user.displayName,
+                token: user.toJSON().stsTokenManager.refreshToken,
+              };
+              const userDb = await this.verifyUserRegistered(this.userLogin);
+              if (this.userLogin.token === userDb.token || userDb.token === '') {
+                JSON.parse(localStorage.getItem('user')!);
+                localStorage.setItem('user', JSON.stringify(this.userLogin));
+                await this.saveUserFirestore(this.userLogin);
+                  resolve(true);
+              } else {
+                await this.logoutUserIsLogged();
+                resolve(false);
+              }
             }
           }
-        }
-      );
+        );
+      })
     });
+  }
+
+  async logoutUserIsLogged() {
+     this.afauth.signOut();
+    localStorage.removeItem('user');
+  }
+
+  async saveUserFirestore (userLogin: User) {
+    this.store.collection('users').doc(userLogin.uid.toString()).set(userLogin);
   }
 
   get isLoggedIn(): boolean {

@@ -55,6 +55,11 @@ export class LoginComponent implements OnInit {
         setTimeout(() => {
           localStorage.clear();
         },1000);
+      }else if(res === undefined){
+        this.showError('Ya tienes una sesión abierta');
+        setTimeout(() => {
+          localStorage.clear();
+        },1000);
       }else{
         this.showSuccess('Bienvenido ');
         setTimeout(() => {
@@ -83,6 +88,11 @@ export class LoginComponent implements OnInit {
     .then((res) => {
       if (res === null) {
         this.showError('Error al Iniciar Sesión');
+        setTimeout(() => {
+          localStorage.clear();
+        },6000);
+      }else if(res === undefined){
+        this.showError('Ya tienes una sesión abierta');
         setTimeout(() => {
           localStorage.clear();
         },6000);

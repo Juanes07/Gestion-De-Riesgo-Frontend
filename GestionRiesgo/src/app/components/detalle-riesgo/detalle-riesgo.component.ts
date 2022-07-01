@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { riesgo } from 'src/app/models/riesgo-modelo.models';
 import { LoginService } from 'src/app/service/login.service';
 import { ProyectoService } from 'src/app/service/proyecto-servicio.service';
@@ -20,7 +21,8 @@ export class DetalleRiesgoComponent implements OnInit {
     private route: ActivatedRoute,
     private services: ProyectoService,
     private router: Router,
-    private auth: LoginService
+    private auth: LoginService,
+    private messageService: MessageService,
   ) {}
 
   ngOnInit() {
@@ -47,7 +49,15 @@ export class DetalleRiesgoComponent implements OnInit {
   deleteRiesgo() {
     if (this.riesgo.estadoDeVidaDelRiesgo === 'Activo') {
       this.services.eliminarRiesgo(this.riesgo.id).subscribe((data) => {});
-    }
+      this.messageService.add({
+        severity: 'success',
+        summary: '!Exitoso¡',
+        detail: 'Riesgo Eliminado Exitosamente',
+      });
+    } setTimeout(() => {
+      window.location.reload();
+    }, 1500);
+
   }
 
   getCriticidad(criticidad: number): string {

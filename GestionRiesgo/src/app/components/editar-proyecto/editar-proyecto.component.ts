@@ -89,7 +89,7 @@ export class EditarProyectoComponent implements OnInit {
       this.messageService.add({
         severity: 'success',
         summary: '!Exitoso¡',
-        detail: 'Proyecto Guardado exitosamente',
+        detail: 'Proyecto actualizado exitosamente',
       });
       setTimeout(() => {
           this._location.back();

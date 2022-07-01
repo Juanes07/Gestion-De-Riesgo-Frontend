@@ -225,7 +225,7 @@ export class FormCrearRiesgoComponent implements OnInit {
       this.messageService.add({
         severity: 'success',
         summary: '!Exitoso¡',
-        detail: 'Proyecto Guardado exitosamente',
+        detail: 'Riesgo guardado exitosamente',
       });
       setTimeout(() => {
         this._location.back();
@@ -236,10 +236,6 @@ export class FormCrearRiesgoComponent implements OnInit {
         summary: 'Usuarios Registrado',
         detail: '(campos-vacios) validar campos requeridos',
       });
-      // setTimeout(() => {
-      //   this.router.navigate(['../lista'])
-      // }, 2000);
-
     }
   }
 

@@ -69,7 +69,7 @@ export class FormCrearProyectoComponent implements OnInit {
       this.messageService.add({
         severity: 'success',
         summary: '!Exitoso¡',
-        detail: 'Proyecto Guardado exitosamente',
+        detail: 'Proyecto guardado exitosamente',
       });
       setTimeout(() => {
         this.route.navigate(['/proyectos']);

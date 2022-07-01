@@ -200,7 +200,7 @@ export class EditarRiesgoComponent implements OnInit {
       this.messageService.add({
         severity: 'success',
         summary: '!Exitoso¡',
-        detail: 'Proyecto Guardado exitosamente',
+        detail: 'Riesgo actualizado correctamente',
       });
       setTimeout(() => {
         this._location.back();

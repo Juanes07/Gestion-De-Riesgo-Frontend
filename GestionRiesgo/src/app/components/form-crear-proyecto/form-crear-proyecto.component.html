@@ -133,11 +133,13 @@
         formControlName="emailLider"
         pInputText
       />
-      <div class="nombre-requerido" *ngIf="formulario.liderProyecto == ''">
+      <div class="nombre-requerido my-3" *ngIf="formulario.liderProyecto == ''">
         <p-message severity="error" text="Campo es Requerido"></p-message>
       </div>
-      <div>
-
+      <div class="my-3">
+        <p-chip styleClass="mr-2 custom-chip">
+            {{formulario.liderProyecto}}
+        </p-chip>
       </div>
       <p-button (click)="agregarLider(liderHtml)">
         Agregar Lider de Proyecto
@@ -147,7 +149,7 @@
   </div>
   <button
     pButton
-    class="p-button p-button-success"
+    class="p-button p-button-success my-4"
     icon="pi pi-save"
     label="Crear Proyecto"
     (click)="guardarProyecto()"

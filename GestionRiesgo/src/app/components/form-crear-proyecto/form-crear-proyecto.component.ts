@@ -62,7 +62,7 @@ export class FormCrearProyectoComponent implements OnInit {
       this.form.value.name &&
       this.form.value.fecha &&
       this.form.value.detalle &&
-      this.form.value.liderProyecto
+      this.form.value.emailLider
     ) {
       this.services.guardarProyecto(this.formulario).subscribe({});
       this.liderHtml = '';

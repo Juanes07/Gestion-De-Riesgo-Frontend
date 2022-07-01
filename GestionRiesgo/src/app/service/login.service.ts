@@ -17,7 +17,6 @@ import { UserMongo } from '../models/usermongo.model';
  * Servicio de autenticación
  */
 export class LoginService {
-
   // variables
 
   userMongo: UserMongo = {
@@ -119,9 +118,17 @@ export class LoginService {
           roles: ['lector'],
         };
         const response = this.saveUser(this.userMongo);
-        response.subscribe((data) => {
-          console.log(data);
-        });
+         response.subscribe({next: async(data: any) => {
+          let user = JSON.parse(data);
+          this.userLogin = {
+            uid: user.id,
+            email: user.email,
+            rol: user.roles[0],
+            displayName: user.nombre,
+            token: '',
+          };
+          await this.saveUserFirestore(this.userLogin);
+        }});
         return this.userMongo;
       }
     } catch (error) {
@@ -141,9 +148,17 @@ export class LoginService {
           roles: ['lector'],
         };
         const response = this.saveUser(this.userMongo);
-        response.subscribe((data) => {
-          console.log(data);
-        });
+        response.subscribe({next: async(data: any) => {
+          let user = JSON.parse(data);
+          this.userLogin = {
+            uid: user.id,
+            email: user.email,
+            rol: user.roles[0],
+            displayName: user.nombre,
+            token: '',
+          };
+          await this.saveUserFirestore(this.userLogin);
+        }});
       }
     } catch (error) {
       return console.log(error);
@@ -203,7 +218,7 @@ export class LoginService {
     localStorage.removeItem('user');
   }
 
-  async saveUserFirestore (userLogin: User) {
+  async saveUserFirestore (userLogin: any) {
     this.store.collection('users').doc(userLogin.uid.toString()).set(userLogin);
   }
 
